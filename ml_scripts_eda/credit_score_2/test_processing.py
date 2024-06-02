@@ -33,3 +33,38 @@ def test_process_type_of_loan():
     pd.testing.assert_frame_equal(
         result.sort_index(axis=1), expected_result.sort_index(axis=1), check_dtype=False
     )
+
+
+def test_num_of_delayed_payment():
+
+    mock_df = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Num_of_Delayed_Payment": ["2", "3", "-1_", "24_", NaN],
+        }
+    )
+
+    result = Cs2DataSetPreProcessing().process_num_of_delayed_payment(mock_df)
+
+    expected_result = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Num_of_Delayed_Payment": [2.0, 3.0, 0.0, 24.0, 12.0],
+        }
+    )
+
+    pd.testing.assert_frame_equal(
+        result.sort_index(axis=1), expected_result.sort_index(axis=1), check_dtype=False
+    )

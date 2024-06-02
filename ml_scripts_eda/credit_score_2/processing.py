@@ -2,13 +2,19 @@ import pandas as pd
 
 
 class Cs2DataSetPreProcessing:
-    @staticmethod
-    def process_type_of_loan(cs2_dataset: pd.DataFrame):
-
+    @classmethod
+    def process(cls, cs2_dataset: pd.DataFrame) -> pd.DataFrame:
         process_df = cs2_dataset.copy()
+        process_df = cls.process_type_of_loan(process_df)
+        process_df = cls.process_num_of_delayed_payment(process_df)
 
-        process_df["Type_of_Loan"] = (
-            process_df["Type_of_Loan"]
+        return process_df
+
+    @staticmethod
+    def process_type_of_loan(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+
+        cs2_dataset["Type_of_Loan"] = (
+            cs2_dataset["Type_of_Loan"]
             .fillna("")
             .astype(str)
             .str.replace(" and", "")
@@ -16,15 +22,46 @@ class Cs2DataSetPreProcessing:
         )
 
         loan_types = set(
-            [loan for sublist in process_df["Type_of_Loan"] for loan in sublist if loan]
+            [
+                loan
+                for sublist in cs2_dataset["Type_of_Loan"]
+                for loan in sublist
+                if loan
+            ]
         )
 
         for loan_type in loan_types:
             column_name = f"type_of_loan_{loan_type}"
-            process_df[column_name] = process_df["Type_of_Loan"].apply(
+            cs2_dataset[column_name] = cs2_dataset["Type_of_Loan"].apply(
                 lambda x: 1 if loan_type in x else 0
             )
 
-        process_df.drop(columns=["Type_of_Loan"], inplace=True)
+        cs2_dataset.drop(columns=["Type_of_Loan"], inplace=True)
 
-        return process_df
+        return cs2_dataset
+
+    @staticmethod
+    def process_num_of_delayed_payment(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+        cs2_dataset["Num_of_Delayed_Payment"] = (
+            cs2_dataset["Num_of_Delayed_Payment"]
+            .replace(r"[^0-9\-]", "", regex=True)
+            .astype(float)
+        )
+
+        cs2_dataset["Num_of_Delayed_Payment"] = cs2_dataset[
+            "Num_of_Delayed_Payment"
+        ].where(
+            (cs2_dataset["Num_of_Delayed_Payment"] >= 0)
+            | (pd.isna(cs2_dataset["Num_of_Delayed_Payment"])),
+            0,
+        )
+
+        means = cs2_dataset.groupby("Customer_ID")["Num_of_Delayed_Payment"].transform(
+            "mean"
+        )
+
+        cs2_dataset["Num_of_Delayed_Payment"] = cs2_dataset[
+            "Num_of_Delayed_Payment"
+        ].fillna(means)
+
+        return cs2_dataset
