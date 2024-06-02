@@ -1,5 +1,4 @@
 import pandas as pd
-from numpy import NaN
 
 
 class Cs2DataSetPreProcessing:
@@ -13,20 +12,19 @@ class Cs2DataSetPreProcessing:
             .fillna("")
             .astype(str)
             .str.replace(" and", "")
-            .apply(lambda x: x.split(", ") if x else NaN)
+            .apply(lambda x: x.split(", ") if x else [])
         )
 
-        exploded_data = process_df.explode("Type_of_Loan")
-
-        dummies = pd.get_dummies(
-            exploded_data["Type_of_Loan"], prefix="type_of_loan", dtype=int
+        loan_types = set(
+            [loan for sublist in process_df["Type_of_Loan"] for loan in sublist if loan]
         )
 
-        process_df = (
-            exploded_data.join(dummies)
-            .groupby(level=0)
-            .max()
-            .drop(columns=["Type_of_Loan"])
-        )
+        for loan_type in loan_types:
+            column_name = f"type_of_loan_{loan_type}"
+            process_df[column_name] = process_df["Type_of_Loan"].apply(
+                lambda x: 1 if loan_type in x else 0
+            )
+
+        process_df.drop(columns=["Type_of_Loan"], inplace=True)
 
         return process_df
