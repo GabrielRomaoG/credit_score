@@ -65,3 +65,30 @@ class Cs2DataSetPreProcessing:
         ].fillna(means)
 
         return cs2_dataset
+
+    @staticmethod
+    def process_credit_history_age(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+        def parse_age(age_str):
+            if pd.isna(age_str):
+                return age_str
+            years, months = 0, 0
+            if "years" in age_str:
+                years = int(age_str.split(" years")[0])
+            if "months" in age_str:
+                months_part = age_str.split(" and ")[-1]
+                months = int(months_part.split(" months")[0])
+            return years * 12 + months
+
+        cs2_dataset["Credit_History_Age"] = (
+            cs2_dataset["Credit_History_Age"].apply(parse_age).astype(float)
+        )
+
+        means = cs2_dataset.groupby("Customer_ID")["Credit_History_Age"].transform(
+            "mean"
+        )
+
+        cs2_dataset["Credit_History_Age"] = cs2_dataset["Credit_History_Age"].fillna(
+            means
+        )
+
+        return cs2_dataset
