@@ -107,3 +107,52 @@ def test_process_credit_history_age():
     )
 
     pd.testing.assert_frame_equal(result, expected_result)
+
+
+def test_process_amount_invested_monthly():
+
+    mock_df = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Amount_invested_monthly": [
+                "100.0",
+                "200.0",
+                "__10000__",
+                "400.0",
+                NaN,
+                "300.0",
+            ],
+        },
+    )
+
+    result = Cs2DataSetPreProcessing.process_amount_invested_monthly(mock_df)
+
+    expected_result = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Amount_invested_monthly": [
+                100.0,
+                200.0,
+                150.0,
+                400.0,
+                350.0,
+                300.0,
+            ],
+        }
+    )
+
+    pd.testing.assert_frame_equal(result, expected_result)

@@ -1,3 +1,4 @@
+from numpy import NaN
 import pandas as pd
 
 
@@ -90,5 +91,22 @@ class Cs2DataSetPreProcessing:
         cs2_dataset["Credit_History_Age"] = cs2_dataset["Credit_History_Age"].fillna(
             means
         )
+
+        return cs2_dataset
+
+    @staticmethod
+    def process_amount_invested_monthly(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+        cs2_dataset["Amount_invested_monthly"] = (
+            cs2_dataset["Amount_invested_monthly"]
+            .replace("__10000__", NaN)
+            .astype(float)
+        )
+        means = cs2_dataset.groupby("Customer_ID")["Amount_invested_monthly"].transform(
+            "mean"
+        )
+
+        cs2_dataset["Amount_invested_monthly"] = cs2_dataset[
+            "Amount_invested_monthly"
+        ].fillna(means)
 
         return cs2_dataset
