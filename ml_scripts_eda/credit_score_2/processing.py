@@ -110,3 +110,18 @@ class Cs2DataSetPreProcessing:
         ].fillna(means)
 
         return cs2_dataset
+
+    @staticmethod
+    def process_monthly_balance(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+
+        mask = cs2_dataset["Monthly_Balance"].str.contains("__", na=False)
+
+        cs2_dataset.loc[mask, "Monthly_Balance"] = NaN
+
+        cs2_dataset["Monthly_Balance"] = cs2_dataset["Monthly_Balance"].astype(float)
+
+        means = cs2_dataset.groupby("Customer_ID")["Monthly_Balance"].transform("mean")
+
+        cs2_dataset["Monthly_Balance"] = cs2_dataset["Monthly_Balance"].fillna(means)
+
+        return cs2_dataset
