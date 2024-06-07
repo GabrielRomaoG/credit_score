@@ -204,3 +204,51 @@ def test_process_monthly_balance():
     )
 
     pd.testing.assert_frame_equal(result, expected_result)
+
+
+def test_process_process_monthly_inhand_salary():
+    mock_df = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Monthly_Inhand_Salary": [
+                1000.0,
+                NaN,
+                3000.0,
+                4000.0,
+                NaN,
+                5000.0,
+            ],
+        }
+    )
+
+    result = Cs2DataSetPreProcessing.process_monthly_inhand_salary(mock_df)
+
+    expected_result = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Monthly_Inhand_Salary": [
+                1000.0,
+                2000.0,
+                3000.0,
+                4000.0,
+                4500.0,
+                5000.0,
+            ],
+        }
+    )
+
+    pd.testing.assert_frame_equal(result, expected_result)

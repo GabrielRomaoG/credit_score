@@ -6,10 +6,27 @@ class Cs2DataSetPreProcessing:
     @classmethod
     def process(cls, cs2_dataset: pd.DataFrame) -> pd.DataFrame:
         process_df = cs2_dataset.copy()
+        process_df = cls.process_monthly_inhand_salary(process_df)
         process_df = cls.process_type_of_loan(process_df)
         process_df = cls.process_num_of_delayed_payment(process_df)
+        process_df = cls.process_credit_history_age(process_df)
+        process_df = cls.process_amount_invested_monthly(process_df)
+        process_df = cls.process_monthly_balance(process_df)
 
         return process_df
+
+    @staticmethod
+    def process_monthly_inhand_salary(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+
+        means = cs2_dataset.groupby("Customer_ID")["Monthly_Inhand_Salary"].transform(
+            "mean"
+        )
+
+        cs2_dataset["Monthly_Inhand_Salary"] = cs2_dataset[
+            "Monthly_Inhand_Salary"
+        ].fillna(means)
+
+        return cs2_dataset
 
     @staticmethod
     def process_type_of_loan(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
