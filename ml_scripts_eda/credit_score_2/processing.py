@@ -6,6 +6,7 @@ class Cs2DataSetPreProcessing:
     @classmethod
     def process(cls, cs2_dataset: pd.DataFrame) -> pd.DataFrame:
         process_df = cs2_dataset.copy()
+        process_df = cls.process_age(process_df)
         process_df = cls.process_monthly_inhand_salary(process_df)
         process_df = cls.process_type_of_loan(process_df)
         process_df = cls.process_num_of_delayed_payment(process_df)
@@ -14,6 +15,32 @@ class Cs2DataSetPreProcessing:
         process_df = cls.process_monthly_balance(process_df)
 
         return process_df
+
+    @staticmethod
+    def process_age(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+
+        cs2_dataset["Age"] = (
+            cs2_dataset["Age"].str.replace("[^0-9]", "", regex=True).astype(int)
+        )
+
+        def adjust_age_to_mode(group):
+            mode_age = group["Age"].mode()[0]
+
+            condition = (group["Age"] < (mode_age - 1)) | (
+                group["Age"] > (mode_age + 1)
+            )
+
+            group.loc[condition, "Age"] = mode_age
+
+            return group
+
+        cs2_dataset = (
+            cs2_dataset.groupby("Customer_ID")
+            .apply(adjust_age_to_mode)
+            .reset_index(drop=True)
+        )
+
+        return cs2_dataset
 
     @staticmethod
     def process_monthly_inhand_salary(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
