@@ -3,6 +3,56 @@ import pandas as pd
 from processing import Cs2DataSetPreProcessing
 
 
+def test_process_age():
+    mock_df = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3910",
+                "CUS_0x3910",
+                "CUS_0x3910",
+                "CUS_0x3910",
+            ],
+            "Age": [
+                "32",
+                "33_",
+                "8698",
+                "33",
+                "33",
+                "25",
+                "25",
+                "275",
+                "26",
+            ],
+        }
+    )
+
+    result = Cs2DataSetPreProcessing.process_age(mock_df)
+
+    expected_result = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3910",
+                "CUS_0x3910",
+                "CUS_0x3910",
+                "CUS_0x3910",
+            ],
+            "Age": [32, 33, 33, 33, 33, 25, 25, 25, 26],
+        }
+    )
+
+    pd.testing.assert_frame_equal(result, expected_result)
+
+
 def test_process_occupation():
     mock_df = pd.DataFrame(
         {
@@ -50,6 +100,54 @@ def test_process_occupation():
     pd.testing.assert_frame_equal(
         result.sort_index(axis=1), expected_result.sort_index(axis=1), check_dtype=False
     )
+
+
+def test_process_process_monthly_inhand_salary():
+    mock_df = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Monthly_Inhand_Salary": [
+                1000.0,
+                NaN,
+                3000.0,
+                4000.0,
+                NaN,
+                5000.0,
+            ],
+        }
+    )
+
+    result = Cs2DataSetPreProcessing.process_monthly_inhand_salary(mock_df)
+
+    expected_result = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Monthly_Inhand_Salary": [
+                1000.0,
+                2000.0,
+                3000.0,
+                4000.0,
+                4500.0,
+                5000.0,
+            ],
+        }
+    )
+
+    pd.testing.assert_frame_equal(result, expected_result)
 
 
 def test_process_type_of_loan():
@@ -249,104 +347,6 @@ def test_process_monthly_balance():
                 450.0,
                 500.0,
             ],
-        }
-    )
-
-    pd.testing.assert_frame_equal(result, expected_result)
-
-
-def test_process_process_monthly_inhand_salary():
-    mock_df = pd.DataFrame(
-        {
-            "Customer_ID": [
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd41",
-                "CUS_0xd41",
-                "CUS_0xd41",
-            ],
-            "Monthly_Inhand_Salary": [
-                1000.0,
-                NaN,
-                3000.0,
-                4000.0,
-                NaN,
-                5000.0,
-            ],
-        }
-    )
-
-    result = Cs2DataSetPreProcessing.process_monthly_inhand_salary(mock_df)
-
-    expected_result = pd.DataFrame(
-        {
-            "Customer_ID": [
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd41",
-                "CUS_0xd41",
-                "CUS_0xd41",
-            ],
-            "Monthly_Inhand_Salary": [
-                1000.0,
-                2000.0,
-                3000.0,
-                4000.0,
-                4500.0,
-                5000.0,
-            ],
-        }
-    )
-
-    pd.testing.assert_frame_equal(result, expected_result)
-
-
-def test_process_age():
-    mock_df = pd.DataFrame(
-        {
-            "Customer_ID": [
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3910",
-                "CUS_0x3910",
-                "CUS_0x3910",
-                "CUS_0x3910",
-            ],
-            "Age": [
-                "32",
-                "33_",
-                "8698",
-                "33",
-                "33",
-                "25",
-                "25",
-                "275",
-                "26",
-            ],
-        }
-    )
-
-    result = Cs2DataSetPreProcessing.process_age(mock_df)
-
-    expected_result = pd.DataFrame(
-        {
-            "Customer_ID": [
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3910",
-                "CUS_0x3910",
-                "CUS_0x3910",
-                "CUS_0x3910",
-            ],
-            "Age": [32, 33, 33, 33, 33, 25, 25, 25, 26],
         }
     )
 
