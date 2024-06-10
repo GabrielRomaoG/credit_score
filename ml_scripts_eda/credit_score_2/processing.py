@@ -95,9 +95,9 @@ class Cs2DataSetPreProcessing:
             "mean"
         )
 
-        cs2_dataset["Monthly_Inhand_Salary"] = cs2_dataset[
-            "Monthly_Inhand_Salary"
-        ].fillna(means)
+        cs2_dataset["Monthly_Inhand_Salary"] = (
+            cs2_dataset["Monthly_Inhand_Salary"].fillna(means).round(2)
+        )
 
         return cs2_dataset
 
