@@ -43,21 +43,17 @@ class Cs2DataSetPreProcessing:
             cs2_dataset["Age"].str.replace("[^0-9]", "", regex=True).astype(int)
         )
 
-        def adjust_age_to_mode(group):
-            mode_age = group["Age"].mode()[0]
+        def adjust_age_to_mode(grouped_age):
+            mode_age = grouped_age.mode()[0]
 
-            condition = (group["Age"] < (mode_age - 1)) | (
-                group["Age"] > (mode_age + 1)
-            )
+            condition = (grouped_age < (mode_age - 1)) | (grouped_age > (mode_age + 1))
 
-            group.loc[condition, "Age"] = mode_age
+            grouped_age.loc[condition] = mode_age
 
-            return group
+            return grouped_age
 
-        cs2_dataset = (
-            cs2_dataset.groupby("Customer_ID")
-            .apply(adjust_age_to_mode)
-            .reset_index(drop=True)
+        cs2_dataset["Age"] = cs2_dataset.groupby("Customer_ID")["Age"].transform(
+            adjust_age_to_mode
         )
 
         return cs2_dataset
