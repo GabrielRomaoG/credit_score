@@ -3,6 +3,55 @@ import pandas as pd
 from processing import Cs2DataSetPreProcessing
 
 
+def test_process_occupation():
+    mock_df = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Occupation": [
+                "Engineer",
+                "Engineer",
+                "Engineer_",
+                "Doctor",
+                "____",
+                "Doctor",
+            ],
+        }
+    )
+    result = Cs2DataSetPreProcessing.process_occupation(mock_df)
+
+    expected_result = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Occupation": [
+                "Engineer",
+                "Engineer",
+                "Engineer",
+                "Doctor",
+                "Doctor",
+                "Doctor",
+            ],
+        }
+    )
+
+    pd.testing.assert_frame_equal(
+        result.sort_index(axis=1), expected_result.sort_index(axis=1), check_dtype=False
+    )
+
+
 def test_process_type_of_loan():
 
     mock_df = pd.DataFrame(

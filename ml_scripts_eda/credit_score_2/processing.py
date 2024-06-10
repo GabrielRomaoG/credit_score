@@ -1,5 +1,6 @@
 from numpy import NaN
 import pandas as pd
+import numpy as np
 
 
 class Cs2DataSetPreProcessing:
@@ -58,6 +59,24 @@ class Cs2DataSetPreProcessing:
             .apply(adjust_age_to_mode)
             .reset_index(drop=True)
         )
+
+        return cs2_dataset
+
+    def process_occupation(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+        """
+        Process the occupation column in the given DataFrame.
+
+        Replace any row that has "_" in the string with the most common occupation by customer.
+
+        Parameters:
+            cs2_dataset (pd.DataFrame): The DataFrame containing the occupation column.
+
+        Returns:
+            pd.DataFrame: The DataFrame with the processed occupation column.
+        """
+        cs2_dataset["Occupation"] = cs2_dataset.groupby("Customer_ID")[
+            "Occupation"
+        ].transform(lambda x: np.where(x.str.contains("_"), x.mode()[0], x))
 
         return cs2_dataset
 
