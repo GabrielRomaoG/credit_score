@@ -168,18 +168,26 @@ class Cs2DataSetPreProcessing:
         cs2_dataset["Num_of_Delayed_Payment"] = cs2_dataset[
             "Num_of_Delayed_Payment"
         ].where(
-            (cs2_dataset["Num_of_Delayed_Payment"] >= 0)
-            | (pd.isna(cs2_dataset["Num_of_Delayed_Payment"])),
-            0,
+            (cs2_dataset["Num_of_Delayed_Payment"] >= 0),
+            NaN,
         )
 
-        means = cs2_dataset.groupby("Customer_ID")["Num_of_Delayed_Payment"].transform(
-            "mean"
-        )
+        def adjust_num_of_delayed_payment_to_median(grouped_num_of_delayed_payment):
+            median = grouped_num_of_delayed_payment.median()
 
-        cs2_dataset["Num_of_Delayed_Payment"] = cs2_dataset[
+            condition = (grouped_num_of_delayed_payment > 3 * median) | (
+                pd.isna(grouped_num_of_delayed_payment)
+            )
+
+            grouped_num_of_delayed_payment = np.where(
+                condition, median, grouped_num_of_delayed_payment
+            )
+
+            return grouped_num_of_delayed_payment
+
+        cs2_dataset["Num_of_Delayed_Payment"] = cs2_dataset.groupby("Customer_ID")[
             "Num_of_Delayed_Payment"
-        ].fillna(means)
+        ].transform(adjust_num_of_delayed_payment_to_median)
 
         return cs2_dataset
 

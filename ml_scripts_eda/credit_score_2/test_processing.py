@@ -189,11 +189,12 @@ def test_num_of_delayed_payment():
             "Customer_ID": [
                 "CUS_0xd40",
                 "CUS_0xd40",
+                "CUS_0xd40",
                 "CUS_0xd41",
                 "CUS_0xd41",
                 "CUS_0xd41",
             ],
-            "Num_of_Delayed_Payment": ["2", "3", "-1_", "24_", NaN],
+            "Num_of_Delayed_Payment": ["2", "3", "3600", "-1_", "24_", NaN],
         }
     )
 
@@ -204,11 +205,12 @@ def test_num_of_delayed_payment():
             "Customer_ID": [
                 "CUS_0xd40",
                 "CUS_0xd40",
+                "CUS_0xd40",
                 "CUS_0xd41",
                 "CUS_0xd41",
                 "CUS_0xd41",
             ],
-            "Num_of_Delayed_Payment": [2.0, 3.0, 0.0, 24.0, 12.0],
+            "Num_of_Delayed_Payment": [2.0, 3.0, 3.0, 24.0, 24.0, 24.0],
         }
     )
 
