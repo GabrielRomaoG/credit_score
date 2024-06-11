@@ -19,6 +19,14 @@ class Cs2DataSetPreProcessing:
         process_df = cs2_dataset.copy()
         process_df = cls.process_age(process_df)
         process_df = cls.process_occupation(process_df)
+        process_df = cls.process_outliers_from_cols(
+            process_df,
+            [
+                "Num_Bank_Accounts",
+                "Num_Credit_Card",
+                "Interest_Rate",
+            ],
+        )
         process_df = cls.process_monthly_inhand_salary(process_df)
         process_df = cls.process_type_of_loan(process_df)
         process_df = cls.process_num_of_delayed_payment(process_df)
@@ -95,6 +103,35 @@ class Cs2DataSetPreProcessing:
         cs2_dataset["Monthly_Inhand_Salary"] = (
             cs2_dataset["Monthly_Inhand_Salary"].fillna(means).round(2)
         )
+
+        return cs2_dataset
+
+    @staticmethod
+    def process_outliers_from_cols(
+        cs2_dataset: pd.DataFrame, cols: list[str]
+    ) -> pd.DataFrame:
+        """
+        Process the specified columns in the given DataFrame.
+
+        Calculate the mode grouped by the customer_id and compare each row with the mode.
+        If the value is greater than 2 times the mode, it will be replaced by the mode.
+
+        Parameters:
+            cs2_dataset (pd.DataFrame): The DataFrame to process.
+            cols (list): The list of column names to process.
+
+        Returns:
+            pd.DataFrame: The processed DataFrame.
+        """
+        cs2_dataset_grouped_customer = cs2_dataset.groupby("Customer_ID")
+        for col in cols:
+            mode_by_customer = cs2_dataset_grouped_customer[col].transform(
+                lambda x: x.mode()[0]
+            )
+            threshold = mode_by_customer * 2
+            cs2_dataset[col] = np.where(
+                cs2_dataset[col] > threshold, mode_by_customer, cs2_dataset[col]
+            )
 
         return cs2_dataset
 

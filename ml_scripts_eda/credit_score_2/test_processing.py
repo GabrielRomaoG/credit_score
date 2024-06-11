@@ -150,6 +150,48 @@ def test_process_process_monthly_inhand_salary():
     pd.testing.assert_frame_equal(result, expected_result)
 
 
+def test_process_outliers_from_cols():
+    mock_df = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3910",
+                "CUS_0x3910",
+                "CUS_0x3910",
+                "CUS_0x3910",
+            ],
+            "col1": [40, 40, 9999, 40, 10, 10, 725, 10],
+            "col2": [100, 100, 6326, 100, 200, 200, 300, 9999],
+        }
+    )
+
+    result = Cs2DataSetPreProcessing.process_outliers_from_cols(
+        mock_df, ["col1", "col2"]
+    )
+
+    expected_result = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3910",
+                "CUS_0x3910",
+                "CUS_0x3910",
+                "CUS_0x3910",
+            ],
+            "col1": [40, 40, 40, 40, 10, 10, 10, 10],
+            "col2": [100, 100, 100, 100, 200, 200, 300, 200],
+        }
+    )
+
+    pd.testing.assert_frame_equal(result, expected_result)
+
+
 def test_process_type_of_loan():
 
     mock_df = pd.DataFrame(
