@@ -188,7 +188,8 @@ class Cs2DataSetPreProcessing:
         """
         Process the 'Num_of_Delayed_Payment' column in the given DataFrame.
 
-        Removes non-numeric characters, converts to float, sets negative values to 0, fills missing values with mean, and returns the modified DataFrame.
+        Removes non-numeric characters, sets negative values and missing values with the mode grouped by customer,
+        update the column type to integer and returns the modified DataFrame.
 
         Parameters:
             cs2_dataset (pd.DataFrame): The DataFrame containing the 'Num_of_Delayed_Payment' column.
@@ -222,9 +223,11 @@ class Cs2DataSetPreProcessing:
 
             return grouped_num_of_delayed_payment
 
-        cs2_dataset["Num_of_Delayed_Payment"] = cs2_dataset.groupby("Customer_ID")[
-            "Num_of_Delayed_Payment"
-        ].transform(adjust_num_of_delayed_payment_to_median)
+        cs2_dataset["Num_of_Delayed_Payment"] = (
+            cs2_dataset.groupby("Customer_ID")["Num_of_Delayed_Payment"]
+            .transform(adjust_num_of_delayed_payment_to_median)
+            .astype(int)
+        )
 
         return cs2_dataset
 

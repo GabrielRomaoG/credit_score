@@ -252,7 +252,7 @@ def test_num_of_delayed_payment():
                 "CUS_0xd41",
                 "CUS_0xd41",
             ],
-            "Num_of_Delayed_Payment": [2.0, 3.0, 3.0, 24.0, 24.0, 24.0],
+            "Num_of_Delayed_Payment": [2, 3, 3, 24, 24, 24],
         }
     )
 
