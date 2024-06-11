@@ -18,6 +18,7 @@ class Cs2DataSetPreProcessing:
     def process(cls, cs2_dataset: pd.DataFrame) -> pd.DataFrame:
         process_df = cs2_dataset.copy()
         process_df = cls.process_age(process_df)
+        process_df = cls.process_occupation(process_df)
         process_df = cls.process_monthly_inhand_salary(process_df)
         process_df = cls.process_type_of_loan(process_df)
         process_df = cls.process_num_of_delayed_payment(process_df)
