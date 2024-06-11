@@ -224,7 +224,7 @@ def test_process_type_of_loan():
     )
 
 
-def test_num_of_delayed_payment():
+def test_process_num_of_delayed_payment():
 
     mock_df = pd.DataFrame(
         {
@@ -256,9 +256,7 @@ def test_num_of_delayed_payment():
         }
     )
 
-    pd.testing.assert_frame_equal(
-        result.sort_index(axis=1), expected_result.sort_index(axis=1), check_dtype=False
-    )
+    pd.testing.assert_frame_equal(result, expected_result)
 
 
 def test_process_credit_history_age():
