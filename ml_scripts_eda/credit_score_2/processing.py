@@ -258,7 +258,7 @@ class Cs2DataSetPreProcessing:
         def adjust_num_of_delayed_payment_to_median(grouped_num_of_delayed_payment):
             median = grouped_num_of_delayed_payment.median()
 
-            condition = (grouped_num_of_delayed_payment > 3 * median) | (
+            condition = (grouped_num_of_delayed_payment > 2 * median) | (
                 pd.isna(grouped_num_of_delayed_payment)
             )
 
