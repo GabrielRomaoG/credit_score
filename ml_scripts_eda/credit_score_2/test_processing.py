@@ -192,6 +192,41 @@ def test_process_outliers_from_cols():
     pd.testing.assert_frame_equal(result, expected_result)
 
 
+def test_process_num_of_loan():
+
+    mock_df = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Num_of_Loan": ["2", "3", "3600", "-1_", "24_", "24"],
+        }
+    )
+
+    result = Cs2DataSetPreProcessing.process_num_of_loan(mock_df)
+
+    expected_result = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Num_of_Loan": [2, 3, 3, 24, 24, 24],
+        }
+    )
+
+    pd.testing.assert_frame_equal(result, expected_result)
+
+
 def test_process_type_of_loan():
 
     mock_df = pd.DataFrame(

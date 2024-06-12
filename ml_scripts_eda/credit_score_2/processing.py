@@ -28,6 +28,7 @@ class Cs2DataSetPreProcessing:
             ],
         )
         process_df = cls.process_monthly_inhand_salary(process_df)
+        process_df = cls.process_num_of_loan(process_df)
         process_df = cls.process_type_of_loan(process_df)
         process_df = cls.process_num_of_delayed_payment(process_df)
         process_df = cls.process_credit_history_age(process_df)
@@ -132,6 +133,50 @@ class Cs2DataSetPreProcessing:
             cs2_dataset[col] = np.where(
                 cs2_dataset[col] > threshold, mode_by_customer, cs2_dataset[col]
             )
+
+        return cs2_dataset
+
+    @staticmethod
+    def process_num_of_loan(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+        """
+        Process the 'Num_of_Loan' column in the given DataFrame.
+
+        Removes non-numeric characters, sets negative values and missing values with the median grouped by customer,
+        update the column type to integer and returns the modified DataFrame.
+
+        Parameters:
+            cs2_dataset (pd.DataFrame): The DataFrame containing the 'Num_of_Loan' column.
+
+        Returns:
+            pd.DataFrame: The modified DataFrame with the processed 'Num_of_Loan' column.
+        """
+        cs2_dataset["Num_of_Loan"] = (
+            cs2_dataset["Num_of_Loan"]
+            .replace(r"[^0-9\-]", "", regex=True)
+            .astype(float)
+        )
+
+        cs2_dataset["Num_of_Loan"] = cs2_dataset["Num_of_Loan"].where(
+            (cs2_dataset["Num_of_Loan"] >= 0),
+            NaN,
+        )
+
+        def adjust_num_of_delayed_payment_to_median(grouped_num_of_loan):
+            median = grouped_num_of_loan.median()
+
+            condition = (grouped_num_of_loan > 2 * median) | (
+                pd.isna(grouped_num_of_loan)
+            )
+
+            grouped_num_of_loan = np.where(condition, median, grouped_num_of_loan)
+
+            return grouped_num_of_loan
+
+        cs2_dataset["Num_of_Loan"] = (
+            cs2_dataset.groupby("Customer_ID")["Num_of_Loan"]
+            .transform(adjust_num_of_delayed_payment_to_median)
+            .astype(int)
+        )
 
         return cs2_dataset
 
