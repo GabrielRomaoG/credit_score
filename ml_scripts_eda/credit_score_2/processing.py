@@ -33,6 +33,7 @@ class Cs2DataSetPreProcessing:
         process_df = cls.process_num_of_delayed_payment(process_df)
         process_df = cls.process_changed_credit_limit(process_df)
         process_df = cls.process_num_credit_inquiries(process_df)
+        process_df = cls.process_credit_mix(process_df)
         process_df = cls.process_credit_history_age(process_df)
         process_df = cls.process_amount_invested_monthly(process_df)
         process_df = cls.process_monthly_balance(process_df)
@@ -324,6 +325,26 @@ class Cs2DataSetPreProcessing:
             .transform(adjust_num_credit_inquiries)
             .astype(int)
         )
+
+        return cs2_dataset
+
+    @staticmethod
+    def process_credit_mix(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+        """
+        Process 'Credit_Mix' column in DataFrame.
+        Replace "_" with the mode of the group.
+
+        Parameters:
+        - cs2_dataset (pd.DataFrame): The input DataFrame containing the 'Credit_Mix' column.
+
+        Returns:
+        - cs2_dataset (pd.DataFrame): The DataFrame with the 'Credit_Mix' column processed.
+        """
+        cs2_dataset["Credit_Mix"] = cs2_dataset["Credit_Mix"].replace("_", NaN)
+
+        cs2_dataset["Credit_Mix"] = cs2_dataset.groupby("Customer_ID")[
+            "Credit_Mix"
+        ].transform(lambda x: x.fillna(x.mode()[0]))
 
         return cs2_dataset
 

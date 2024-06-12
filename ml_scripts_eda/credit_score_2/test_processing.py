@@ -364,6 +364,54 @@ def test_process_num_credit_inquiries():
     pd.testing.assert_frame_equal(result, expected_result)
 
 
+def test_process_credit_mix():
+    mock_df = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3910",
+                "CUS_0x3910",
+                "CUS_0x3910",
+            ],
+            "Credit_Mix": [
+                "A",
+                "_",
+                "A",
+                "B",
+                "_",
+                "_",
+            ],
+        }
+    )
+
+    result = Cs2DataSetPreProcessing.process_credit_mix(mock_df)
+
+    expected_result = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3910",
+                "CUS_0x3910",
+                "CUS_0x3910",
+            ],
+            "Credit_Mix": [
+                "A",
+                "A",
+                "A",
+                "B",
+                "B",
+                "B",
+            ],
+        }
+    )
+
+    pd.testing.assert_frame_equal(result, expected_result)
+
+
 def test_process_credit_history_age():
 
     mock_df = pd.DataFrame(
