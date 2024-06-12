@@ -34,6 +34,7 @@ class Cs2DataSetPreProcessing:
         process_df = cls.process_changed_credit_limit(process_df)
         process_df = cls.process_num_credit_inquiries(process_df)
         process_df = cls.process_credit_mix(process_df)
+        process_df = cls.process_outstanding_debt(process_df)
         process_df = cls.process_credit_history_age(process_df)
         process_df = cls.process_amount_invested_monthly(process_df)
         process_df = cls.process_monthly_balance(process_df)
@@ -345,6 +346,27 @@ class Cs2DataSetPreProcessing:
         cs2_dataset["Credit_Mix"] = cs2_dataset.groupby("Customer_ID")[
             "Credit_Mix"
         ].transform(lambda x: x.fillna(x.mode()[0]))
+
+        return cs2_dataset
+
+    @staticmethod
+    def process_outstanding_debt(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+        """
+        Process the 'Outstanding_Debt' column in the given DataFrame.
+
+        Keep only the numeric characters in the 'Outstanding_Debt' column and convert it to an integer.
+
+        Parameters:
+            cs2_dataset (pd.DataFrame): The DataFrame containing the 'Occupation' column.
+
+        Returns:
+            pd.DataFrame: The modified DataFrame with the processed 'Occupation' column.
+        """
+        cs2_dataset["Outstanding_Debt"] = (
+            cs2_dataset["Outstanding_Debt"]
+            .str.replace(r"[^0-9\.]", "", regex=True)
+            .astype(float)
+        )
 
         return cs2_dataset
 

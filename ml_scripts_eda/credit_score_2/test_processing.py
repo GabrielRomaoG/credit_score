@@ -412,6 +412,48 @@ def test_process_credit_mix():
     pd.testing.assert_frame_equal(result, expected_result)
 
 
+def test_process_outstanding_debt():
+
+    mock_df = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Outstanding_Debt": [
+                "2000.12",
+                "3000.0",
+                "3600.23_",
+                "1000.0",
+                "2400.0_",
+                "2300.0_",
+            ],
+        }
+    )
+
+    result = Cs2DataSetPreProcessing.process_outstanding_debt(mock_df)
+
+    expected_result = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Outstanding_Debt": [2000.12, 3000.0, 3600.23, 1000.0, 2400.0, 2300.0],
+        }
+    )
+
+    pd.testing.assert_frame_equal(result, expected_result)
+
+
 def test_process_credit_history_age():
 
     mock_df = pd.DataFrame(
