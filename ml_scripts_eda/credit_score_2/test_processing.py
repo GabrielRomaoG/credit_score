@@ -294,6 +294,41 @@ def test_process_num_of_delayed_payment():
     pd.testing.assert_frame_equal(result, expected_result)
 
 
+def test_process_changed_credit_limit():
+
+    mock_df = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Changed_Credit_Limit": ["2.0", "_", "2.0", "-4.0", "-4.0", "_"],
+        }
+    )
+
+    result = Cs2DataSetPreProcessing.process_changed_credit_limit(mock_df)
+
+    expected_result = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Changed_Credit_Limit": [2.0, 2.0, 2.0, -4.0, -4.0, -4.0],
+        }
+    )
+
+    pd.testing.assert_frame_equal(result, expected_result)
+
+
 def test_process_num_credit_inquiries():
 
     mock_df = pd.DataFrame(

@@ -31,6 +31,7 @@ class Cs2DataSetPreProcessing:
         process_df = cls.process_num_of_loan(process_df)
         process_df = cls.process_type_of_loan(process_df)
         process_df = cls.process_num_of_delayed_payment(process_df)
+        process_df = cls.process_changed_credit_limit(process_df)
         process_df = cls.process_num_credit_inquiries(process_df)
         process_df = cls.process_credit_history_age(process_df)
         process_df = cls.process_amount_invested_monthly(process_df)
@@ -274,6 +275,21 @@ class Cs2DataSetPreProcessing:
             .transform(adjust_num_of_delayed_payment_to_median)
             .astype(int)
         )
+
+        return cs2_dataset
+
+    @staticmethod
+    def process_changed_credit_limit(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+        cs2_dataset["Changed_Credit_Limit"] = (
+            cs2_dataset["Changed_Credit_Limit"]
+            .replace(r"[^0-9\-\.]", NaN, regex=True)
+            .astype(float)
+            .round(2)
+        )
+
+        cs2_dataset["Changed_Credit_Limit"] = cs2_dataset.groupby("Customer_ID")[
+            "Changed_Credit_Limit"
+        ].transform(lambda x: x.fillna(x.mode()[0]))
 
         return cs2_dataset
 
