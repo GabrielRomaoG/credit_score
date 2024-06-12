@@ -376,10 +376,10 @@ def test_process_credit_history_age():
                 "CUS_0xd41",
             ],
             "Credit_History_Age": [
-                "22 years and 1 months",
-                "15 years and 10 months",
-                "3 years and 7 months",
-                "2 years and 11 months",
+                "22 Years and 1 Months",
+                "15 Years and 10 Months",
+                "2 Years and 11 Months",
+                "2 Years and 11 Months",
                 NaN,
             ],
         },
@@ -396,7 +396,7 @@ def test_process_credit_history_age():
                 "CUS_0xd41",
                 "CUS_0xd41",
             ],
-            "Credit_History_Age": [265.0, 190.0, 43.0, 35.0, 39.0],
+            "Credit_History_Age": [265, 190, 35, 35, 35],
         }
     )
 
