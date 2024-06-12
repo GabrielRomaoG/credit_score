@@ -294,6 +294,41 @@ def test_process_num_of_delayed_payment():
     pd.testing.assert_frame_equal(result, expected_result)
 
 
+def test_process_num_credit_inquiries():
+
+    mock_df = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Num_Credit_Inquiries": [2.0, 36995, 2.0, 4.0, 4.0, NaN],
+        }
+    )
+
+    result = Cs2DataSetPreProcessing.process_num_credit_inquiries(mock_df)
+
+    expected_result = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd40",
+                "CUS_0xd41",
+                "CUS_0xd41",
+                "CUS_0xd41",
+            ],
+            "Num_Credit_Inquiries": [2, 2, 2, 4, 4, 4],
+        }
+    )
+
+    pd.testing.assert_frame_equal(result, expected_result)
+
+
 def test_process_credit_history_age():
 
     mock_df = pd.DataFrame(

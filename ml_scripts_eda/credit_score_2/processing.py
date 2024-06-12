@@ -31,6 +31,7 @@ class Cs2DataSetPreProcessing:
         process_df = cls.process_num_of_loan(process_df)
         process_df = cls.process_type_of_loan(process_df)
         process_df = cls.process_num_of_delayed_payment(process_df)
+        process_df = cls.process_num_credit_inquiries(process_df)
         process_df = cls.process_credit_history_age(process_df)
         process_df = cls.process_amount_invested_monthly(process_df)
         process_df = cls.process_monthly_balance(process_df)
@@ -271,6 +272,29 @@ class Cs2DataSetPreProcessing:
         cs2_dataset["Num_of_Delayed_Payment"] = (
             cs2_dataset.groupby("Customer_ID")["Num_of_Delayed_Payment"]
             .transform(adjust_num_of_delayed_payment_to_median)
+            .astype(int)
+        )
+
+        return cs2_dataset
+
+    @staticmethod
+    def process_num_credit_inquiries(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+        def adjust_num_credit_inquiries(grouped_num_credit_inquiries):
+            median = grouped_num_credit_inquiries.median()
+
+            condition = (grouped_num_credit_inquiries > 2 * median) | (
+                pd.isna(grouped_num_credit_inquiries)
+            )
+
+            grouped_num_credit_inquiries = np.where(
+                condition, median, grouped_num_credit_inquiries
+            )
+
+            return grouped_num_credit_inquiries
+
+        cs2_dataset["Num_Credit_Inquiries"] = (
+            cs2_dataset.groupby("Customer_ID")["Num_Credit_Inquiries"]
+            .transform(adjust_num_credit_inquiries)
             .astype(int)
         )
 
