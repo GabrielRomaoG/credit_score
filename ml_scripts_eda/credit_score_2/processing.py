@@ -280,6 +280,17 @@ class Cs2DataSetPreProcessing:
 
     @staticmethod
     def process_changed_credit_limit(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+        """
+        Process 'Changed_Credit_Limit' column in DataFrame.
+        Replace non-numeric chars with NaN, convert to float, round to 2 decimal places.
+        Fill missing values in each group with mode of the group.
+
+        Parameters:
+        - cs2_dataset (pd.DataFrame): The input DataFrame containing the 'Changed_Credit_Limit' column.
+
+        Returns:
+        - cs2_dataset (pd.DataFrame): The DataFrame with the 'Changed_Credit_Limit' column processed.
+        """
         cs2_dataset["Changed_Credit_Limit"] = (
             cs2_dataset["Changed_Credit_Limit"]
             .replace(r"[^0-9\-\.]", NaN, regex=True)
