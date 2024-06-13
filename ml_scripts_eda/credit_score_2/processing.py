@@ -37,6 +37,7 @@ class Cs2DataSetPreProcessing:
         process_df = cls.process_credit_mix(process_df)
         process_df = cls.process_outstanding_debt(process_df)
         process_df = cls.process_credit_history_age(process_df)
+        process_df = cls.process_payment_of_min_amount(process_df)
         process_df = cls.process_amount_invested_monthly(process_df)
         process_df = cls.process_monthly_balance(process_df)
 
@@ -401,6 +402,29 @@ class Cs2DataSetPreProcessing:
             .transform(lambda x: x.fillna(x.mode()[0]))
             .astype(int)
         )
+
+        return cs2_dataset
+
+    @staticmethod
+    def process_payment_of_min_amount(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+        """
+        Process the Payment_of_Min_Amount column in the given DataFrame.
+
+        Replace any row that has "NM" in the string with the most common value by customer.
+
+        Parameters:
+            cs2_dataset (pd.DataFrame): The DataFrame containing the Payment_of_Min_Amount column.
+
+        Returns:
+            pd.DataFrame: The DataFrame with the processed Payment_of_Min_Amount column.
+        """
+        cs2_dataset["Payment_of_Min_Amount"] = cs2_dataset[
+            "Payment_of_Min_Amount"
+        ].replace("NM", NaN)
+
+        cs2_dataset["Payment_of_Min_Amount"] = cs2_dataset.groupby("Customer_ID")[
+            "Payment_of_Min_Amount"
+        ].transform(lambda x: x.fillna(x.mode()[0]))
 
         return cs2_dataset
 

@@ -493,6 +493,54 @@ def test_process_credit_history_age():
     pd.testing.assert_frame_equal(result, expected_result)
 
 
+def test_process_payment_of_min_amount():
+    mock_df = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3910",
+                "CUS_0x3910",
+                "CUS_0x3910",
+            ],
+            "Payment_of_Min_Amount": [
+                "Yes",
+                "NM",
+                "Yes",
+                "No",
+                "NM",
+                "NM",
+            ],
+        }
+    )
+
+    result = Cs2DataSetPreProcessing.process_payment_of_min_amount(mock_df)
+
+    expected_result = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3910",
+                "CUS_0x3910",
+                "CUS_0x3910",
+            ],
+            "Payment_of_Min_Amount": [
+                "Yes",
+                "Yes",
+                "Yes",
+                "No",
+                "No",
+                "No",
+            ],
+        }
+    )
+
+    pd.testing.assert_frame_equal(result, expected_result)
+
+
 def test_process_amount_invested_monthly():
 
     mock_df = pd.DataFrame(
