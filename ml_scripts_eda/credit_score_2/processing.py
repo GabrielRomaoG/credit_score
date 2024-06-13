@@ -25,6 +25,7 @@ class Cs2DataSetPreProcessing:
                 "Num_Bank_Accounts",
                 "Num_Credit_Card",
                 "Interest_Rate",
+                "Total_EMI_per_month",
             ],
         )
         process_df = cls.process_monthly_inhand_salary(process_df)
