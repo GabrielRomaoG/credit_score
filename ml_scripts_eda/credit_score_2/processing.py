@@ -44,6 +44,16 @@ class Cs2DataSetPreProcessing:
         process_df = cls.process_amount_invested_monthly(process_df)
         process_df = cls.process_payment_behaviour(process_df)
         process_df = cls.process_monthly_balance(process_df)
+        process_df = process_df.drop(
+            columns=[
+                "ID",
+                "Customer_ID",
+                "Month",
+                "Name",
+                "SSN",
+                "Annual_Income",
+            ]
+        )
 
         return process_df
 
