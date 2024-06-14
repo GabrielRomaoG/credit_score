@@ -150,6 +150,16 @@ def test_process_process_monthly_inhand_salary():
     pd.testing.assert_frame_equal(result, expected_result)
 
 
+def test_process_negative_num_bank_accounts():
+    mock_series = pd.Series([6, -1, 5, -1, 7, -1, 8])
+
+    result = Cs2DataSetPreProcessing.process_negative_num_bank_accounts(mock_series)
+
+    expected_result = pd.Series([6, 0, 5, 0, 7, 0, 8])
+
+    pd.testing.assert_series_equal(result, expected_result)
+
+
 def test_process_outliers_from_cols():
     mock_df = pd.DataFrame(
         {

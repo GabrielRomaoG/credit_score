@@ -19,6 +19,9 @@ class Cs2DataSetPreProcessing:
         process_df = cs2_dataset.copy()
         process_df = cls.process_age(process_df)
         process_df = cls.process_occupation(process_df)
+        process_df["Num_Bank_Accounts"] = cls.process_negative_num_bank_accounts(
+            process_df["Num_Bank_Accounts"]
+        )
         process_df = cls.process_outliers_from_cols(
             process_df,
             [
@@ -113,6 +116,23 @@ class Cs2DataSetPreProcessing:
         )
 
         return cs2_dataset
+
+    @staticmethod
+    def process_negative_num_bank_accounts(
+        num_bank_accounts_col: pd.Series,
+    ) -> pd.Series:
+        """
+        Process the 'num_bank_accounts_col' series by replacing any negative values with 0.
+
+        Parameters:
+            num_bank_accounts_col (pd.Series): The series containing the number of bank accounts.
+
+        Returns:
+            pd.Series: The processed series with negative values replaced by 0.
+        """
+        num_bank_accounts_col = num_bank_accounts_col.replace(-1, 0)
+
+        return num_bank_accounts_col
 
     @staticmethod
     def process_outliers_from_cols(
