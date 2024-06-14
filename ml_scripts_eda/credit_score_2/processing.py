@@ -39,6 +39,7 @@ class Cs2DataSetPreProcessing:
         process_df = cls.process_credit_history_age(process_df)
         process_df = cls.process_payment_of_min_amount(process_df)
         process_df = cls.process_amount_invested_monthly(process_df)
+        process_df = cls.process_payment_behaviour(process_df)
         process_df = cls.process_monthly_balance(process_df)
 
         return process_df
@@ -453,6 +454,45 @@ class Cs2DataSetPreProcessing:
         cs2_dataset["Amount_invested_monthly"] = cs2_dataset[
             "Amount_invested_monthly"
         ].fillna(means)
+
+        return cs2_dataset
+
+    @staticmethod
+    def process_payment_behaviour(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
+        """
+        Process the Payment_Behaviour column in the given DataFrame.
+
+        This function processes the Payment_Behaviour column by splitting it into two new columns: Spent_Habit and Payment_Habit.
+        It replaces the "!@9#%8" substring with an empty string in each value of the Payment_Behaviour column.
+        It then splits each value of the Payment_Behaviour column by "_" and assigns the first part to Spent_Habit and the second part to Payment_Habit.
+        Finally, it replaces an empty string values in the Spent_Habit and Payment_Habit columns with the mode by Customer_ID and drops the original Payment_Behaviour column from the DataFrame.
+
+        Parameters:
+            cs2_dataset (pd.DataFrame): The DataFrame containing the Payment_Behaviour column.
+
+        Returns:
+            pd.DataFrame: The DataFrame with the processed Payment_Behaviour column.
+        """
+        cs2_dataset["Payment_Behaviour"] = cs2_dataset["Payment_Behaviour"].replace(
+            "!@9#%8", NaN
+        )
+
+        def split_second_underscore(value):
+            if pd.isna(value):
+                return pd.Series([NaN, NaN])
+            parts = value.split("_")
+            if len(parts) > 2:
+                return pd.Series(["_".join(parts[:2]), "_".join(parts[2:])])
+
+        cs2_dataset[["Spent_Habit", "Payment_Habit"]] = cs2_dataset[
+            "Payment_Behaviour"
+        ].apply(split_second_underscore)
+
+        cs2_dataset[["Spent_Habit", "Payment_Habit"]] = cs2_dataset.groupby(
+            "Customer_ID"
+        )[["Spent_Habit", "Payment_Habit"]].transform(lambda x: x.fillna(x.mode()[0]))
+
+        cs2_dataset.drop("Payment_Behaviour", axis=1, inplace=True)
 
         return cs2_dataset
 

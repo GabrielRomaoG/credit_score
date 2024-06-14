@@ -590,6 +590,62 @@ def test_process_amount_invested_monthly():
     pd.testing.assert_frame_equal(result, expected_result)
 
 
+def test_process_payment_behaviour():
+    mock_df = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3910",
+                "CUS_0x3910",
+                "CUS_0x3910",
+            ],
+            "Payment_Behaviour": [
+                "Low_spent_Large_value_payments",
+                "Low_spent_Large_value_payments",
+                "!@9#%8",
+                "Medium_spent_Small_value_payments",
+                "!@9#%8",
+                "Medium_spent_Small_value_payments",
+            ],
+        }
+    )
+
+    result = Cs2DataSetPreProcessing.process_payment_behaviour(mock_df)
+
+    expected_result = pd.DataFrame(
+        {
+            "Customer_ID": [
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3909",
+                "CUS_0x3910",
+                "CUS_0x3910",
+                "CUS_0x3910",
+            ],
+            "Spent_Habit": [
+                "Low_spent",
+                "Low_spent",
+                "Low_spent",
+                "Medium_spent",
+                "Medium_spent",
+                "Medium_spent",
+            ],
+            "Payment_Habit": [
+                "Large_value_payments",
+                "Large_value_payments",
+                "Large_value_payments",
+                "Small_value_payments",
+                "Small_value_payments",
+                "Small_value_payments",
+            ],
+        }
+    )
+
+    pd.testing.assert_frame_equal(result, expected_result)
+
+
 def test_process_monthly_balance():
     mock_df = pd.DataFrame(
         {
