@@ -100,9 +100,12 @@ class Cs2DataSetPreProcessing:
         Returns:
             pd.DataFrame: The DataFrame with the processed occupation column.
         """
+        cs2_dataset["Occupation"] = cs2_dataset["Occupation"].where(
+            ~cs2_dataset["Occupation"].str.startswith("_"), NaN
+        )
         cs2_dataset["Occupation"] = cs2_dataset.groupby("Customer_ID")[
             "Occupation"
-        ].transform(lambda x: np.where(x.str.contains("_"), x.mode()[0], x))
+        ].transform(lambda x: x.fillna(x.mode()[0]))
 
         return cs2_dataset
 

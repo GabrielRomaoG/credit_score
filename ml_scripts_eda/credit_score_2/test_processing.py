@@ -202,8 +202,8 @@ def test_process_occupation():
             "Occupation": [
                 "Engineer",
                 "Engineer",
-                "Engineer_",
-                "Doctor",
+                "Engineer",
+                "____",
                 "____",
                 "Doctor",
             ],
