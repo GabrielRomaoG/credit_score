@@ -1,10 +1,6 @@
-from numpy import NaN
+from numpy import nan
 import pandas as pd
 from processing import Cs2DataSetPreProcessing
-
-# 0x163a5
-# 0x23922
-# 0xfd6e
 
 
 def test_process():
@@ -250,10 +246,10 @@ def test_process_process_monthly_inhand_salary():
             ],
             "Monthly_Inhand_Salary": [
                 1000.0,
-                NaN,
+                nan,
                 3000.0,
                 4000.0,
-                NaN,
+                nan,
                 5000.0,
             ],
         }
@@ -379,7 +375,7 @@ def test_process_type_of_loan():
             "ID": [1, 2, 3],
             "Type_of_Loan": [
                 "Auto Loan, Credit-Builder Loan, Personal Loan, and Home Equity Loan",
-                NaN,
+                nan,
                 "Home Equity Loan, Auto Loan, travel Loan, and Auto Loan",
             ],
         }
@@ -416,7 +412,7 @@ def test_process_num_of_delayed_payment():
                 "CUS_0xd41",
                 "CUS_0xd41",
             ],
-            "Num_of_Delayed_Payment": ["2", "3", "3600", "-1_", "24_", NaN],
+            "Num_of_Delayed_Payment": ["2", "3", "3600", "-1_", "24_", nan],
         }
     )
 
@@ -486,7 +482,7 @@ def test_process_num_credit_inquiries():
                 "CUS_0xd41",
                 "CUS_0xd41",
             ],
-            "Num_Credit_Inquiries": [2.0, 36995, 2.0, 4.0, 4.0, NaN],
+            "Num_Credit_Inquiries": [2.0, 36995, 2.0, 4.0, 4.0, nan],
         }
     )
 
@@ -615,7 +611,7 @@ def test_process_credit_history_age():
                 "15 Years and 10 Months",
                 "2 Years and 11 Months",
                 "2 Years and 11 Months",
-                NaN,
+                nan,
             ],
         },
     )
@@ -703,7 +699,7 @@ def test_process_amount_invested_monthly():
                 "200.0",
                 "__10000__",
                 "400.0",
-                NaN,
+                nan,
                 "300.0",
             ],
         },
@@ -807,7 +803,7 @@ def test_process_monthly_balance():
                 "200.0",
                 "__300__",
                 "400.0",
-                NaN,
+                nan,
                 "500.0",
             ],
         }

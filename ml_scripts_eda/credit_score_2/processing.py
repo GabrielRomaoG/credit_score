@@ -1,4 +1,4 @@
-from numpy import NaN
+from numpy import nan
 import pandas as pd
 import numpy as np
 
@@ -101,7 +101,7 @@ class Cs2DataSetPreProcessing:
             pd.DataFrame: The DataFrame with the processed occupation column.
         """
         cs2_dataset["Occupation"] = cs2_dataset["Occupation"].where(
-            ~cs2_dataset["Occupation"].str.startswith("_"), NaN
+            ~cs2_dataset["Occupation"].str.startswith("_"), nan
         )
         cs2_dataset["Occupation"] = cs2_dataset.groupby("Customer_ID")[
             "Occupation"
@@ -198,7 +198,7 @@ class Cs2DataSetPreProcessing:
 
         cs2_dataset["Num_of_Loan"] = cs2_dataset["Num_of_Loan"].where(
             (cs2_dataset["Num_of_Loan"] >= 0),
-            NaN,
+            nan,
         )
 
         def adjust_num_of_delayed_payment_to_median(grouped_num_of_loan):
@@ -292,7 +292,7 @@ class Cs2DataSetPreProcessing:
             "Num_of_Delayed_Payment"
         ].where(
             (cs2_dataset["Num_of_Delayed_Payment"] >= 0),
-            NaN,
+            nan,
         )
 
         def adjust_num_of_delayed_payment_to_median(grouped_num_of_delayed_payment):
@@ -320,7 +320,7 @@ class Cs2DataSetPreProcessing:
     def process_changed_credit_limit(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
         """
         Process 'Changed_Credit_Limit' column in DataFrame.
-        Replace non-numeric chars with NaN, convert to float, round to 2 decimal places.
+        Replace non-numeric chars with nan, convert to float, round to 2 decimal places.
         Fill missing values in each group with mode of the group.
 
         Parameters:
@@ -331,7 +331,7 @@ class Cs2DataSetPreProcessing:
         """
         cs2_dataset["Changed_Credit_Limit"] = (
             cs2_dataset["Changed_Credit_Limit"]
-            .replace(r"[^0-9\-\.]", NaN, regex=True)
+            .replace(r"[^0-9\-\.]", nan, regex=True)
             .astype(float)
             .round(2)
         )
@@ -377,7 +377,7 @@ class Cs2DataSetPreProcessing:
         Returns:
         - cs2_dataset (pd.DataFrame): The DataFrame with the 'Credit_Mix' column processed.
         """
-        cs2_dataset["Credit_Mix"] = cs2_dataset["Credit_Mix"].replace("_", NaN)
+        cs2_dataset["Credit_Mix"] = cs2_dataset["Credit_Mix"].replace("_", nan)
 
         cs2_dataset["Credit_Mix"] = cs2_dataset.groupby("Customer_ID")[
             "Credit_Mix"
@@ -410,7 +410,7 @@ class Cs2DataSetPreProcessing:
     def process_credit_history_age(cs2_dataset: pd.DataFrame) -> pd.DataFrame:
         """
         Process the 'Credit_History_Age' column of the given DataFrame by parsing the age string into years and months,
-        and then calculating the age in months. The NaN values are filled with the mean age for each customer. The processed DataFrame is returned.
+        and then calculating the age in months. The nan values are filled with the mean age for each customer. The processed DataFrame is returned.
 
         Parameters:
             cs2_dataset (pd.DataFrame): The DataFrame containing the 'Credit_History_Age' column.
@@ -454,7 +454,7 @@ class Cs2DataSetPreProcessing:
         """
         cs2_dataset["Payment_of_Min_Amount"] = cs2_dataset[
             "Payment_of_Min_Amount"
-        ].replace("NM", NaN)
+        ].replace("NM", nan)
 
         cs2_dataset["Payment_of_Min_Amount"] = cs2_dataset.groupby("Customer_ID")[
             "Payment_of_Min_Amount"
@@ -467,7 +467,7 @@ class Cs2DataSetPreProcessing:
         """
         Process the 'Amount_invested_monthly' column in the given pandas DataFrame.
 
-        Replaces '__10000__' with NaN, converts to float, and fills NaN values with the means grouped by Customer_ID.
+        Replaces '__10000__' with nan, converts to float, and fills nan values with the means grouped by Customer_ID.
 
         Parameters:
             cs2_dataset (pd.DataFrame): The DataFrame to process.
@@ -477,7 +477,7 @@ class Cs2DataSetPreProcessing:
         """
         cs2_dataset["Amount_invested_monthly"] = (
             cs2_dataset["Amount_invested_monthly"]
-            .replace("__10000__", NaN)
+            .replace("__10000__", nan)
             .astype(float)
         )
         means = cs2_dataset.groupby("Customer_ID")["Amount_invested_monthly"].transform(
@@ -507,12 +507,12 @@ class Cs2DataSetPreProcessing:
             pd.DataFrame: The DataFrame with the processed Payment_Behaviour column.
         """
         cs2_dataset["Payment_Behaviour"] = cs2_dataset["Payment_Behaviour"].replace(
-            "!@9#%8", NaN
+            "!@9#%8", nan
         )
 
         def split_second_underscore(value):
             if pd.isna(value):
-                return pd.Series([NaN, NaN])
+                return pd.Series([nan, nan])
             parts = value.split("_")
             if len(parts) > 2:
                 return pd.Series(["_".join(parts[:2]), "_".join(parts[2:])])
@@ -534,7 +534,7 @@ class Cs2DataSetPreProcessing:
         """
         Process the 'Monthly_Balance' column in the given pandas DataFrame.
 
-        Replaces '__' with NaN, converts to float, and fills NaN values with the means grouped by Customer_ID.
+        Replaces '__' with nan, converts to float, and fills nan values with the means grouped by Customer_ID.
 
         Parameters:
             cs2_dataset (pd.DataFrame): The DataFrame to process.
@@ -544,7 +544,7 @@ class Cs2DataSetPreProcessing:
         """
         mask = cs2_dataset["Monthly_Balance"].str.contains("__", na=False)
 
-        cs2_dataset.loc[mask, "Monthly_Balance"] = NaN
+        cs2_dataset.loc[mask, "Monthly_Balance"] = nan
 
         cs2_dataset["Monthly_Balance"] = cs2_dataset["Monthly_Balance"].astype(float)
 
