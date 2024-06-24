@@ -82,17 +82,11 @@ def test_process():
     expected_result = pd.DataFrame(
         {
             "Age": {0: 24, 1: 29, 2: 48},
-            "Occupation": {0: "Entrepreneur", 1: "Writer", 2: "Engineer"},
             "Monthly_Inhand_Salary": {0: 2948.01, 1: 10046.26, 2: 9873.39},
             "Num_Bank_Accounts": {0: 0, 1: 0, 2: 0},
             "Num_Credit_Card": {0: 2, 1: 6, 2: 3},
-            "Interest_Rate": {0: 5, 1: 2, 2: 8},
             "Num_of_Loan": {0: 0, 1: 0, 2: 1},
-            "Delay_from_due_date": {0: 10, 1: 25, 2: 10},
             "Num_of_Delayed_Payment": {0: 2, 1: 4, 2: 3},
-            "Changed_Credit_Limit": {0: 8.63, 1: 4.53, 2: 5.01},
-            "Num_Credit_Inquiries": {0: 0, 1: 4, 2: 0},
-            "Credit_Mix": {0: "Bad", 1: "Bad", 2: "Good"},
             "Outstanding_Debt": {0: 929.04, 1: 14.96, 2: 1388.02},
             "Credit_Utilization_Ratio": {
                 0: 28.99555955433552,
@@ -100,7 +94,6 @@ def test_process():
                 2: 28.45691504450972,
             },
             "Credit_History_Age": {0: 355, 1: 267, 2: 385},
-            "Payment_of_Min_Amount": {0: "No", 1: "No", 2: "No"},
             "Total_EMI_per_month": {0: 0.0, 1: 0.0, 2: 59.58605365589474},
             "Amount_invested_monthly": {
                 0: 311.2433285195494,
@@ -182,55 +175,6 @@ def test_process_age():
     )
 
     pd.testing.assert_frame_equal(result, expected_result)
-
-
-def test_process_occupation():
-    mock_df = pd.DataFrame(
-        {
-            "Customer_ID": [
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd41",
-                "CUS_0xd41",
-                "CUS_0xd41",
-            ],
-            "Occupation": [
-                "Engineer",
-                "Engineer",
-                "Engineer",
-                "____",
-                "____",
-                "Doctor",
-            ],
-        }
-    )
-    result = Cs2DataSetPreProcessing.process_occupation(mock_df)
-
-    expected_result = pd.DataFrame(
-        {
-            "Customer_ID": [
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd41",
-                "CUS_0xd41",
-                "CUS_0xd41",
-            ],
-            "Occupation": [
-                "Engineer",
-                "Engineer",
-                "Engineer",
-                "Doctor",
-                "Doctor",
-                "Doctor",
-            ],
-        }
-    )
-
-    pd.testing.assert_frame_equal(
-        result.sort_index(axis=1), expected_result.sort_index(axis=1), check_dtype=False
-    )
 
 
 def test_process_process_monthly_inhand_salary():
@@ -435,124 +379,6 @@ def test_process_num_of_delayed_payment():
     pd.testing.assert_frame_equal(result, expected_result)
 
 
-def test_process_changed_credit_limit():
-
-    mock_df = pd.DataFrame(
-        {
-            "Customer_ID": [
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd41",
-                "CUS_0xd41",
-                "CUS_0xd41",
-            ],
-            "Changed_Credit_Limit": ["2.0", "_", "2.0", "-4.0", "-4.0", "_"],
-        }
-    )
-
-    result = Cs2DataSetPreProcessing.process_changed_credit_limit(mock_df)
-
-    expected_result = pd.DataFrame(
-        {
-            "Customer_ID": [
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd41",
-                "CUS_0xd41",
-                "CUS_0xd41",
-            ],
-            "Changed_Credit_Limit": [2.0, 2.0, 2.0, -4.0, -4.0, -4.0],
-        }
-    )
-
-    pd.testing.assert_frame_equal(result, expected_result)
-
-
-def test_process_num_credit_inquiries():
-
-    mock_df = pd.DataFrame(
-        {
-            "Customer_ID": [
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd41",
-                "CUS_0xd41",
-                "CUS_0xd41",
-            ],
-            "Num_Credit_Inquiries": [2.0, 36995, 2.0, 4.0, 4.0, nan],
-        }
-    )
-
-    result = Cs2DataSetPreProcessing.process_num_credit_inquiries(mock_df)
-
-    expected_result = pd.DataFrame(
-        {
-            "Customer_ID": [
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd40",
-                "CUS_0xd41",
-                "CUS_0xd41",
-                "CUS_0xd41",
-            ],
-            "Num_Credit_Inquiries": [2, 2, 2, 4, 4, 4],
-        }
-    )
-
-    pd.testing.assert_frame_equal(result, expected_result)
-
-
-def test_process_credit_mix():
-    mock_df = pd.DataFrame(
-        {
-            "Customer_ID": [
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3910",
-                "CUS_0x3910",
-                "CUS_0x3910",
-            ],
-            "Credit_Mix": [
-                "A",
-                "_",
-                "A",
-                "B",
-                "_",
-                "_",
-            ],
-        }
-    )
-
-    result = Cs2DataSetPreProcessing.process_credit_mix(mock_df)
-
-    expected_result = pd.DataFrame(
-        {
-            "Customer_ID": [
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3910",
-                "CUS_0x3910",
-                "CUS_0x3910",
-            ],
-            "Credit_Mix": [
-                "A",
-                "A",
-                "A",
-                "B",
-                "B",
-                "B",
-            ],
-        }
-    )
-
-    pd.testing.assert_frame_equal(result, expected_result)
-
-
 def test_process_outstanding_debt():
 
     mock_df = pd.DataFrame(
@@ -628,54 +454,6 @@ def test_process_credit_history_age():
                 "CUS_0xd41",
             ],
             "Credit_History_Age": [265, 190, 35, 35, 35],
-        }
-    )
-
-    pd.testing.assert_frame_equal(result, expected_result)
-
-
-def test_process_payment_of_min_amount():
-    mock_df = pd.DataFrame(
-        {
-            "Customer_ID": [
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3910",
-                "CUS_0x3910",
-                "CUS_0x3910",
-            ],
-            "Payment_of_Min_Amount": [
-                "Yes",
-                "NM",
-                "Yes",
-                "No",
-                "NM",
-                "NM",
-            ],
-        }
-    )
-
-    result = Cs2DataSetPreProcessing.process_payment_of_min_amount(mock_df)
-
-    expected_result = pd.DataFrame(
-        {
-            "Customer_ID": [
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3909",
-                "CUS_0x3910",
-                "CUS_0x3910",
-                "CUS_0x3910",
-            ],
-            "Payment_of_Min_Amount": [
-                "Yes",
-                "Yes",
-                "Yes",
-                "No",
-                "No",
-                "No",
-            ],
         }
     )
 
