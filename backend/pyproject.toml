@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "credit-score-backend"
+version = "0.1.0"
+description = "Backend for the credit score project"
+authors = ["Gabriel Romao <gabriel-rgomes@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.11.*"
+pandas = "^2.2.2"
+fastapi = "^0.111.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
