@@ -1,6 +1,6 @@
 from numpy import nan
 import pandas as pd
-from processing import Cs2DataSetPreProcessing
+from cs2_preprocessing import Cs2DataSetPreProcessing
 
 
 def test_process():
