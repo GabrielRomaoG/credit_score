@@ -6,6 +6,5 @@ A full-stack project that aims to predict the credit score and gives loan recomm
 
 You can find more information and download the datasets that i used to train the models through the links below:
 
-- credit_risk_dataset.csv: https://www.kaggle.com/datasets/laotse/credit-risk-dataset
 - credit_score_data_1.csv: https://www.kaggle.com/datasets/sujithmandala/credit-score-classification-dataset
 - credit_score_data_2.csv: https://www.kaggle.com/datasets/parisrohan/credit-score-classification/data 
