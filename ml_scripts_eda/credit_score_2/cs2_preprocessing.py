@@ -1,6 +1,7 @@
 from numpy import nan
 import pandas as pd
 import numpy as np
+from utils.dataframe_treatment import treat_columns_names
 
 
 class Cs2DataSetPreProcessing:
@@ -57,7 +58,7 @@ class Cs2DataSetPreProcessing:
                 "Payment_of_Min_Amount",
             ]
         )
-
+        process_df = treat_columns_names(process_df)
         return process_df
 
     @staticmethod

@@ -1,6 +1,6 @@
 from numpy import nan
 import pandas as pd
-from cs2_preprocessing import Cs2DataSetPreProcessing
+from credit_score_2.cs2_preprocessing import Cs2DataSetPreProcessing
 
 
 def test_process():
@@ -81,40 +81,40 @@ def test_process():
 
     expected_result = pd.DataFrame(
         {
-            "Age": {0: 24, 1: 29, 2: 48},
-            "Monthly_Inhand_Salary": {0: 2948.01, 1: 10046.26, 2: 9873.39},
-            "Num_Bank_Accounts": {0: 0, 1: 0, 2: 0},
-            "Num_Credit_Card": {0: 2, 1: 6, 2: 3},
-            "Num_of_Loan": {0: 0, 1: 0, 2: 1},
-            "Num_of_Delayed_Payment": {0: 2, 1: 4, 2: 3},
-            "Outstanding_Debt": {0: 929.04, 1: 14.96, 2: 1388.02},
-            "Credit_Utilization_Ratio": {
+            "age": {0: 24, 1: 29, 2: 48},
+            "monthly_inhand_salary": {0: 2948.01, 1: 10046.26, 2: 9873.39},
+            "num_bank_accounts": {0: 0, 1: 0, 2: 0},
+            "num_credit_card": {0: 2, 1: 6, 2: 3},
+            "num_of_loan": {0: 0, 1: 0, 2: 1},
+            "num_of_delayed_payment": {0: 2, 1: 4, 2: 3},
+            "outstanding_debt": {0: 929.04, 1: 14.96, 2: 1388.02},
+            "credit_utilization_ratio": {
                 0: 28.99555955433552,
                 1: 37.305406548467005,
                 2: 28.45691504450972,
             },
-            "Credit_History_Age": {0: 355, 1: 267, 2: 385},
-            "Total_EMI_per_month": {0: 0.0, 1: 0.0, 2: 59.58605365589474},
-            "Amount_invested_monthly": {
+            "credit_history_age": {0: 355, 1: 267, 2: 385},
+            "total_emi_per_month": {0: 0.0, 1: 0.0, 2: 59.58605365589474},
+            "amount_invested_monthly": {
                 0: 311.2433285195494,
                 1: 201.1301814828621,
                 2: 626.101931891704,
             },
-            "Monthly_Balance": {
+            "monthly_balance": {
                 0: 273.5578381471173,
                 1: 1043.495568517138,
                 2: 581.6510144524012,
             },
-            "Credit_Score": {0: "Good", 1: "Poor", 2: "Standard"},
-            "type_of_loan_Home Loan": {0: 1, 1: 0, 2: 0},
-            "type_of_loan_Car Loan": {0: 0, 1: 1, 2: 0},
-            "type_of_loan_Personal Loan": {0: 0, 1: 0, 2: 1},
-            "Spent_Habit": {
+            "credit_score": {0: "Good", 1: "Poor", 2: "Standard"},
+            "type_of_loan_home_loan": {0: 1, 1: 0, 2: 0},
+            "type_of_loan_car_loan": {0: 0, 1: 1, 2: 0},
+            "type_of_loan_personal_loan": {0: 0, 1: 0, 2: 1},
+            "spent_habit": {
                 0: "Low_spent",
                 1: "High_spent",
                 2: "Low_spent",
             },
-            "Payment_Habit": {
+            "payment_habit": {
                 0: "Small_value_payments",
                 1: "Large_value_payments",
                 2: "Medium_value_payments",
@@ -325,8 +325,6 @@ def test_process_type_of_loan():
         }
     )
     result = Cs2DataSetPreProcessing().process_type_of_loan(mock_df)
-
-    print(result)
 
     expected_result = pd.DataFrame(
         {
