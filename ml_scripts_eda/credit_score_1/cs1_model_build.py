@@ -1,11 +1,18 @@
 import pandas as pd
+import numpy as np
+from sklearn.feature_selection import RFE
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import (
+    GridSearchCV,
+    ShuffleSplit,
+    cross_validate,
+)
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.pipeline import Pipeline
 import joblib
 import sys
+from credit_score_1.cs1_preprocessing import Cs1DataSetPreProcessing
 
 
 def load_data(file_path):
@@ -14,9 +21,12 @@ def load_data(file_path):
 
 
 def preprocess_data(data):
-    """Preprocess the data: Split into features and target."""
-    X = data.iloc[:, :-1]
-    y = data.iloc[:, -1]
+    """Preprocess the data"""
+
+    data = Cs1DataSetPreProcessing.process(data)
+
+    X = data.drop("credit_score", axis=1)
+    y = data["credit_score"]
     return X, y
 
 
@@ -34,21 +44,42 @@ def train_model(X, y):
 
     scaler = StandardScaler()
 
+    rfe = RFE(estimator=LogisticRegression(), step=1)
+
     logreg = LogisticRegression(
-        penalty="l1", dual=False, max_iter=10000, solver="liblinear", C=2
+        dual=False, max_iter=10000, penalty="elasticnet", solver="saga"
     )
 
     logreg_pipe = Pipeline(
-        [("cols_trans", col_trans), ("scaler", scaler), ("linear_svc", logreg)]
+        [
+            ("cols_trans", col_trans),
+            ("scaler", scaler),
+            ("rfe", rfe),
+            ("logreg", logreg),
+        ]
     )
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
+    param_grid = {
+        "rfe__n_features_to_select": [6, 7, 8],
+        "logreg__C": np.linspace(0.1, 5, 10),
+        "logreg__l1_ratio": np.linspace(0, 1, 5),
+    }
+
+    grid_search_logreg = GridSearchCV(
+        logreg_pipe, param_grid, cv=5, scoring="accuracy", n_jobs=-1, verbose=1
     )
 
-    logreg_pipe.fit(X_train, y_train)
+    outer_valid = ShuffleSplit(n_splits=1, test_size=0.20, random_state=2)
 
-    return logreg_pipe
+    results_logreg = cross_validate(
+        estimator=grid_search_logreg, X=X, y=y, cv=outer_valid, return_estimator=True
+    )
+
+    estimator = results_logreg["estimator"][0].best_estimator_
+
+    print(f"accuracy: {results_logreg['test_score']}")
+
+    return estimator
 
 
 def save_model(model, file_name):
@@ -70,4 +101,4 @@ if __name__ == "__main__":
 
     model = train_model(X, y)
 
-    save_model(model, output_model_file)
+    save_model(model, output_model_file + ".z")
