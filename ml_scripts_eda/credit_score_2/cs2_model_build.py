@@ -5,7 +5,7 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 import joblib
-from processing import Cs2DataSetPreProcessing
+from credit_score_2.cs2_preprocessing import Cs2DataSetPreProcessing
 
 
 def load_data(file_path):
@@ -16,18 +16,18 @@ def load_data(file_path):
 def preprocess_data(data):
     """Preprocess the data: Split into features and target."""
     list_feat_rfe = [
-        "Num_Bank_Accounts",
-        "Num_Credit_Card",
-        "Num_of_Loan",
-        "Num_of_Delayed_Payment",
-        "Outstanding_Debt",
-        "Credit_History_Age",
-        "Total_EMI_per_month",
+        "num_bank_accounts",
+        "num_credit_card",
+        "num_of_loan",
+        "num_of_delayed_payment",
+        "outstanding_debt",
+        "credit_history_age",
+        "total_emi_per_month",
     ]
 
     data = Cs2DataSetPreProcessing.process(data)
 
-    y = data["Credit_Score"]
+    y = data["credit_score"]
     X = data[list_feat_rfe]
 
     return X, y
@@ -75,4 +75,4 @@ if __name__ == "__main__":
 
     models_dict = {"main_model": main_model, "logreg_model": logreg_model}
 
-    save_model(models_dict, output_model_file)
+    save_model(models_dict, output_model_file + ".z")
