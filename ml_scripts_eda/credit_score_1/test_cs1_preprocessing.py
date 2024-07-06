@@ -21,13 +21,13 @@ def test_process():
     expected_result = pd.DataFrame(
         {
             "age": [25, 40],
-            "gender": ["Female", "Male"],
+            "gender": ["female", "male"],
             "income": [50000, 100000],
-            "education": ["Bachelor's Degree", "Master's Degree"],
-            "marital_status": ["Married", "Single"],
+            "education": ["bachelors_degree", "masters_degree"],
+            "marital_status": ["married", "single"],
             "number_of_children": [0, 2],
-            "home_ownership": ["Rented", "Rented"],
-            "credit_score": ["High", "Low"],
+            "home_ownership": ["rented", "rented"],
+            "credit_score": ["high", "low"],
         }
     )
 
