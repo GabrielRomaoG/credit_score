@@ -30,4 +30,4 @@ Each dataset represents a folder:
 
 credit_score_data_1.csv -> [credit_score_1](./credit_score_1/)
 
-credito_score_data_2.csv -> [credit_score_2](./credit_score_2/)
+credit_score_data_2.csv -> [credit_score_2](./credit_score_2/)
