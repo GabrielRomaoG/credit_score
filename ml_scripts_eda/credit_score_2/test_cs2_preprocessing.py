@@ -105,19 +105,19 @@ def test_process():
                 1: 1043.495568517138,
                 2: 581.6510144524012,
             },
-            "credit_score": {0: "Good", 1: "Poor", 2: "Standard"},
+            "credit_score": {0: "good", 1: "poor", 2: "standard"},
             "type_of_loan_home_loan": {0: 1, 1: 0, 2: 0},
             "type_of_loan_car_loan": {0: 0, 1: 1, 2: 0},
             "type_of_loan_personal_loan": {0: 0, 1: 0, 2: 1},
             "spent_habit": {
-                0: "Low_spent",
-                1: "High_spent",
-                2: "Low_spent",
+                0: "low_spent",
+                1: "high_spent",
+                2: "low_spent",
             },
             "payment_habit": {
-                0: "Small_value_payments",
-                1: "Large_value_payments",
-                2: "Medium_value_payments",
+                0: "small_value_payments",
+                1: "large_value_payments",
+                2: "medium_value_payments",
             },
         }
     )
