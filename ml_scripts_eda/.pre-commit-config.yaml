@@ -19,3 +19,12 @@ repos:
         always_run: true
         pass_filenames: false
         stages: [commit]
+  - repo: local
+    hooks:
+      - id: build_models
+        name: build_models
+        language: system
+        entry: bash ml_scripts_eda/run_model_builds.sh
+        always_run: true
+        pass_filenames: false
+        stages: [commit]
