@@ -10,12 +10,10 @@ If you just cloned the project, cd to the ml_scripts_eda folder:
 cd ml_scripts_eda
 ```
 
-Run this to create the virtual environment, install the dependencies and put the cwd in the PYTHONPATH:
+Run this to create the virtual environment and activate it:
 ```
 poetry install
 poetry shell
-
-poetry run python set_pythonpath.py
 ```
 
 # Datasets

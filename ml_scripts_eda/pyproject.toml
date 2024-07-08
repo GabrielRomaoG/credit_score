@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "ml_scripts_eda"
 version = "0.1.0"
-package-mode = false
 description = "A ML model that predicts the credit score and gives loan recommendation based on the client characteristics."
 authors = ["Gabriel Romao <gabriel-rgomes@hotmail.com>"]
 license = "MIT"
 readme = "README.md"
+packages = [{include = "utils", from = "."}]
 
 [tool.poetry.dependencies]
 python = "3.11.*"
