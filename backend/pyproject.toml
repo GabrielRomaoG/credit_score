@@ -10,6 +10,7 @@ packages = [{include = "domain", from = "src"}]
 python = "3.11.*"
 pandas = "^2.2.2"
 fastapi = "^0.111.0"
+joblib = "^1.4.2"
 
 
 [build-system]
