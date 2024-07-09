@@ -75,11 +75,9 @@ def train_model(X, y):
         estimator=grid_search_logreg, X=X, y=y, cv=outer_valid, return_estimator=True
     )
 
-    estimator = results_logreg["estimator"][0].best_estimator_
-
     print(f"accuracy: {results_logreg['test_score']}")
 
-    return estimator
+    return results_logreg
 
 
 def save_model(model, file_name):
