@@ -1,0 +1,25 @@
+{
+  "type": "python",
+  "venvActivate": ".venv/bin/activate",
+  "steps": [
+    {
+      "name": "black",
+      "command": ".venv/bin/black ."
+    },
+    {
+      "name": "flake8",
+      "command": "flake8",
+      "args": [
+          "--config ../.flake8"
+      ]
+    },
+    {
+      "name": "pytest",
+      "command": ".venv/bin/pytest"
+    },
+    {
+      "name": "build_models",
+      "command": "bash run_model_builds.sh"
+    }
+  ]
+}
