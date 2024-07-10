@@ -1,0 +1,7 @@
+{
+  "name": "commit_hooks_config",
+  "version": "1.0.0",
+  "dependencies": {
+    "@escape.tech/mookme": "^2.5.0"
+  }
+}
