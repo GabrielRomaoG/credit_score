@@ -1,0 +1,17 @@
+{
+  "type": "python",
+  "venvActivate": ".venv/bin/activate",
+  "steps": [
+    {
+      "name": "black",
+      "command": "black ."
+    },
+    {
+      "name": "flake8",
+      "command": "flake8",
+      "args": [
+        "--config ../.flake8"
+      ]
+    }
+  ]
+}
