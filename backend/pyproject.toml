@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Backend for the credit score project"
 authors = ["Gabriel Romao <gabriel-rgomes@hotmail.com>"]
 readme = "README.md"
-packages = [{include = "domain", from = "src"}]
+packages = [{include = "src", from = "."}]
 
 [tool.poetry.dependencies]
 python = "3.11.*"
