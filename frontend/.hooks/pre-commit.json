@@ -1,0 +1,16 @@
+{
+	"steps": [
+		{
+			"name": "prettier",
+			"command": "npx prettier . --write"
+		},
+		{
+			"name": "eslint",
+			"command": "npx eslint"
+		},
+		{
+			"name": "vitest",
+			"command": "npx vitest run"
+		}
+	]
+}
