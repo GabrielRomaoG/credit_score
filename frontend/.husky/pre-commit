@@ -1,4 +1,0 @@
-cd frontend
-npx prettier . --write
-npx eslint
-npx vitest run
