@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from sklearn.feature_selection import RFE
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import (
     GridSearchCV,
@@ -23,9 +22,16 @@ def load_data(file_path):
 def preprocess_data(data):
     """Preprocess the data"""
 
+    list_feat_rfe = [
+        "gender",
+        "education",
+        "age",
+        "income",
+    ]
+
     data = Cs1DataSetPreProcessing.process(data)
 
-    X = data.drop("credit_score", axis=1)
+    X = data[list_feat_rfe]
     y = data["credit_score"]
     return X, y
 
@@ -44,8 +50,6 @@ def train_model(X, y):
 
     scaler = StandardScaler()
 
-    rfe = RFE(estimator=LogisticRegression(), step=1)
-
     logreg = LogisticRegression(
         dual=False, max_iter=10000, penalty="elasticnet", solver="saga"
     )
@@ -54,13 +58,11 @@ def train_model(X, y):
         [
             ("cols_trans", col_trans),
             ("scaler", scaler),
-            ("rfe", rfe),
             ("logreg", logreg),
         ]
     )
 
     param_grid = {
-        "rfe__n_features_to_select": [6, 7, 8],
         "logreg__C": np.linspace(0.1, 5, 10),
         "logreg__l1_ratio": np.linspace(0, 1, 5),
     }
