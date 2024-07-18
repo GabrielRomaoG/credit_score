@@ -2,6 +2,7 @@ import sys
 import pandas as pd
 from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.linear_model import SGDClassifier
+from sklearn.model_selection import GridSearchCV, ShuffleSplit, cross_validate
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 import joblib
@@ -35,11 +36,37 @@ def preprocess_data(data):
 
 def train_main_model(X, y):
     """Train a HistGradientBoostingClassifier model with preprocessing pipeline."""
-    hgbc = HistGradientBoostingClassifier(
-        learning_rate=0.1, max_iter=200, max_leaf_nodes=210, min_samples_leaf=7
-    ).fit(X, y)
+    hgbc = HistGradientBoostingClassifier()
 
-    return hgbc
+    param_grid = {
+        "clf__learning_rate": [0.1],
+        "clf__max_iter": [150],
+        "clf__max_leaf_nodes": [
+            210,
+        ],
+        "clf__min_samples_leaf": [5],
+    }
+    hgbc_pipe = Pipeline(
+        [
+            ("clf", hgbc),
+        ]
+    )
+
+    grid_search_hgbc = GridSearchCV(
+        hgbc_pipe, param_grid, cv=5, scoring="accuracy", n_jobs=-1, verbose=2
+    )
+
+    outer_valid = ShuffleSplit(n_splits=1, test_size=0.25, random_state=2)
+
+    results = cross_validate(
+        estimator=grid_search_hgbc,
+        X=X,
+        y=y,
+        cv=outer_valid,
+        return_estimator=True,
+    )
+
+    return results
 
 
 def train_logreg_model(X, y):
@@ -73,6 +100,6 @@ if __name__ == "__main__":
     main_model = train_main_model(X, y)
     logreg_model = train_logreg_model(X, y)
 
-    models_dict = {"main_model": main_model, "logreg_model": logreg_model}
+    main_model["logreg_model"] = logreg_model
 
-    save_model(models_dict, output_model_file + ".z")
+    save_model(main_model, output_model_file + ".z")
