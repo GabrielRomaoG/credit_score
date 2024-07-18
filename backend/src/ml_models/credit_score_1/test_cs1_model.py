@@ -13,6 +13,7 @@ from src.dtos.predict_request_dto import (
     Locale,
     PredictRequestDTO,
 )
+from src.ml_models.exceptions import ModelNotLoaded
 
 
 class TestCs1Model(unittest.TestCase):
@@ -44,6 +45,31 @@ class TestCs1Model(unittest.TestCase):
         self.assertIsInstance(self.model.classes, ndarray)
         self.assertIsInstance(self.model.coefficients, ndarray)
         self.assertIsInstance(self.model.features_names, ndarray)
+
+    def test_run_error_model_not_loaded(self):
+        mock_dto = PredictRequestDTO(
+            locale=Locale.EN_US,
+            features=Features(
+                age=30,
+                income=10000,
+                gender=Gender.FEMALE,
+                education=Education.BACHELORS_DEGREE,
+                num_bank_accounts=1,
+                num_credit_card=1,
+                num_of_loan=1,
+                num_of_delayed_payment=1,
+                outstanding_debt=1000,
+                credit_history_age=1,
+                total_emi_per_month=1000,
+            ),
+        )
+        with self.assertRaises(ModelNotLoaded) as context:
+            self.model.run(mock_dto)
+
+        self.assertEqual(
+            str(context.exception),
+            "The cs1_model is not loaded, use the load() method first.",
+        )
 
     def test_run(self):
         mock_dto = PredictRequestDTO(

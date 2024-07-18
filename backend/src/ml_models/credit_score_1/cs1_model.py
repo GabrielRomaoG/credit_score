@@ -61,14 +61,14 @@ class Cs1Model:
         Raises:
             ModelNotLoaded: If the model is not loaded.
         """
-        if self.estimator is None:
+        try:
+            data = self._dto_to_feature_df(dto)
+            probabilities = self.estimator.predict_proba(data).round(3)
+            return dict(zip(self.classes, probabilities[0]))
+        except AttributeError:
             raise ModelNotLoaded(
-                "The cs1 model is not loaded, use the load() method first."
+                "The cs1_model is not loaded, use the load() method first."
             )
-
-        data = self._dto_to_feature_df(dto)
-        probabilities = self.estimator.predict_proba(data).round(3)
-        return dict(zip(self.classes, probabilities[0]))
 
     @classmethod
     def _dto_to_feature_df(cls, dto: PredictRequestDTO) -> pd.DataFrame:
