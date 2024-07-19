@@ -49,7 +49,7 @@ class Cs2Model:
 
         return self
 
-    def run(self, dto: PredictRequestDTO) -> Dict[str, float]:
+    def predict(self, dto: PredictRequestDTO) -> Dict[str, float]:
         """
         Make a prediction using the trained ML model.
 

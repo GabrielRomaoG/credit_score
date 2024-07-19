@@ -64,7 +64,7 @@ class TestCs1Model(unittest.TestCase):
             ),
         )
         with self.assertRaises(ModelNotLoaded) as context:
-            self.model.run(mock_dto)
+            self.model.predict(mock_dto)
 
         self.assertEqual(
             str(context.exception),
@@ -91,7 +91,7 @@ class TestCs1Model(unittest.TestCase):
 
         self.model.load()
 
-        result = self.model.run(mock_dto)
+        result = self.model.predict(mock_dto)
 
         self.assertIsInstance(result, dict)
         self.assertEqual(set(result.keys()), set(self.model.classes))
