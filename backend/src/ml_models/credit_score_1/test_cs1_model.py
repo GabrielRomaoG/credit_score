@@ -43,8 +43,12 @@ class TestCs1Model(unittest.TestCase):
         self.assertIsInstance(self.model.estimator, Pipeline)
         self.assertGreater(self.model.accuracy, 0.0)
         self.assertIsInstance(self.model.classes, ndarray)
+        self.assertEqual(list(self.model.classes), ["average", "high", "low"])
         self.assertIsInstance(self.model.coefficients, ndarray)
         self.assertIsInstance(self.model.features_names, ndarray)
+        self.assertEqual(
+            list(self.model.features_names, ["gender", "education", "age", "income"])
+        )
 
     def test_run_error_model_not_loaded(self):
         mock_dto = PredictRequestDTO(
