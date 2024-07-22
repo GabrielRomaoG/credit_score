@@ -63,13 +63,8 @@ class TestCs2Model(unittest.TestCase):
                 total_emi_per_month=1000,
             ),
         )
-        with self.assertRaises(ModelNotLoaded) as context:
+        with self.assertRaises(ModelNotLoaded):
             self.model.predict(mock_dto)
-
-        self.assertEqual(
-            str(context.exception),
-            "The cs2_model is not loaded, use the load() method first.",
-        )
 
     def test_run(self):
         mock_dto = PredictRequestDTO(

@@ -65,9 +65,9 @@ class Cs1Model:
             data = self._dto_to_feature_df(dto)
             probabilities = self.estimator.predict_proba(data).round(3)
             return dict(zip(self.classes, probabilities[0]))
-        except AttributeError:
+        except AttributeError as e:
             raise ModelNotLoaded(
-                "The cs1_model is not loaded, use the load() method first."
+                f"The cs1_model probably is not loaded, use the load() method first.\nComplete error message: {e} "
             )
 
     @classmethod
