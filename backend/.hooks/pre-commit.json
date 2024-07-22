@@ -12,6 +12,11 @@
       "args": [
         "--config ../.flake8"
       ]
+    },
+    {
+      "name": "pytest",
+      "command": "pytest"
     }
+
   ]
 }
