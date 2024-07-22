@@ -70,7 +70,7 @@ class TestCs1Model(unittest.TestCase):
         with self.assertRaises(ModelNotLoaded):
             self.model.predict(mock_dto)
 
-    def test_run(self):
+    def test_predict(self):
         mock_dto = PredictRequestDTO(
             locale=Locale.EN_US,
             features=Features(
@@ -99,7 +99,7 @@ class TestCs1Model(unittest.TestCase):
         for value in result.values():
             self.assertIsInstance(value, float)
 
-    def test___dto_to_feature_df(self):
+    def test_dto_to_feature_df(self):
         mock_dto = PredictRequestDTO(
             locale=Locale.EN_US,
             features=Features(
@@ -117,7 +117,7 @@ class TestCs1Model(unittest.TestCase):
             ),
         )
 
-        result = self.model._Cs1Model__dto_to_feature_df(mock_dto)
+        result = self.model._dto_to_feature_df(mock_dto)
 
         expected_result = pd.DataFrame(
             {
@@ -132,19 +132,14 @@ class TestCs1Model(unittest.TestCase):
                 "outstanding_debt": [1000],
                 "credit_history_age": [1],
                 "total_emi_per_month": [1000],
-                "home_ownership": ["owned"],
-                "number_of_children": [0],
-                "marital_status": ["single"],
             }
         )
 
         pd.testing.assert_frame_equal(result, expected_result)
 
-    def test__convert_monthly_income_to_annual_income(self):
+    def test_convert_monthly_income_to_annual_income(self):
         mock_value = 10000
 
-        result = self.model._Cs1Model__convert_monthly_income_to_annual_income(
-            mock_value
-        )
+        result = self.model._convert_monthly_to_annual_income(mock_value)
 
         self.assertEqual(result, 120000)
