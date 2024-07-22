@@ -40,7 +40,10 @@ class Cs1Model:
             ].best_estimator_
             self.classes: np.ndarray = self.estimator.classes_
             self.coefficients: np.ndarray = self.estimator.named_steps["logreg"].coef_
-            self.features_names: np.ndarray = self.estimator.feature_names_in_
+            self.features_names_in: np.ndarray = self.estimator.feature_names_in_
+            self.features_names_out: np.ndarray = (
+                self.estimator.named_steps.cols_trans.get_feature_names_out()
+            )
             log.debug("cs1_model loaded successfully.")
         except Exception as e:
             log.error("Failed to load cs1_model: %s", e)

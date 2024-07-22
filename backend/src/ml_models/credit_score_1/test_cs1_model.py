@@ -1,4 +1,4 @@
-from numpy import ndarray
+import numpy as np
 from typing import Dict
 import unittest
 import warnings
@@ -42,12 +42,27 @@ class TestCs1Model(unittest.TestCase):
         self.assertIsInstance(self.model, Cs1Model)
         self.assertIsInstance(self.model.estimator, Pipeline)
         self.assertGreater(self.model.accuracy, 0.0)
-        self.assertIsInstance(self.model.classes, ndarray)
+        self.assertIsInstance(self.model.classes, np.ndarray)
         self.assertEqual(list(self.model.classes), ["average", "high", "low"])
-        self.assertIsInstance(self.model.coefficients, ndarray)
-        self.assertIsInstance(self.model.features_names, ndarray)
+        self.assertIsInstance(self.model.coefficients, np.ndarray)
+        self.assertIsInstance(self.model.features_names_in, np.ndarray)
         self.assertEqual(
-            list(self.model.features_names, ["gender", "education", "age", "income"])
+            list(self.model.features_names_in), ["gender", "education", "age", "income"]
+        )
+        self.assertIsInstance(self.model.features_names_out, np.ndarray)
+        self.assertEqual(
+            list(self.model.features_names_out),
+            [
+                "gender_female",
+                "gender_male",
+                "education_associates_degree",
+                "education_bachelors_degree",
+                "education_doctorate",
+                "education_high_school_diploma",
+                "education_masters_degree",
+                "age",
+                "income",
+            ],
         )
 
     def test_predict_error_model_not_loaded(self):
