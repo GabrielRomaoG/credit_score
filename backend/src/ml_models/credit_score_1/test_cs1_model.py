@@ -1,3 +1,5 @@
+from random import uniform
+from unittest.mock import MagicMock
 import numpy as np
 from typing import Dict
 import unittest
@@ -5,6 +7,7 @@ import warnings
 import pandas as pd
 from sklearn.exceptions import InconsistentVersionWarning
 from sklearn.pipeline import Pipeline
+from src.dtos.cs1_model_predict_dto import Cs1ModelPredictResultDTO
 from src.ml_models.credit_score_1.cs1_model import Cs1Model
 from src.dtos.predict_request_dto import (
     Education,
@@ -16,9 +19,34 @@ from src.dtos.predict_request_dto import (
 from src.ml_models.exceptions import ModelNotLoaded
 
 
+class MockCs1Model(Cs1Model):
+    def __init__(self):
+        super().__init__()
+        self.load = MagicMock()
+        self.estimator = MagicMock()
+        self.features_names_in = np.array(["gender", "education", "age", "income"])
+
+        self.features_names_out = np.array(
+            [
+                "gender_female",
+                "gender_male",
+                "education_associates_degree",
+                "education_bachelors_degree",
+                "education_doctorate",
+                "education_high_school_diploma",
+                "education_masters_degree",
+                "age",
+                "income",
+            ]
+        )
+
+        self.classes = np.array(["low", "average", "high"])
+
+
 class TestCs1Model(unittest.TestCase):
     def setUp(self) -> None:
         self.model = Cs1Model()
+        self.mock_model = MockCs1Model()
 
     def test_warning_inconsistent_version(self):
         with warnings.catch_warnings(record=True) as w:
@@ -103,16 +131,23 @@ class TestCs1Model(unittest.TestCase):
             ),
         )
 
-        self.model.load()
+        self.mock_model.load.return_value = None
+        self.mock_model.estimator.predict_proba.return_value = np.array(
+            [[0.0, 0.9, 0.1]]
+        )
+        mock_coeffs = [[uniform(-3.0, 3.0) for _ in range(9)] for _ in range(3)]
+        self.mock_model.coefficients = np.array(mock_coeffs)
 
-        result = self.model.predict(mock_dto)
+        result = self.mock_model.predict(mock_dto)
 
-        self.assertIsInstance(result, dict)
-        self.assertEqual(set(result.keys()), set(self.model.classes))
-        self.assertEqual(len(result), len(self.model.classes))
-
-        for value in result.values():
-            self.assertIsInstance(value, float)
+        self.assertIsInstance(result, Cs1ModelPredictResultDTO)
+        self.assertEqual(result.logit_components.age, mock_coeffs[1][7] * 30)
+        self.assertEqual(result.logit_components.income, mock_coeffs[1][8] * 120000)
+        self.assertEqual(result.logit_components.gender, mock_coeffs[1][0])
+        self.assertEqual(result.logit_components.education, mock_coeffs[1][3])
+        self.assertEqual(result.low, 0.0)
+        self.assertEqual(result.average, 0.9)
+        self.assertEqual(result.high, 0.1)
 
     def test_dto_to_feature_df(self):
         mock_dto = PredictRequestDTO(

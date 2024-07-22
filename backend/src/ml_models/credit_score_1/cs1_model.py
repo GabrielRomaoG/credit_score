@@ -6,6 +6,7 @@ import pandas as pd
 import joblib
 from sklearn.base import BaseEstimator
 from sklearn.pipeline import Pipeline
+from src.dtos.cs1_model_predict_dto import Cs1ModelPredictResultDTO, Cs1LogitComponents
 from src.dtos.predict_request_dto import PredictRequestDTO
 from src.ml_models.exceptions import ModelNotLoaded
 
@@ -51,7 +52,7 @@ class Cs1Model:
 
         return self
 
-    def predict(self, dto: PredictRequestDTO) -> Dict[str, float]:
+    def predict(self, dto: PredictRequestDTO) -> Cs1ModelPredictResultDTO:
         """
         Make a prediction using the trained ML model.
 
@@ -59,19 +60,67 @@ class Cs1Model:
             dto (PredictRequestDTO): The data transfer object containing input features.
 
         Returns:
-            Dict[str, float]: A dictionary mapping class labels to their predicted probabilities.
+            Cs1ModelPredictResultDTO: A dataclass containing the predicted class labels and their
+                corresponding probabilities.
 
         Raises:
             ModelNotLoaded: If the model is not loaded.
         """
         try:
             data = self._dto_to_feature_df(dto)
-            probabilities = self.estimator.predict_proba(data).round(3)
-            return dict(zip(self.classes, probabilities[0]))
+            probabilities = self.estimator.predict_proba(data).round(3)[0]
+            return Cs1ModelPredictResultDTO(
+                low=probabilities[self.classes == "low"],
+                average=probabilities[self.classes == "average"],
+                high=probabilities[self.classes == "high"],
+                logit_components=self._get_logit_components(data, probabilities),
+            )
         except AttributeError as e:
             raise ModelNotLoaded(
                 f"The cs1_model probably is not loaded, use the load() method first.\nComplete error message: {e} "
             )
+
+    def _get_feature_component(
+        self, clf_coeffs: np.ndarray, feature_name: str, feature_value: float | int
+    ) -> float:
+        """
+        Helper function to get the component for a specific feature.
+        """
+        feature_index = np.nonzero(self.features_names_out == feature_name)[0][0]
+        return clf_coeffs[feature_index] * feature_value
+
+    def _get_logit_components(
+        self, features_df: pd.DataFrame, probabilities: np.ndarray
+    ) -> Cs1LogitComponents:
+        """
+        Get the logit components for each class.
+
+        Returns:
+            LogitComponents: A dataclass containing the logit components for each class.
+        """
+        clf_result_index = np.argmax(probabilities)
+        clf_coeffs = self.coefficients[clf_result_index]
+
+        age_component = self._get_feature_component(
+            clf_coeffs, "age", features_df.at[0, "age"]
+        )
+        income_component = self._get_feature_component(
+            clf_coeffs, "income", features_df.at[0, "income"]
+        )
+        gender_component = self._get_feature_component(
+            clf_coeffs, f"gender_{features_df.at[0, 'gender'].value}", 1
+        )
+        education_component = self._get_feature_component(
+            clf_coeffs, f"education_{features_df.at[0, 'education'].value}", 1
+        )
+
+        logit_components = Cs1LogitComponents(
+            age=age_component,
+            income=income_component,
+            gender=gender_component,
+            education=education_component,
+        )
+        return logit_components
 
     @classmethod
     def _dto_to_feature_df(cls, dto: PredictRequestDTO) -> pd.DataFrame:
