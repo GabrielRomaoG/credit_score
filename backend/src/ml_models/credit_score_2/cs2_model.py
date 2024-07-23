@@ -64,7 +64,7 @@ class Cs2Model:
             ModelNotLoaded: If the model is not loaded.
         """
         try:
-            data = self.__dto_to_feature_df(dto)
+            data = self._dto_to_feature_df(dto)
             probabilities = self.estimator.predict_proba(data).round(3)
             return dict(zip(self.classes, probabilities[0]))
         except AttributeError as e:
@@ -73,7 +73,7 @@ class Cs2Model:
             )
 
     @staticmethod
-    def __dto_to_feature_df(dto: PredictRequestDTO) -> pd.DataFrame:
+    def _dto_to_feature_df(dto: PredictRequestDTO) -> pd.DataFrame:
         """
         Convert a PredictRequestDTO to a Pandas DataFrame. The reason for the column removal is that
         the SGD classifier only accepts the columns that were present in the model fit.

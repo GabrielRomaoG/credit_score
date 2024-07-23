@@ -75,7 +75,7 @@ class TestCs2Model(unittest.TestCase):
             ),
         )
 
-    def test_run_error_model_not_loaded(self):
+    def test_predict_error_model_not_loaded(self):
         mock_dto = PredictRequestDTO(
             locale=Locale.EN_US,
             features=Features(
@@ -95,7 +95,7 @@ class TestCs2Model(unittest.TestCase):
         with self.assertRaises(ModelNotLoaded):
             self.model.predict(mock_dto)
 
-    def test_run(self):
+    def test_predict(self):
         mock_dto = PredictRequestDTO(
             locale=Locale.EN_US,
             features=Features(
@@ -124,7 +124,7 @@ class TestCs2Model(unittest.TestCase):
         for value in result.values():
             self.assertIsInstance(value, float)
 
-    def test___dto_to_feature_df(self):
+    def test_dto_to_feature_df(self):
         mock_dto = PredictRequestDTO(
             locale=Locale.EN_US,
             features=Features(
@@ -142,7 +142,7 @@ class TestCs2Model(unittest.TestCase):
             ),
         )
 
-        result = self.model._Cs2Model__dto_to_feature_df(mock_dto)
+        result = self.model._dto_to_feature_df(mock_dto)
 
         expected_result = pd.DataFrame(
             {
