@@ -19,6 +19,10 @@ class Cs1LogitComponents:
 
 @dataclass
 class Cs1ModelPredictResultDTO:
+    """
+    A dataclass containing the predicted class labels and their corresponding probabilities for the Cs1Model.
+    """
+
     low: float
     average: float
     high: float
