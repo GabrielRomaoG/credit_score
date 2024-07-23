@@ -41,7 +41,8 @@ class Cs2Model:
             ].best_estimator_
             self.classes: np.ndarray = self.estimator.classes_
             self.coefficients: np.ndarray = self.__log_reg.coef_
-            self.features_names: np.ndarray = self.estimator.feature_names_in_
+            self.features_names_in: np.ndarray = self.estimator.feature_names_in_
+            self.features_names_out: np.ndarray = self.estimator.feature_names_in_
             log.debug("cs2_model loaded successfully.")
         except Exception as e:
             log.error("Failed to load cs2_model: %s", e)

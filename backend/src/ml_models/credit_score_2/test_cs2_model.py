@@ -45,9 +45,23 @@ class TestCs2Model(unittest.TestCase):
         self.assertIsInstance(self.model.classes, np.ndarray)
         self.assertEqual(set(self.model.classes), set(["poor", "standard", "good"]))
         self.assertIsInstance(self.model.coefficients, np.ndarray)
-        self.assertIsInstance(self.model.features_names, np.ndarray)
+        self.assertIsInstance(self.model.features_names_in, np.ndarray)
         self.assertEqual(
-            set(self.model.features_names),
+            set(self.model.features_names_in),
+            set(
+                [
+                    "num_bank_accounts",
+                    "num_credit_card",
+                    "num_of_loan",
+                    "num_of_delayed_payment",
+                    "outstanding_debt",
+                    "credit_history_age",
+                    "total_emi_per_month",
+                ]
+            ),
+        )
+        self.assertEqual(
+            set(self.model.features_names_out),
             set(
                 [
                     "num_bank_accounts",
