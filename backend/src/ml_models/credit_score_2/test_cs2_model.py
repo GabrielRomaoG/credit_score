@@ -1,4 +1,4 @@
-from numpy import ndarray
+import numpy as np
 from typing import Dict
 import unittest
 import warnings
@@ -42,9 +42,24 @@ class TestCs2Model(unittest.TestCase):
         self.assertIsInstance(self.model, Cs2Model)
         self.assertIsInstance(self.model.estimator, Pipeline)
         self.assertGreater(self.model.accuracy, 0.0)
-        self.assertIsInstance(self.model.classes, ndarray)
-        self.assertIsInstance(self.model.coefficients, ndarray)
-        self.assertIsInstance(self.model.features_names, ndarray)
+        self.assertIsInstance(self.model.classes, np.ndarray)
+        self.assertEqual(set(self.model.classes), set(["poor", "standard", "good"]))
+        self.assertIsInstance(self.model.coefficients, np.ndarray)
+        self.assertIsInstance(self.model.features_names, np.ndarray)
+        self.assertEqual(
+            set(self.model.features_names),
+            set(
+                [
+                    "num_bank_accounts",
+                    "num_credit_card",
+                    "num_of_loan",
+                    "num_of_delayed_payment",
+                    "outstanding_debt",
+                    "credit_history_age",
+                    "total_emi_per_month",
+                ]
+            ),
+        )
 
     def test_run_error_model_not_loaded(self):
         mock_dto = PredictRequestDTO(
@@ -87,7 +102,6 @@ class TestCs2Model(unittest.TestCase):
         self.model.load()
 
         result = self.model.predict(mock_dto)
-        print(result)
 
         self.assertIsInstance(result, dict)
         self.assertEqual(set(result.keys()), set(self.model.classes))
