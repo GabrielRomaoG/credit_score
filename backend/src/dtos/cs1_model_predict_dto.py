@@ -11,10 +11,10 @@ class Cs1LogitComponents:
         component = 15
     """
 
-    age: float
-    income: float
-    gender: float
-    education: float
+    age: float = 0
+    income: float = 0
+    gender: float = 0
+    education: float = 0
 
 
 @dataclass

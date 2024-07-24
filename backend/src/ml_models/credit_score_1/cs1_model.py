@@ -70,9 +70,9 @@ class Cs1Model:
             data = self._dto_to_feature_df(dto)
             probabilities = self.estimator.predict_proba(data).round(3)[0]
             return Cs1ModelPredictResultDTO(
-                low=probabilities[self.classes == "low"],
-                average=probabilities[self.classes == "average"],
-                high=probabilities[self.classes == "high"],
+                low=probabilities[self.classes == "low"][0],
+                average=probabilities[self.classes == "average"][0],
+                high=probabilities[self.classes == "high"][0],
                 logit_components=self._get_logit_components(data, probabilities),
             )
         except AttributeError as e:
@@ -101,25 +101,23 @@ class Cs1Model:
         clf_result_index = np.argmax(probabilities)
         clf_coeffs = self.coefficients[clf_result_index]
 
-        age_component = self._get_feature_component(
-            clf_coeffs, "age", features_df.at[0, "age"]
-        )
-        income_component = self._get_feature_component(
-            clf_coeffs, "income", features_df.at[0, "income"]
-        )
-        gender_component = self._get_feature_component(
-            clf_coeffs, f"gender_{features_df.at[0, 'gender'].value}", 1
-        )
-        education_component = self._get_feature_component(
-            clf_coeffs, f"education_{features_df.at[0, 'education'].value}", 1
-        )
+        logit_components = Cs1LogitComponents()
 
-        logit_components = Cs1LogitComponents(
-            age=age_component,
-            income=income_component,
-            gender=gender_component,
-            education=education_component,
-        )
+        for feature in self.features_names_in:
+            value = features_df.at[0, feature]
+
+            if isinstance(value, (np.integer, np.floating)):
+                feature_name = feature
+                feature_value = value
+            else:
+                feature_name = f"{feature}_{value.value}"
+                feature_value = 1
+
+            setattr(
+                logit_components,
+                feature,
+                self._get_feature_component(clf_coeffs, feature_name, feature_value),
+            )
         return logit_components
 
     @classmethod
