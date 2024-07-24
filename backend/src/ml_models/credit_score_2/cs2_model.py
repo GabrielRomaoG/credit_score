@@ -6,6 +6,7 @@ import pandas as pd
 import joblib
 from sklearn.base import BaseEstimator
 from sklearn.pipeline import Pipeline
+from src.dtos.cs2_model_predict_dto import Cs2LogitComponents, Cs2ModelPredictResultDTO
 from src.dtos.predict_request_dto import PredictRequestDTO
 from src.ml_models.exceptions import ModelNotLoaded
 
@@ -50,7 +51,7 @@ class Cs2Model:
 
         return self
 
-    def predict(self, dto: PredictRequestDTO) -> Dict[str, float]:
+    def predict(self, dto: PredictRequestDTO) -> Cs2ModelPredictResultDTO:
         """
         Make a prediction using the trained ML model.
 
@@ -58,15 +59,21 @@ class Cs2Model:
             dto (PredictRequestDTO): The data transfer object containing input features.
 
         Returns:
-            Dict[str, float]: A dictionary mapping class labels to their predicted probabilities.
+            Cs2ModelPredictResultDTO: A dataclass containing the predicted class labels and their
+                corresponding probabilities.
 
         Raises:
             ModelNotLoaded: If the model is not loaded.
         """
         try:
             data = self._dto_to_feature_df(dto)
-            probabilities = self.estimator.predict_proba(data).round(3)
-            return dict(zip(self.classes, probabilities[0]))
+            probabilities = self.estimator.predict_proba(data).round(3)[0]
+            return Cs2ModelPredictResultDTO(
+                poor=probabilities[self.classes == "poor"][0],
+                standard=probabilities[self.classes == "standard"][0],
+                good=probabilities[self.classes == "good"][0],
+                logit_components=self._get_logit_components(data, probabilities),
+            )
         except AttributeError as e:
             raise ModelNotLoaded(
                 f"The cs2_model is probably not loaded, use the load() method first.\nComplete error message: {e}"
@@ -89,3 +96,44 @@ class Cs2Model:
             columns=["age", "income", "gender", "education"]
         )
         return features_df
+
+    def _get_feature_component(
+        self, clf_coeffs: np.ndarray, feature_name: str, feature_value: float | int
+    ) -> float:
+        """
+        Helper function to get the component for a specific feature.
+        """
+        feature_index = np.nonzero(self.features_names_out == feature_name)[0][0]
+        return clf_coeffs[feature_index] * feature_value
+
+    def _get_logit_components(
+        self, features_df: pd.DataFrame, probabilities: np.ndarray
+    ) -> Cs2LogitComponents:
+        """
+        Get the logit components for each class.
+
+        Returns:
+            LogitComponents: A dataclass containing the logit components for each class.
+        """
+        clf_result_index = np.argmax(probabilities)
+        clf_coeffs = self.coefficients[clf_result_index]
+
+        logit_components = Cs2LogitComponents()
+
+        for feature in self.features_names_in:
+            value = features_df.at[0, feature]
+
+            if isinstance(value, (np.integer, np.floating)):
+                feature_name = feature
+                feature_value = value
+            else:
+                feature_name = f"{feature}_{value.value}"
+                feature_value = 1
+
+            setattr(
+                logit_components,
+                feature,
+                self._get_feature_component(clf_coeffs, feature_name, feature_value),
+            )
+
+        return logit_components
