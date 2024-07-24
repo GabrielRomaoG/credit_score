@@ -5,13 +5,13 @@ from dataclasses import dataclass
 class Cs2LogitComponents:
     """The logit components for each feature. The component is the multiplication of the coefficient and the feature value."""
 
-    num_bank_accounts: float
-    num_credit_card: float
-    num_of_loan: float
-    num_of_delayed_payment: float
-    outstanding_debt: float
-    credit_history_age: float
-    total_emi_per_month: float
+    num_bank_accounts: float = 0
+    num_credit_card: float = 0
+    num_of_loan: float = 0
+    num_of_delayed_payment: float = 0
+    outstanding_debt: float = 0
+    credit_history_age: float = 0
+    total_emi_per_month: float = 0
 
 
 @dataclass
