@@ -1,10 +1,10 @@
 import unittest
 from src.dtos.cs2_model_predict_dto import Cs2ModelPredictResultDTO
-from src.service.cs2_model_score_calculator.cs2_classification_score_enum import (
-    Cs2ClassificationScore,
-)
-from src.service.cs2_model_score_calculator.cs2_model_score_calculator import (
+from src.service.calculate_cs2_credit_score.calculate_cs2_credit_score import (
     Cs2ModelScoreCalculator,
+)
+from src.service.calculate_cs2_credit_score.cs2_classification_score_enum import (
+    Cs2ClassificationScore,
 )
 
 
