@@ -14,10 +14,13 @@ class Cs1ModelScoreCalculator:
 
     def __init__(self, cs1_result_dto: Cs1ModelPredictResultDTO) -> None:
         """
-        Initialize the Cs1ModelScoreCalculator with default values.
+        Initialize the Cs1ModelScoreCalculator with the result of the prediction made by
+        the CS1 model.
 
         Args:
-            cs1_model (Cs1Model): The loaded CS1 model.
+            cs1_result_dto (Cs1ModelPredictResultDTO): The result of the prediction made by the
+                CS1 model. It contains the predicted probabilities of the input features for each
+                class.
         """
         self.predict_dto = cs1_result_dto
 
