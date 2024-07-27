@@ -17,11 +17,11 @@ class TestCs1ModelScoreCalculator(unittest.TestCase):
             high=0.3,
             logit_components=None,
         )
-        self.service = Cs1ModelScoreCalculator(cs1_result_dto=self.mock_predict_dto)
+        self.service = Cs1ModelScoreCalculator
 
-    def test_calculate_score(self):
+    def test_calculate(self):
 
-        result = self.service.calculate_score()
+        result = self.service.calculate(self.mock_predict_dto)
 
         expected_result = (
             Cs1ClassificationScore.LOW.value * 0.1

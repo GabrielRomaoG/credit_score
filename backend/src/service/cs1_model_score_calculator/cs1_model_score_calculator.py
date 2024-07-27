@@ -12,31 +12,26 @@ class Cs1ModelScoreCalculator:
     Class for calculating the score of a CS1 model.
     """
 
-    def __init__(self, cs1_result_dto: Cs1ModelPredictResultDTO) -> None:
-        """
-        Initialize the Cs1ModelScoreCalculator with the result of the prediction made by
-        the CS1 model.
-
-        Args:
-            cs1_result_dto (Cs1ModelPredictResultDTO): The result of the prediction made by the
-                CS1 model. It contains the predicted probabilities of the input features for each
-                class.
-        """
-        self.predict_dto = cs1_result_dto
-
-    def calculate_score(self) -> float:
+    @staticmethod
+    def calculate(cs1_result_dto: Cs1ModelPredictResultDTO) -> float:
         """
         Calculate the score of the input features using the predicted probabilities of the CS1 model.
 
-        The score is calculated by multiplying the probability of each class with the
-        corresponding classification score and summing them up.
+        The score is calculated by multiplying each class's probability with its corresponding classification score,
+        and then summing these products.
+
+        Args:
+            cs1_result_dto (Cs1ModelPredictResultDTO): The result of the prediction made by the CS1 model.
+
         Returns:
-            float: The score of the input.
+            float: The score of the input features.
+
         """
+
         try:
             score = sum(
                 classification.value
-                * getattr(self.predict_dto, classification.name.lower())
+                * getattr(cs1_result_dto, classification.name.lower())
                 for classification in Cs1ClassificationScore
             )
             return score
