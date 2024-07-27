@@ -34,12 +34,11 @@ class Cs1ModelScoreCalculator:
             float: The score of the input.
         """
         try:
-            score = 0.0
-
-            for classification in Cs1ClassificationScore:
-                probability = getattr(self.predict_dto, classification.name.lower())
-                score += classification.value * probability
-
+            score = sum(
+                classification.value
+                * getattr(self.predict_dto, classification.name.lower())
+                for classification in Cs1ClassificationScore
+            )
             return score
 
         except Exception as e:
