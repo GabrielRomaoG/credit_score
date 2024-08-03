@@ -26,7 +26,7 @@ class TestModelsCreditScoreAggregator(unittest.TestCase):
         mock_cs1_model_accuracy = 0.5
         mock_cs2_model_accuracy = 0.9
 
-        mock_cs1_credit_score = 720
+        mock_cs1_credit_score = 721
         mock_cs2_credit_score = 800
 
         self.mock_cs1_credit_score_calculator.calculate.return_value = (
@@ -43,10 +43,16 @@ class TestModelsCreditScoreAggregator(unittest.TestCase):
             mock_cs2_model_accuracy,
         )
 
-        expected_result = (
-            mock_cs1_credit_score * mock_cs1_model_accuracy
-            + mock_cs2_credit_score * mock_cs2_model_accuracy
-        ) / (mock_cs1_model_accuracy + mock_cs2_model_accuracy)
+        expected_result = int(
+            round(
+                (
+                    mock_cs1_credit_score * mock_cs1_model_accuracy
+                    + mock_cs2_credit_score * mock_cs2_model_accuracy
+                )
+                / (mock_cs1_model_accuracy + mock_cs2_model_accuracy),
+                0,
+            )
+        )
 
         self.mock_cs1_credit_score_calculator.calculate.assert_called_once_with(
             mock_cs1_predict_result_dto
@@ -54,5 +60,5 @@ class TestModelsCreditScoreAggregator(unittest.TestCase):
         self.mock_cs2_credit_score_calculator.calculate.assert_called_once_with(
             mock_cs2_predict_result_dto
         )
-
+        self.assertIsInstance(result, int)
         self.assertEqual(expected_result, result)

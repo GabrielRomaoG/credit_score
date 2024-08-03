@@ -27,7 +27,7 @@ class ModelsCreditScoreAggregator:
         cs1_model_accuracy: float,
         cs2_predict_result_dto: Cs2ModelPredictResultDTO,
         cs2_model_accuracy: float,
-    ) -> float:
+    ) -> int:
         """
         Aggregate the credit scores of CS1 and CS2 models.
 
@@ -38,7 +38,7 @@ class ModelsCreditScoreAggregator:
             cs2_model_accuracy (float): The accuracy of CS2 model.
 
         Returns:
-            float: The average credit score of the models.
+            int: The average credit score of the models.
 
         """
 
@@ -59,7 +59,7 @@ class ModelsCreditScoreAggregator:
                 weighted_cs1_score + weighted_cs2_score
             ) / total_accuracy
 
-            return weighted_average_score
+            return int(round(weighted_average_score, 0))
 
         except Exception as e:
             log.error("Failed to aggregate models credit score: %s", e)
