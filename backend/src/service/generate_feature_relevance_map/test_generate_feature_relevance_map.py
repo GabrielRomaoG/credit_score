@@ -1,4 +1,6 @@
+from dataclasses import asdict
 from unittest import TestCase
+import numpy as np
 from src.dtos.cs1_model_predict_dto import Cs1LogitComponents
 from src.dtos.cs2_model_predict_dto import Cs2LogitComponents
 from src.service.generate_feature_relevance_map.generate_feature_relevance_map import (
@@ -25,10 +27,12 @@ class TestFeatureRelevanceMapGenerator(TestCase):
             total_emi_per_month=1.2,
         )
 
-        mock_attributes_list = [
-            *vars(mock_cs1_logit_components).keys(),
-            *vars(mock_cs2_logit_components).keys(),
-        ]
+        mock_attributes_dict = {
+            **asdict(mock_cs1_logit_components),
+            **asdict(mock_cs2_logit_components),
+        }
+
+        mock_median_value = np.median(np.abs(list(mock_attributes_dict.values())))
 
         result = self.service.generate(
             cs1_logit_components=mock_cs1_logit_components,
@@ -37,8 +41,13 @@ class TestFeatureRelevanceMapGenerator(TestCase):
 
         self.assertIsInstance(result, dict)
         for feature, value in result.items():
-            self.assertIn(value, range(-2, 3))
-            self.assertIn(feature, mock_attributes_list)
+            self.assertEqual(
+                value,
+                self.service._calculate_relevance(
+                    mock_attributes_dict[feature], mock_median_value
+                ),
+            )
+            self.assertIn(feature, mock_attributes_dict.keys())
 
     def test__calculate_relevance_equal_2(self):
         mock_logit_component_value = 200
