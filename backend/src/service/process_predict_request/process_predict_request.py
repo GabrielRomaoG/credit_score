@@ -1,7 +1,8 @@
 from logging import Logger, getLogger
 from kink import inject
-from src.dtos.cs1_model_predict_dto import Cs1ModelPredictResultDTO
-from src.dtos.cs2_model_predict_dto import Cs2ModelPredictResultDTO
+from src.dtos.predict_request_dto import PredictRequestDTO
+from src.ml_models.credit_score_1.cs1_model import Cs1Model
+from src.ml_models.credit_score_2.cs2_model import Cs2Model
 from src.service.aggregate_models_credit_score.aggregate_models_credit_score import (
     ModelsCreditScoreAggregator,
 )
@@ -20,9 +21,13 @@ class PredictRequestProcessor:
 
     def __init__(
         self,
+        cs1_model: Cs1Model,
+        cs2_model: Cs2Model,
         aggregate_models_credit_score_service: ModelsCreditScoreAggregator,
         generate_feature_relevance_map_service: FeatureRelevanceMapGenerator,
     ) -> None:
+        self._cs1_model = cs1_model
+        self._cs2_model = cs2_model
         self._aggregate_models_credit_score_service = (
             aggregate_models_credit_score_service
         )
@@ -32,19 +37,14 @@ class PredictRequestProcessor:
 
     def process(
         self,
-        cs1_predict_result: Cs1ModelPredictResultDTO,
-        cs1_model_accuracy: float,
-        cs2_predict_result: Cs2ModelPredictResultDTO,
-        cs2_model_accuracy: float,
+        predict_request_dto: PredictRequestDTO,
     ) -> dict:
         """
-        Process the predict request by aggregating the credit scores from two models and generating a feature relevance map.
+        Process the predict request by aggregating the credit scores from two models
+        and generating a feature relevance map.
 
         Args:
-            cs1_predict_result (Cs1ModelPredictResultDTO): The prediction result from the first model.
-            cs1_model_accuracy (float): The accuracy of the first model.
-            cs2_predict_result (Cs2ModelPredictResultDTO): The prediction result from the second model.
-            cs2_model_accuracy (float): The accuracy of the second model.
+            predict_request_dto (PredictRequestDTO): DTO containing the request data.
 
         Returns:
             dict: A dictionary containing the credit score and the feature relevance map.
@@ -54,12 +54,14 @@ class PredictRequestProcessor:
         """
 
         try:
+            cs1_predict_result = self._cs1_model.predict(predict_request_dto)
+            cs2_predict_result = self._cs2_model.predict(predict_request_dto)
 
             credit_score = self._aggregate_models_credit_score_service.aggregate(
                 cs1_predict_result,
-                cs1_model_accuracy,
+                self._cs1_model.accuracy,
                 cs2_predict_result,
-                cs2_model_accuracy,
+                self._cs2_model.accuracy,
             )
 
             feature_relevance_map = (

@@ -2,6 +2,13 @@ import unittest
 from unittest.mock import MagicMock
 from src.dtos.cs1_model_predict_dto import Cs1LogitComponents, Cs1ModelPredictResultDTO
 from src.dtos.cs2_model_predict_dto import Cs2LogitComponents, Cs2ModelPredictResultDTO
+from src.dtos.predict_request_dto import (
+    Education,
+    Features,
+    Gender,
+    Locale,
+    PredictRequestDTO,
+)
 from src.service.process_predict_request.process_predict_request import (
     PredictRequestProcessor,
 )
@@ -9,9 +16,13 @@ from src.service.process_predict_request.process_predict_request import (
 
 class TestPredictRequestProcessor(unittest.TestCase):
     def setUp(self) -> None:
+        self.mock_cs1_model = MagicMock()
+        self.mock_cs2_model = MagicMock()
         self.mock_aggregate_models_score_service = MagicMock()
         self.mock_generate_feature_relevance_map_service = MagicMock()
         self.service = PredictRequestProcessor(
+            cs1_model=self.mock_cs1_model,
+            cs2_model=self.mock_cs2_model,
             aggregate_models_credit_score_service=(
                 self.mock_aggregate_models_score_service
             ),
@@ -21,7 +32,24 @@ class TestPredictRequestProcessor(unittest.TestCase):
         )
 
     def test_process(self):
-        mock_cs1_predict_result = Cs1ModelPredictResultDTO(
+        mock_predict_request_dto = PredictRequestDTO(
+            locale=Locale.EN_US,
+            features=Features(
+                age=30,
+                income=10000,
+                gender=Gender.FEMALE,
+                education=Education.BACHELORS_DEGREE,
+                num_bank_accounts=1,
+                num_credit_card=1,
+                num_of_loan=1,
+                num_of_delayed_payment=1,
+                outstanding_debt=1000,
+                credit_history_age=1,
+                total_emi_per_month=1000,
+            ),
+        )
+
+        self.mock_cs1_model.predict.return_value = Cs1ModelPredictResultDTO(
             low=0.1,
             average=0.2,
             high=0.3,
@@ -32,9 +60,9 @@ class TestPredictRequestProcessor(unittest.TestCase):
                 education=0.4,
             ),
         )
-        mock_cs1_model_accuracy = 0.5
+        self.mock_cs1_model.accuracy = 0.5
 
-        mock_cs2_predict_result = Cs2ModelPredictResultDTO(
+        self.mock_cs2_model.predict.return_value = Cs2ModelPredictResultDTO(
             poor=0.1,
             standard=0.2,
             good=0.3,
@@ -49,7 +77,7 @@ class TestPredictRequestProcessor(unittest.TestCase):
             ),
         )
 
-        mock_cs2_model_accuracy = 0.6
+        self.mock_cs2_model.accuracy = 0.6
 
         self.mock_aggregate_models_score_service.aggregate.return_value = 680
 
@@ -59,22 +87,19 @@ class TestPredictRequestProcessor(unittest.TestCase):
         }
 
         result = self.service.process(
-            mock_cs1_predict_result,
-            mock_cs1_model_accuracy,
-            mock_cs2_predict_result,
-            mock_cs2_model_accuracy,
+            predict_request_dto=mock_predict_request_dto,
         )
 
         self.mock_aggregate_models_score_service.aggregate.assert_called_once_with(
-            mock_cs1_predict_result,
-            mock_cs1_model_accuracy,
-            mock_cs2_predict_result,
-            mock_cs2_model_accuracy,
+            self.mock_cs1_model.predict(),
+            self.mock_cs1_model.accuracy,
+            self.mock_cs2_model.predict(),
+            self.mock_cs2_model.accuracy,
         )
 
         self.mock_generate_feature_relevance_map_service.generate.assert_called_once_with(
-            mock_cs1_predict_result.logit_components,
-            mock_cs2_predict_result.logit_components,
+            self.mock_cs1_model.predict().logit_components,
+            self.mock_cs2_model.predict().logit_components,
         )
 
         self.assertIsInstance(result, dict)

@@ -1,5 +1,7 @@
 from kink import di
 
+from src.ml_models.credit_score_1.cs1_model import Cs1Model
+from src.ml_models.credit_score_2.cs2_model import Cs2Model
 from src.service.aggregate_models_credit_score.aggregate_models_credit_score import (
     ModelsCreditScoreAggregator,
 )
@@ -24,6 +26,8 @@ def service_bootstrap_di() -> None:
     )
 
     di[PredictRequestProcessor] = PredictRequestProcessor(
+        di[Cs1Model],
+        di[Cs2Model],
         di[ModelsCreditScoreAggregator],
         FeatureRelevanceMapGenerator,
     )
