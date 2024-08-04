@@ -35,10 +35,10 @@ class FeatureRelevanceMapGenerator:
             }
 
             absolute_values = np.abs(list(features_dict.values()))
-            mean_value = np.mean(absolute_values)
+            median_value = np.median(absolute_values)
 
             relevance_scores = {
-                key: cls._calculate_relevance(value, mean_value)
+                key: cls._calculate_relevance(value, median_value)
                 for key, value in features_dict.items()
             }
             return relevance_scores
@@ -48,13 +48,13 @@ class FeatureRelevanceMapGenerator:
 
     @staticmethod
     def _calculate_relevance(
-        logit_component_value: float, mean_value: float
+        logit_component_value: float, median_value: float
     ) -> Literal[range(-2, 3)]:
         abs_value = abs(logit_component_value)
-        if abs_value > mean_value:
+        if abs_value > median_value:
             score = 2
-        elif abs_value <= mean_value and abs_value > mean_value * 0.1:
+        elif abs_value <= median_value and abs_value > median_value * 0.1:
             score = 1
-        elif abs_value <= mean_value * 0.1:
+        elif abs_value <= median_value * 0.1:
             score = 0
         return -score if logit_component_value < 0 else score

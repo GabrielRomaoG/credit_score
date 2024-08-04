@@ -46,7 +46,7 @@ class TestFeatureRelevanceMapGenerator(TestCase):
 
         result = self.service._calculate_relevance(
             logit_component_value=mock_logit_component_value,
-            mean_value=mock_mean_value,
+            median_value=mock_mean_value,
         )
 
         self.assertEqual(result, 2)
@@ -57,7 +57,7 @@ class TestFeatureRelevanceMapGenerator(TestCase):
 
         result = self.service._calculate_relevance(
             logit_component_value=mock_logit_component_value,
-            mean_value=mock_mean_value,
+            median_value=mock_mean_value,
         )
 
         self.assertEqual(result, 1)
@@ -68,7 +68,7 @@ class TestFeatureRelevanceMapGenerator(TestCase):
 
         result = self.service._calculate_relevance(
             logit_component_value=mock_logit_component_value,
-            mean_value=mock_mean_value,
+            median_value=mock_mean_value,
         )
 
         self.assertEqual(result, 0)
@@ -79,7 +79,7 @@ class TestFeatureRelevanceMapGenerator(TestCase):
 
         result = self.service._calculate_relevance(
             logit_component_value=mock_logit_component_value,
-            mean_value=mock_mean_value,
+            median_value=mock_mean_value,
         )
 
         self.assertEqual(result, -2)
