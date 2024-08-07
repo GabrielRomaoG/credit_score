@@ -1,10 +1,13 @@
 from logging import Logger, getLogger
 from kink import inject
-from src.dtos.predict_request_dto import PredictRequestDTO
+from src.dtos.predict_request_dto import Locale, PredictRequestDTO
 from src.ml_models.credit_score_1.cs1_model import Cs1Model
 from src.ml_models.credit_score_2.cs2_model import Cs2Model
 from src.service.aggregate_models_credit_score.aggregate_models_credit_score import (
     ModelsCreditScoreAggregator,
+)
+from src.service.convert_brl_income_to_usd.convert_brl_income_to_usd import (
+    BrlIncomeToUsdConverter,
 )
 from src.service.generate_feature_relevance_map.generate_feature_relevance_map import (
     FeatureRelevanceMapGenerator,
@@ -25,6 +28,7 @@ class PredictRequestProcessor:
         cs2_model: Cs2Model,
         aggregate_models_credit_score_service: ModelsCreditScoreAggregator,
         generate_feature_relevance_map_service: FeatureRelevanceMapGenerator,
+        convert_brl_income_to_usd_service: BrlIncomeToUsdConverter,
     ) -> None:
         self._cs1_model = cs1_model
         self._cs2_model = cs2_model
@@ -34,6 +38,7 @@ class PredictRequestProcessor:
         self._generate_feature_relevance_map_service = (
             generate_feature_relevance_map_service
         )
+        self._convert_brl_income_to_usd_service = convert_brl_income_to_usd_service
 
     def process(
         self,
@@ -54,6 +59,23 @@ class PredictRequestProcessor:
         """
 
         try:
+
+            if predict_request_dto.locale == Locale.PT_BR:
+                predict_request_dto.features.income = (
+                    self._convert_brl_income_to_usd_service.convert(
+                        predict_request_dto.features.income
+                    )
+                )
+                predict_request_dto.features.outstanding_debt = (
+                    self._convert_brl_income_to_usd_service.convert(
+                        predict_request_dto.features.outstanding_debt
+                    )
+                )
+                predict_request_dto.features.total_emi_per_month = (
+                    self._convert_brl_income_to_usd_service.convert(
+                        predict_request_dto.features.total_emi_per_month
+                    )
+                )
             cs1_predict_result = self._cs1_model.predict(predict_request_dto.features)
             cs2_predict_result = self._cs2_model.predict(predict_request_dto.features)
 
