@@ -54,8 +54,8 @@ class PredictRequestProcessor:
         """
 
         try:
-            cs1_predict_result = self._cs1_model.predict(predict_request_dto)
-            cs2_predict_result = self._cs2_model.predict(predict_request_dto)
+            cs1_predict_result = self._cs1_model.predict(predict_request_dto.features)
+            cs2_predict_result = self._cs2_model.predict(predict_request_dto.features)
 
             credit_score = self._aggregate_models_credit_score_service.aggregate(
                 cs1_predict_result,

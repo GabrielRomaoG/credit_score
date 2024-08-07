@@ -90,6 +90,13 @@ class TestPredictRequestProcessor(unittest.TestCase):
             predict_request_dto=mock_predict_request_dto,
         )
 
+        self.mock_cs1_model.predict.assert_called_once_with(
+            mock_predict_request_dto.features
+        )
+        self.mock_cs2_model.predict.assert_called_once_with(
+            mock_predict_request_dto.features
+        )
+
         self.mock_aggregate_models_score_service.aggregate.assert_called_once_with(
             self.mock_cs1_model.predict(),
             self.mock_cs1_model.accuracy,
