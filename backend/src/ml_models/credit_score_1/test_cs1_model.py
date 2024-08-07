@@ -13,8 +13,6 @@ from src.dtos.predict_request_dto import (
     Education,
     Features,
     Gender,
-    Locale,
-    PredictRequestDTO,
 )
 from src.ml_models.exceptions import ModelNotLoaded
 
@@ -94,41 +92,35 @@ class TestCs1Model(unittest.TestCase):
         )
 
     def test_predict_error_model_not_loaded(self):
-        mock_dto = PredictRequestDTO(
-            locale=Locale.EN_US,
-            features=Features(
-                age=30,
-                income=10000,
-                gender=Gender.FEMALE,
-                education=Education.BACHELORS_DEGREE,
-                num_bank_accounts=1,
-                num_credit_card=1,
-                num_of_loan=1,
-                num_of_delayed_payment=1,
-                outstanding_debt=1000,
-                credit_history_age=1,
-                total_emi_per_month=1000,
-            ),
+        mock_dto = Features(
+            age=30,
+            income=10000,
+            gender=Gender.FEMALE,
+            education=Education.BACHELORS_DEGREE,
+            num_bank_accounts=1,
+            num_credit_card=1,
+            num_of_loan=1,
+            num_of_delayed_payment=1,
+            outstanding_debt=1000,
+            credit_history_age=1,
+            total_emi_per_month=1000,
         )
         with self.assertRaises(ModelNotLoaded):
             self.model.predict(mock_dto)
 
     def test_predict(self):
-        mock_dto = PredictRequestDTO(
-            locale=Locale.EN_US,
-            features=Features(
-                age=30,
-                income=10000,
-                gender=Gender.FEMALE,
-                education=Education.BACHELORS_DEGREE,
-                num_bank_accounts=1,
-                num_credit_card=1,
-                num_of_loan=1,
-                num_of_delayed_payment=1,
-                outstanding_debt=1000,
-                credit_history_age=1,
-                total_emi_per_month=1000,
-            ),
+        mock_dto_features = Features(
+            age=30,
+            income=10000,
+            gender=Gender.FEMALE,
+            education=Education.BACHELORS_DEGREE,
+            num_bank_accounts=1,
+            num_credit_card=1,
+            num_of_loan=1,
+            num_of_delayed_payment=1,
+            outstanding_debt=1000,
+            credit_history_age=1,
+            total_emi_per_month=1000,
         )
 
         self.mock_model.load.return_value = None
@@ -138,7 +130,7 @@ class TestCs1Model(unittest.TestCase):
         mock_coeffs = [[uniform(-3.0, 3.0) for _ in range(9)] for _ in range(3)]
         self.mock_model.coefficients = np.array(mock_coeffs)
 
-        result = self.mock_model.predict(mock_dto)
+        result = self.mock_model.predict(mock_dto_features)
 
         self.assertIsInstance(result, Cs1ModelPredictResultDTO)
         self.assertEqual(result.logit_components.age, mock_coeffs[1][7] * 30)
@@ -150,24 +142,21 @@ class TestCs1Model(unittest.TestCase):
         self.assertEqual(result.high, 0.1)
 
     def test_dto_to_feature_df(self):
-        mock_dto = PredictRequestDTO(
-            locale=Locale.EN_US,
-            features=Features(
-                age=30,
-                income=10000,
-                gender=Gender.MALE,
-                education=Education.BACHELORS_DEGREE,
-                num_bank_accounts=1,
-                num_credit_card=1,
-                num_of_loan=1,
-                num_of_delayed_payment=1,
-                outstanding_debt=1000,
-                credit_history_age=1,
-                total_emi_per_month=1000,
-            ),
+        mock_dto_features = Features(
+            age=30,
+            income=10000,
+            gender=Gender.MALE,
+            education=Education.BACHELORS_DEGREE,
+            num_bank_accounts=1,
+            num_credit_card=1,
+            num_of_loan=1,
+            num_of_delayed_payment=1,
+            outstanding_debt=1000,
+            credit_history_age=1,
+            total_emi_per_month=1000,
         )
 
-        result = self.model._dto_to_feature_df(mock_dto)
+        result = self.model._dto_to_feature_df(mock_dto_features)
 
         expected_result = pd.DataFrame(
             {

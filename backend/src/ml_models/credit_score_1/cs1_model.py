@@ -7,7 +7,7 @@ import joblib
 from sklearn.base import BaseEstimator
 from sklearn.pipeline import Pipeline
 from src.dtos.cs1_model_predict_dto import Cs1ModelPredictResultDTO, Cs1LogitComponents
-from src.dtos.predict_request_dto import PredictRequestDTO
+from src.dtos.predict_request_dto import Features
 from src.ml_models.exceptions import ModelNotLoaded
 
 log: Logger = getLogger(__name__)
@@ -28,9 +28,6 @@ class Cs1Model:
 
         Returns:
             Cs1Model: The instance of the loaded Cs1Model.
-
-        Raises:
-            ModelNotLoaded: If the model fails to load.
         """
         log.debug("Initializing the model from file %s", self.model_path)
         try:
@@ -52,12 +49,12 @@ class Cs1Model:
 
         return self
 
-    def predict(self, dto: PredictRequestDTO) -> Cs1ModelPredictResultDTO:
+    def predict(self, dto_features: Features) -> Cs1ModelPredictResultDTO:
         """
         Make a prediction using the trained ML model.
 
         Args:
-            dto (PredictRequestDTO): The data transfer object containing input features.
+            dto_features (Features): The input features for prediction.
 
         Returns:
             Cs1ModelPredictResultDTO: A dataclass containing the predicted class labels and their
@@ -67,7 +64,7 @@ class Cs1Model:
             ModelNotLoaded: If the model is not loaded.
         """
         try:
-            data = self._dto_to_feature_df(dto)
+            data = self._dto_to_feature_df(dto_features)
             probabilities = self.estimator.predict_proba(data).round(3)[0]
             return Cs1ModelPredictResultDTO(
                 low=probabilities[self.classes == "low"][0],
@@ -121,17 +118,28 @@ class Cs1Model:
         return logit_components
 
     @classmethod
-    def _dto_to_feature_df(cls, dto: PredictRequestDTO) -> pd.DataFrame:
+    def _dto_to_feature_df(cls, dto_features: Features) -> pd.DataFrame:
         """
         Convert a PredictRequestDTO to a Pandas DataFrame.
 
         Args:
-            dto (PredictRequestDTO): The data transfer object to convert.
+            dto_features (Features): The data transfer object to convert.
 
         Returns:
-            pd.DataFrame: The converted DataFrame.
+            pd.DataFrame: The converted DataFrame. The DataFrame contains the following columns:
+                - age (int): The age of the individual.
+                - income (int): The annual income of the individual.
+                - gender (str): The gender of the individual.
+                - education (str): The education level of the individual.
+                - num_bank_accounts (int): The number of bank accounts the individual has.
+                - num_credit_card (int): The number of credit cards the individual has.
+                - num_of_loan (int): The number of loans the individual has.
+                - num_of_delayed_payment (int): The number of times the individual has missed a payment.
+                - outstanding_debt (int): The amount of outstanding debt the individual has.
+                - credit_history_age (int): The age of the individual's credit history.
+                - total_emi_per_month (int): The total EMI (Equated Monthly Installment) paid by the individual per month.
         """
-        features_data = [dto.features.model_dump()]
+        features_data = [dto_features.model_dump()]
         features_df = pd.DataFrame(features_data)
         features_df["income"] = features_df["income"].apply(
             cls._convert_monthly_to_annual_income
@@ -139,14 +147,14 @@ class Cs1Model:
         return features_df
 
     @staticmethod
-    def _convert_monthly_to_annual_income(monthly_income: float) -> float:
+    def _convert_monthly_to_annual_income(monthly_income: int) -> int:
         """
         Convert monthly income to annual income.
 
         Args:
-            monthly_income (float): The monthly income.
+            monthly_income (int): The monthly income.
 
         Returns:
-            float: The annual income.
+            int: The annual income.
         """
         return monthly_income * 12
