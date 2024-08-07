@@ -11,6 +11,9 @@ from src.service.calculate_cs1_credit_score.calculate_cs1_credit_score import (
 from src.service.calculate_cs2_credit_score.calculate_cs2_credit_score import (
     Cs2ModelScoreCalculator,
 )
+from src.service.convert_brl_income_to_usd.convert_brl_income_to_usd import (
+    BrlIncomeToUsdConverter,
+)
 from src.service.generate_feature_relevance_map.generate_feature_relevance_map import (
     FeatureRelevanceMapGenerator,
 )
@@ -30,4 +33,5 @@ def service_bootstrap_di() -> None:
         di[Cs2Model],
         di[ModelsCreditScoreAggregator],
         FeatureRelevanceMapGenerator,
+        BrlIncomeToUsdConverter,
     )
