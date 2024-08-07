@@ -112,6 +112,17 @@ files = [
 ]
 
 [[package]]
+name = "copyingmock"
+version = "0.2"
+description = "A subclass of MagicMock that copies the arguments"
+optional = false
+python-versions = "*"
+files = [
+    {file = "copyingmock-0.2-py2.py3-none-any.whl", hash = "sha256:b8496586ab6f91af8d751ffd28c34a8b7ebe8058c4113d74d6521c6d35ec311f"},
+    {file = "copyingmock-0.2.tar.gz", hash = "sha256:fa4c8aad336f6e74f7632f40ff5a271130be5def44ab3177af4578c4d4a66093"},
+]
+
+[[package]]
 name = "dnspython"
 version = "2.6.1"
 description = "DNS toolkit"
@@ -1542,4 +1553,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "3.11.*"
-content-hash = "e85d2e5827128c9f408170a5745350e1840dcb18910df9f58c0323e5a73858c4"
+content-hash = "b9bab22414e43f34205b65a6c0d5b88c92b73ccb1493e444e256adf9a38f0151"

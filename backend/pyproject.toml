@@ -16,6 +16,7 @@ black = "^24.4.2"
 flake8 = "^7.1.0"
 scikit-learn = "^1.5.1"
 kink = "^0.8.0"
+copyingmock = "^0.2"
 
 
 [build-system]
