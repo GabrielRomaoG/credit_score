@@ -44,7 +44,9 @@ class TestFeatureRelevanceMapGenerator(TestCase):
             self.assertEqual(
                 value,
                 self.service._calculate_relevance(
-                    mock_attributes_dict[feature], mock_median_value
+                    mock_attributes_dict[feature],
+                    mock_median_value,
+                    self.service.RELEVANCE_SCORE_RANGE,
                 ),
             )
             self.assertIn(feature, mock_attributes_dict.keys())
@@ -52,10 +54,12 @@ class TestFeatureRelevanceMapGenerator(TestCase):
     def test__calculate_relevance_equal_2(self):
         mock_logit_component_value = 200
         mock_mean_value = 100
+        mock_relevance_score_range = range(-2, 3)
 
         result = self.service._calculate_relevance(
             logit_component_value=mock_logit_component_value,
             median_value=mock_mean_value,
+            relevance_score_range=mock_relevance_score_range,
         )
 
         self.assertEqual(result, 2)
@@ -63,10 +67,12 @@ class TestFeatureRelevanceMapGenerator(TestCase):
     def test__calculate_relevance_equal_1(self):
         mock_logit_component_value = 50
         mock_mean_value = 100
+        mock_relevance_score_range = range(-2, 3)
 
         result = self.service._calculate_relevance(
             logit_component_value=mock_logit_component_value,
             median_value=mock_mean_value,
+            relevance_score_range=mock_relevance_score_range,
         )
 
         self.assertEqual(result, 1)
@@ -74,10 +80,12 @@ class TestFeatureRelevanceMapGenerator(TestCase):
     def test__calculate_relevance_equal_0(self):
         mock_logit_component_value = 5
         mock_mean_value = 100
+        mock_relevance_score_range = range(-2, 3)
 
         result = self.service._calculate_relevance(
             logit_component_value=mock_logit_component_value,
             median_value=mock_mean_value,
+            relevance_score_range=mock_relevance_score_range,
         )
 
         self.assertEqual(result, 0)
@@ -85,10 +93,29 @@ class TestFeatureRelevanceMapGenerator(TestCase):
     def test__calculate_relevance_negative_value(self):
         mock_logit_component_value = -200
         mock_mean_value = 100
+        mock_relevance_score_range = range(-2, 3)
 
         result = self.service._calculate_relevance(
             logit_component_value=mock_logit_component_value,
             median_value=mock_mean_value,
+            relevance_score_range=mock_relevance_score_range,
         )
 
         self.assertEqual(result, -2)
+
+    def test__calculate_relevance_error(self):
+        mock_logit_component_value = 200
+        mock_mean_value = 0
+        mock_relevance_score_range = range(-4, 0)
+
+        with self.assertRaises(ValueError) as context:
+            self.service._calculate_relevance(
+                logit_component_value=mock_logit_component_value,
+                median_value=mock_mean_value,
+                relevance_score_range=mock_relevance_score_range,
+            )
+
+        self.assertEqual(
+            f"Relevance score 2 is out of {mock_relevance_score_range} or it's a float value.",
+            str(context.exception),
+        )

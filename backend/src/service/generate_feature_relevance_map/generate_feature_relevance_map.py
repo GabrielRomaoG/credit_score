@@ -12,6 +12,8 @@ class FeatureRelevanceMapGenerator:
     A class to generate a feature relevance map.
     """
 
+    RELEVANCE_SCORE_RANGE = range(-2, 3)
+
     @classmethod
     def generate(
         cls,
@@ -38,7 +40,9 @@ class FeatureRelevanceMapGenerator:
             median_value = np.median(absolute_values)
 
             relevance_scores = {
-                key: cls._calculate_relevance(value, median_value)
+                key: cls._calculate_relevance(
+                    value, median_value, cls.RELEVANCE_SCORE_RANGE
+                )
                 for key, value in features_dict.items()
             }
             return relevance_scores
@@ -48,8 +52,10 @@ class FeatureRelevanceMapGenerator:
 
     @staticmethod
     def _calculate_relevance(
-        logit_component_value: float, median_value: float
-    ) -> Literal[range(-2, 3)]:
+        logit_component_value: float,
+        median_value: float,
+        relevance_score_range: range,
+    ) -> Literal[RELEVANCE_SCORE_RANGE]:
         abs_value = abs(logit_component_value)
         if abs_value > median_value:
             score = 2
@@ -57,4 +63,11 @@ class FeatureRelevanceMapGenerator:
             score = 1
         elif abs_value <= median_value * 0.1:
             score = 0
-        return -score if logit_component_value < 0 else score
+
+        score = -score if logit_component_value < 0 else score
+
+        if score not in relevance_score_range:
+            raise ValueError(
+                f"Relevance score {score} is out of {relevance_score_range} or it's a float value."
+            )
+        return score
