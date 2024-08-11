@@ -11,11 +11,13 @@ python = "3.11.*"
 pandas = "^2.2.2"
 fastapi = "^0.111.0"
 joblib = "^1.4.2"
+scikit-learn = "^1.5.1"
+kink = "^0.8.0"
+
+[tool.poetry.group.dev.dependencies]
 pytest = "^8.2.2"
 black = "^24.4.2"
 flake8 = "^7.1.0"
-scikit-learn = "^1.5.1"
-kink = "^0.8.0"
 copyingmock = "^0.2"
 
 
