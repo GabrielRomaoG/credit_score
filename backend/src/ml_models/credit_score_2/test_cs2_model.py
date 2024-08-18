@@ -112,8 +112,8 @@ class TestCs2Model(unittest.TestCase):
     def test_predict_error_model_not_loaded(self):
         mock_dto_features = Features(
             age=30,
-            income=10000,
-            gender=Gender.FEMALE,
+            monthly_income=10000,
+            sex=Gender.FEMALE,
             education=Education.BACHELORS_DEGREE,
             num_bank_accounts=1,
             num_credit_card=1,
@@ -129,8 +129,8 @@ class TestCs2Model(unittest.TestCase):
     def test_predict(self):
         mock_dto_features = Features(
             age=30,
-            income=10000,
-            gender=Gender.FEMALE,
+            monthly_income=10000,
+            sex=Gender.FEMALE,
             education=Education.BACHELORS_DEGREE,
             num_bank_accounts=1,
             num_credit_card=1,
@@ -182,8 +182,8 @@ class TestCs2Model(unittest.TestCase):
     def test_dto_to_feature_df(self):
         mock_dto_features = Features(
             age=30,
-            income=10000,
-            gender=Gender.MALE,
+            monthly_income=10000,
+            sex=Gender.MALE,
             education=Education.BACHELORS_DEGREE,
             num_bank_accounts=1,
             num_credit_card=1,

@@ -21,8 +21,8 @@ class TestPredict(unittest.TestCase):
             "locale": "en-US",
             "features": {
                 "age": 30,
-                "income": 10000,
-                "gender": "female",
+                "monthly_income": 10000,
+                "sex": "female",
                 "education": "bachelors_degree",
                 "num_bank_accounts": 1,
                 "num_credit_card": 1,

@@ -39,8 +39,8 @@ class TestPredictRequestProcessor(unittest.TestCase):
             locale=Locale.EN_US,
             features=Features(
                 age=30,
-                income=10000,
-                gender=Gender.FEMALE,
+                monthly_income=10000,
+                sex=Gender.FEMALE,
                 education=Education.BACHELORS_DEGREE,
                 num_bank_accounts=1,
                 num_credit_card=1,
@@ -123,8 +123,8 @@ class TestPredictRequestProcessor(unittest.TestCase):
             locale=Locale.PT_BR,
             features=Features(
                 age=30,
-                income=10000,
-                gender=Gender.FEMALE,
+                monthly_income=10000,
+                sex=Gender.FEMALE,
                 education=Education.BACHELORS_DEGREE,
                 num_bank_accounts=1,
                 num_credit_card=1,

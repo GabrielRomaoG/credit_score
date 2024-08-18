@@ -21,17 +21,17 @@ class Education(str, Enum):
 
 
 class Features(BaseModel):
-    age: int = Field(..., gt=0, examples=[25, 30, 35, 40, 45])
-    income: int = Field(..., gt=0, examples=[6000, 7000, 8000, 9000, 10000])
-    gender: Gender = Field(..., examples=["male", "female"])
+    age: int = Field(..., gt=0, examples=[25])
+    income: int = Field(..., gt=0, examples=[6000], alias="monthly_income")
+    gender: Gender = Field(..., examples=["male"], alias="sex")
     education: Education = Field(..., examples=["bachelors_degree"])
-    num_bank_accounts: int = Field(..., gt=0, examples=[1, 2, 3, 4, 5])
-    num_credit_card: int = Field(..., gt=0, examples=[1, 2, 3, 4, 5])
-    num_of_loan: int = Field(..., gt=0, examples=[1, 2, 3, 4, 5])
-    num_of_delayed_payment: int = Field(..., gt=0, examples=[1, 2, 3, 4, 5])
-    outstanding_debt: int = Field(..., gt=0, examples=[1000, 2000, 3000, 4000, 5000])
-    credit_history_age: int = Field(..., gt=0, examples=[1, 2, 3, 4, 5])
-    total_emi_per_month: int = Field(..., gt=0, examples=[1000, 2000, 3000, 4000, 5000])
+    num_bank_accounts: int = Field(..., gt=0, examples=[1])
+    num_credit_card: int = Field(..., gt=0, examples=[2])
+    num_of_loan: int = Field(..., gt=0, examples=[3])
+    num_of_delayed_payment: int = Field(..., gt=0, examples=[2])
+    outstanding_debt: int = Field(..., gt=0, examples=[2000])
+    credit_history_age: int = Field(..., gt=0, examples=[3])
+    total_emi_per_month: int = Field(..., gt=0, examples=[2000])
 
 
 class PredictRequestDTO(BaseModel):
