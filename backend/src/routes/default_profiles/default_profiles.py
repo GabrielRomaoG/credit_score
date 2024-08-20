@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, Header
 from kink import di
 from src.dtos.predict_request_dto import Locale
 from src.routes.default_profiles.response_schema import (
+    DefaultProfileByIdResponse,
     DefaultProfilesResponse,
 )
 from src.service.get_default_profiles.get_default_profiles import DefaultProfilesGetter
@@ -17,8 +18,28 @@ router = APIRouter(prefix="/default-profiles", tags=["default-profiles"])
 async def get_default_profiles(
     Accept_Language: Annotated[Locale, Header()],
     service: DefaultProfilesGetter = Depends(lambda: di[DefaultProfilesGetter]),
-):
+) -> DefaultProfilesResponse:
+    """
+    Retrieves a list of default profiles for the given locale.
+
+    Args:
+        accept_language (str): The locale specifying which profiles to retrieve.
+            Should be in the format of ISO 639-1 language code and ISO 3166-1 alpha-2
+            country code separated by a hyphen (e.g. en-US).
+
+    Returns:
+        List[Dict[str, str]]: A list of dictionaries containing profile_id and title.
+    """
     try:
         return service.get(accept_language=Accept_Language)
     except FileNotFoundError as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+
+@router.get(
+    "/{profile_id}",
+    response_model=DefaultProfileByIdResponse,
+    summary="Get default profile by id.",
+)
+async def get_default_profile_by_id(Accept_Language: Annotated[Locale, Header()]):
+    return "sucess"
