@@ -1,0 +1,20 @@
+{
+	"profile_id": 0,
+	"title": "young student",
+	"predict_input": {
+		"locale": "en-US",
+		"features": {
+			"age": 22,
+			"sex": "male",
+			"monthly_income": 2000,
+			"education": "high_school",
+			"num_bank_accounts": 1,
+			"num_credit_card": 1,
+			"num_of_loan": 3,
+			"num_of_delayed_payment": 5,
+			"outstanding_debt": 15000,
+			"credit_history_age": 6,
+			"total_emi_per_month": 1000
+		}
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"profile_id": 1,
+	"title": "middle-aged worker",
+	"predict_input": {
+		"locale": "en-US",
+		"features": {
+			"age": 40,
+			"sex": "female",
+			"monthly_income": 50000,
+			"education": "bachelors_degree",
+			"num_bank_accounts": 2,
+			"num_credit_card": 2,
+			"num_of_loan": 2,
+			"num_of_delayed_payment": 1,
+			"outstanding_debt": 8000,
+			"credit_history_age": 10,
+			"total_emi_per_month": 1200
+		}
+	}
+}

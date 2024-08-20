@@ -1,0 +1,20 @@
+{
+    "profile_id": 2,
+    "title": "profissional experiente",
+    "predict_input": {
+        "locale": "pt-BR",
+        "features": {
+            "age": 55,
+            "sex": "male",
+            "monthly_income": 20000,
+            "education": "masters_degree",
+            "num_bank_accounts": 4,
+            "num_credit_card": 3,
+            "num_of_loan": 1,
+            "num_of_delayed_payment": 0,
+            "outstanding_debt": 2000,
+            "credit_history_age": 30,
+            "total_emi_per_month": 500
+        }
+    }
+}
