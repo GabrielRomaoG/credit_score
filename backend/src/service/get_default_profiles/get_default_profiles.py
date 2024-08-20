@@ -2,7 +2,7 @@ from functools import lru_cache
 import json
 from logging import Logger, getLogger
 from pathlib import Path
-from typing import List, Dict, Type
+from typing import List, Dict
 from src.dtos.predict_request_dto import Locale
 
 log: Logger = getLogger(__name__)
@@ -16,7 +16,7 @@ class DefaultProfilesGetter:
     PROFILES_DIR = Path("src/data/default_profiles")
 
     @lru_cache(maxsize=5)
-    def get(self, accept_language: Type[Locale]) -> List[Dict[str, str]]:
+    def get(self, accept_language: Locale) -> List[Dict[str, str]]:
         """
         Retrieves a list of default profiles for the given locale.
 
@@ -27,16 +27,16 @@ class DefaultProfilesGetter:
             List[Dict[str, str]]: A list of dictionaries containing profile_id and title.
         """
         try:
-            if accept_language not in Locale._value2member_map_:
-                raise ValueError(
-                    f"Invalid value for accept_language: '{accept_language}'."
+            if type(accept_language) is not Locale:
+                raise TypeError(
+                    f"Invalid type for accept_language: '{type(accept_language)}'. Must be 'Locale'."
                 )
 
-            profiles_dir = self.PROFILES_DIR / accept_language
+            profiles_dir = self.PROFILES_DIR / accept_language.value
 
             if not profiles_dir.is_dir():
                 raise FileNotFoundError(
-                    f"Directory for locale '{accept_language}' not found."
+                    f"Directory for locale '{accept_language.value}' not found."
                 )
 
             profiles = [

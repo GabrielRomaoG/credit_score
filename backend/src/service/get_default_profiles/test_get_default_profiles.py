@@ -3,6 +3,7 @@ from pathlib import Path
 import tempfile
 import shutil
 import json
+from src.dtos.predict_request_dto import Locale
 from src.service.get_default_profiles.get_default_profiles import DefaultProfilesGetter
 
 
@@ -31,7 +32,7 @@ class TestDefaultProfilesGetter(unittest.TestCase):
 
         self.service.PROFILES_DIR = Path(self.test_dir)
 
-        result = self.service.get(accept_language="en-US")
+        result = self.service.get(accept_language=Locale.EN_US)
 
         self.assertEqual(len(result), 2)
         self.assertIn({"profile_id": 1, "title": "Profile 1"}, result)
@@ -39,25 +40,25 @@ class TestDefaultProfilesGetter(unittest.TestCase):
 
     def test_get_profiles_directory_not_found(self):
         self.service.PROFILES_DIR = Path(self.test_dir) / "non_existent_directory"
-        mock_accept_language = "en-US"
+        mock_accept_language = Locale.PT_BR
 
         with self.assertRaises(FileNotFoundError) as context:
             self.service.get(accept_language=mock_accept_language)
 
         self.assertEqual(
             str(context.exception),
-            f"Directory for locale '{mock_accept_language}' not found.",
+            f"Directory for locale '{mock_accept_language.value}' not found.",
         )
 
     def test_get_accept_language_invalid(self):
         mock_accept_language = "invalid"
 
-        with self.assertRaises(ValueError) as context:
+        with self.assertRaises(TypeError) as context:
             self.service.get(accept_language=mock_accept_language)
 
         self.assertEqual(
             str(context.exception),
-            f"Invalid value for accept_language: '{mock_accept_language}'.",
+            "Invalid type for accept_language: '<class 'str'>'. Must be 'Locale'.",
         )
 
     def tearDown(self):
