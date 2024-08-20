@@ -17,6 +17,7 @@ from src.service.convert_brl_income_to_usd.convert_brl_income_to_usd import (
 from src.service.generate_feature_relevance_map.generate_feature_relevance_map import (
     FeatureRelevanceMapGenerator,
 )
+from src.service.get_default_profiles.get_default_profiles import DefaultProfilesGetter
 from src.service.process_predict_request.process_predict_request import (
     PredictRequestProcessor,
 )
@@ -35,3 +36,5 @@ def service_bootstrap_di() -> None:
         FeatureRelevanceMapGenerator,
         BrlIncomeToUsdConverter,
     )
+
+    di[DefaultProfilesGetter] = DefaultProfilesGetter()

@@ -4,6 +4,7 @@ from fastapi.responses import RedirectResponse
 from kink import di
 import uvicorn
 from src.ml_models.bootstrap import ml_models_bootstrap_di
+from src.routes.default_profiles import default_profiles
 from src.routes.predict import predict
 from src.service.bootstrap import service_bootstrap_di
 
@@ -21,6 +22,7 @@ app = FastAPI(lifespan=lifespan)
 
 
 app.include_router(predict.router)
+app.include_router(default_profiles.router)
 
 
 @app.get("/", include_in_schema=False)
