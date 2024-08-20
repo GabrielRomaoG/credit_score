@@ -45,7 +45,7 @@ class DefaultProfilesGetter:
                 if self._is_default_profile_file(file_path)
             ]
 
-            return profiles
+            return {"profiles": profiles}
         except Exception as e:
             log.error("Failed to get default profiles: %s", e)
             raise e

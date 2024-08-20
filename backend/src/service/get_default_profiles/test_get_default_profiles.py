@@ -34,9 +34,15 @@ class TestDefaultProfilesGetter(unittest.TestCase):
 
         result = self.service.get(accept_language=Locale.EN_US)
 
-        self.assertEqual(len(result), 2)
-        self.assertIn({"profile_id": 1, "title": "Profile 1"}, result)
-        self.assertIn({"profile_id": 2, "title": "Profile 2"}, result)
+        self.assertIsInstance(result, dict)
+        self.assertIn("profiles", result)
+
+        result_profiles = result["profiles"]
+
+        self.assertIsInstance(result_profiles, list)
+        self.assertEqual(len(result_profiles), 2)
+        self.assertIn({"profile_id": 1, "title": "Profile 1"}, result_profiles)
+        self.assertIn({"profile_id": 2, "title": "Profile 2"}, result_profiles)
 
     def test_get_profiles_directory_not_found(self):
         self.service.PROFILES_DIR = Path(self.test_dir) / "non_existent_directory"
