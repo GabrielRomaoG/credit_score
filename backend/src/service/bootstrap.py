@@ -1,5 +1,4 @@
 from kink import di
-
 from src.ml_models.credit_score_1.cs1_model import Cs1Model
 from src.ml_models.credit_score_2.cs2_model import Cs2Model
 from src.service.aggregate_models_credit_score.aggregate_models_credit_score import (
@@ -18,6 +17,9 @@ from src.service.generate_feature_relevance_map.generate_feature_relevance_map i
     FeatureRelevanceMapGenerator,
 )
 from src.service.get_default_profiles.get_default_profiles import DefaultProfilesGetter
+from src.service.get_default_profiles_by_id.get_default_profiles_by_id import (
+    DefaultProfilesByIdGetter,
+)
 from src.service.process_predict_request.process_predict_request import (
     PredictRequestProcessor,
 )
@@ -38,3 +40,8 @@ def service_bootstrap_di() -> None:
     )
 
     di[DefaultProfilesGetter] = DefaultProfilesGetter()
+
+    di[DefaultProfilesByIdGetter] = DefaultProfilesByIdGetter(
+        di[DefaultProfilesGetter],
+        di[PredictRequestProcessor],
+    )

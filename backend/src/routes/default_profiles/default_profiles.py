@@ -7,6 +7,9 @@ from src.routes.default_profiles.response_schema import (
     DefaultProfilesResponse,
 )
 from src.service.get_default_profiles.get_default_profiles import DefaultProfilesGetter
+from src.service.get_default_profiles_by_id.get_default_profiles_by_id import (
+    DefaultProfilesByIdGetter,
+)
 
 
 router = APIRouter(prefix="/default-profiles", tags=["default-profiles"])
@@ -41,5 +44,14 @@ async def get_default_profiles(
     response_model=DefaultProfileByIdResponse,
     summary="Get default profile by id.",
 )
-async def get_default_profile_by_id(Accept_Language: Annotated[Locale, Header()]):
-    return "sucess"
+async def get_default_profile_by_id(
+    profile_id: int,
+    Accept_Language: Annotated[Locale, Header()],
+    service: DefaultProfilesByIdGetter = Depends(lambda: di[DefaultProfilesByIdGetter]),
+):
+    try:
+        return service.get(profile_id=profile_id, accept_language=Accept_Language)
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except TypeError as e:
+        raise HTTPException(status_code=400, detail=str(e))
