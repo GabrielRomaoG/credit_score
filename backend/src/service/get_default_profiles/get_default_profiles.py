@@ -39,10 +39,12 @@ class DefaultProfilesGetter:
                     f"Directory for locale '{accept_language.value}' not found."
                 )
 
+            profiles_dir_files = sorted(
+                profiles_dir.glob("profile_*.json"), key=lambda p: p.name
+            )
+
             profiles = [
-                self._load_profile(file_path)
-                for file_path in profiles_dir.iterdir()
-                if self._is_default_profile_file(file_path)
+                self._load_profile(file_path) for file_path in profiles_dir_files
             ]
 
             return {"profiles": profiles}
@@ -67,20 +69,3 @@ class DefaultProfilesGetter:
                 "profile_id": data["profile_id"],
                 "title": data["title"],
             }
-
-    @staticmethod
-    def _is_default_profile_file(file_path: Path) -> bool:
-        """
-        Checks if a file is a default profile file.
-
-        Args:
-            file_path (Path): The path to the file.
-
-        Returns:
-            bool: True if the file is a default profile file, False otherwise.
-        """
-        return (
-            file_path.is_file()
-            and file_path.name.startswith("profile")
-            and file_path.suffix == ".json"
-        )
