@@ -7,7 +7,7 @@
             "age": 22,
             "sex": "male",
             "monthly_income": 1500,
-            "education": "high_school",
+            "education": "high_school_diploma",
             "num_bank_accounts": 1,
             "num_credit_card": 1,
             "num_of_loan": 3,
