@@ -142,7 +142,7 @@ class TestPredictRequestProcessor(unittest.TestCase):
             call(mock_predict_request_dto.features.total_emi_per_month),
         ]
 
-        self.mock_brl_income_to_usd_converter.convert.side_effect = [
+        self.mock_brl_income_to_usd_converter.calculate_equivalent_usd_income.side_effect = [
             24000,
             12000,
             1500,
@@ -152,7 +152,7 @@ class TestPredictRequestProcessor(unittest.TestCase):
             predict_request_dto=mock_predict_request_dto,
         )
 
-        self.mock_brl_income_to_usd_converter.convert.has_calls(
+        self.mock_brl_income_to_usd_converter.calculate_equivalent_usd_income.has_calls(
             expected_calls, any_order=False
         )
         self.assertEqual(mock_predict_request_dto.features.income, 24000)
