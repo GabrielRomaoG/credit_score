@@ -34,7 +34,7 @@ def service_bootstrap_di() -> None:
         di[Cs2Model],
         di[ModelsCreditScoreAggregator],
         FeatureRelevanceMapGenerator,
-        BrlIncomeToUsdConverter,
+        BrlIncomeToUsdConverter(),
     )
 
     di[DefaultProfilesGetter] = DefaultProfilesGetter()
