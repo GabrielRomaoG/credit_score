@@ -83,20 +83,3 @@ class DefaultProfilesByIdGetter:
         """
         with file_path.open("r", encoding="utf-8") as file:
             return json.load(file)
-
-    @staticmethod
-    def _is_default_profile_file(file_path: Path) -> bool:
-        """
-        Checks if a file is a default profile file.
-
-        Args:
-            file_path (Path): The path to the file.
-
-        Returns:
-            bool: True if the file is a default profile file, False otherwise.
-        """
-        return (
-            file_path.is_file()
-            and file_path.name.startswith("profile")
-            and file_path.suffix == ".json"
-        )
