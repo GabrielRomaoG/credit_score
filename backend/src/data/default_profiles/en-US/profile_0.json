@@ -13,8 +13,8 @@
 			"num_of_loan": 3,
 			"num_of_delayed_payment": 5,
 			"outstanding_debt": 15000,
-			"credit_history_age": 6,
-			"total_emi_per_month": 1000
+			"credit_history_age": 4,
+			"total_emi_per_month": 600
 		}
 	}
 }

@@ -4,9 +4,9 @@
     "predict_input": {
         "locale": "pt-BR",
         "features": {
-            "age": 40,
+            "age": 35,
             "sex": "female",
-            "monthly_income": 5000,
+            "monthly_income": 7000,
             "education": "bachelors_degree",
             "num_bank_accounts": 2,
             "num_credit_card": 2,

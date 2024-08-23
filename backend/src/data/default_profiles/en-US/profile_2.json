@@ -4,17 +4,17 @@
     "predict_input": {
         "locale": "en-US",
         "features": {
-            "age": 55,
+            "age": 45,
             "sex": "male",
-            "monthly_income": 12000,
+            "monthly_income": 15000,
             "education": "masters_degree",
-            "num_bank_accounts": 4,
-            "num_credit_card": 3,
-            "num_of_loan": 1,
+            "num_bank_accounts": 2,
+            "num_credit_card": 0,
+            "num_of_loan": 0,
             "num_of_delayed_payment": 0,
-            "outstanding_debt": 2000,
-            "credit_history_age": 20,
-            "total_emi_per_month": 500
+            "outstanding_debt": 1500,
+            "credit_history_age": 36,
+            "total_emi_per_month": 1500
         }
     }
 }
