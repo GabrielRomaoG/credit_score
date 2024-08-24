@@ -1,5 +1,15 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import DefaultProfiles from '$lib/DefaultProfiles/DefaultProfiles.svelte';
 </script>
 
-<p>{$page.url.pathname}</p>
+<main class="top-[100vh] flex w-full items-center justify-between px-44 py-8">
+	<div class="flex w-full justify-between">
+		<div>
+			<h1 class="text-6.5xl font-bold">Credit Score AI</h1>
+			<h2 class="text-2xl">
+				Let a Machine Learning model guess your credit score.<br /> It only takes 2 minutes.
+			</h2>
+		</div>
+		<DefaultProfiles />
+	</div>
+</main>

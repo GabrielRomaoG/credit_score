@@ -7,6 +7,9 @@ export default {
 				blue: {
 					975: '#1D2145'
 				}
+			},
+			fontSize: {
+				'6.5xl': '4rem'
 			}
 		}
 	},
