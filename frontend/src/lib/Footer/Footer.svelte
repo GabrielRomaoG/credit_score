@@ -12,7 +12,7 @@
 </script>
 
 <footer
-	class="bg-blue-975 sticky top-[100vh] flex w-full items-center justify-between px-44 py-8 text-slate-100"
+	class="sticky top-[100vh] flex w-full items-center justify-between bg-blue-975 px-44 py-8 text-slate-100"
 >
 	<div class="flex gap-10">
 		<AuthorInfo
