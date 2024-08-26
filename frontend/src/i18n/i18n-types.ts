@@ -13,16 +13,16 @@ export type Translations = RootTranslation;
 
 type RootTranslation = {
 	/**
-	 * t​e​s​t​e
+	 * S​c​o​r​e​ ​d​e​ ​C​r​é​d​i​t​o​ ​I​A
 	 */
-	test: string;
+	credit_score_ai: string;
 };
 
 export type TranslationFunctions = {
 	/**
-	 * teste
+	 * Score de Crédito IA
 	 */
-	test: () => LocalizedString;
+	credit_score_ai: () => LocalizedString;
 };
 
 export type Formatters = {};
