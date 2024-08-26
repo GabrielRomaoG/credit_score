@@ -11,6 +11,10 @@
 		{
 			"name": "vitest",
 			"command": "npx vitest run"
+		},
+		{
+			"name": "typesafe-i18n",
+			"command": "npx run typesafe-i18n"
 		}
 	]
 }

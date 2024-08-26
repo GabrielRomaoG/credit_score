@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "vite dev && vite typesafe-i18n",
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "npm run test:integration && npm run test:unit",
@@ -12,7 +12,8 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
-		"test:unit": "vitest"
+		"test:unit": "vitest",
+		"typesafe-i18n": "typesafe-i18n"
 	},
 	"devDependencies": {
 		"@melt-ui/pp": "^0.3.2",
@@ -42,6 +43,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"lucide-svelte": "^0.408.0"
+		"lucide-svelte": "^0.408.0",
+		"typesafe-i18n": "^5.26.2"
 	}
 }
