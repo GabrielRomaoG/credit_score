@@ -6,6 +6,9 @@ export default {
 			colors: {
 				blue: {
 					975: '#1D2145'
+				},
+				amber: {
+					350: '#F5C665'
 				}
 			},
 			fontSize: {
