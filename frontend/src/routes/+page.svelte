@@ -9,8 +9,8 @@
 <main
 	class="flex w-full flex-col items-center justify-center py-8 lg:mx-auto lg:max-w-6xl xl:justify-between"
 >
-	<div class="mb-10 flex w-11/12 flex-col gap-16 min-[1005px]:flex-row">
-		<div class="flex flex-col justify-around">
+	<div class="mb-10 flex w-11/12 flex-wrap justify-around gap-10 lg:gap-0">
+		<div class="flex grow basis-[600px] flex-col justify-around">
 			<h1 class="text-6.5xl font-bold">{$LL.credit_score_ai()}</h1>
 			<h2 class="text-2xl">
 				Let a Machine Learning model guess your credit score.<br /> It only takes 2 minutes.

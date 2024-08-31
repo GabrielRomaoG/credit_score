@@ -20,7 +20,7 @@
 	];
 </script>
 
-<div class="max-w-[600px] grow self-center rounded-lg border bg-white p-4 shadow-lg">
+<div class="max-w-[600px] grow basis-[300px] rounded-lg border bg-white p-4 shadow-lg">
 	<h2 class="mb-4 text-center text-lg font-semibold">Check Default Profiles</h2>
 
 	<div class="flex justify-between">
