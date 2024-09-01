@@ -3,7 +3,7 @@
 	export let basis: string = 'basis-72';
 </script>
 
-<div class={`"flex flex-grow ${basis} items-start" flex-col`}>
+<div class={`flex flex-grow ${basis} flex-col items-start`}>
 	<!-- svelte-ignore a11y-label-has-associated-control -->
 	<label class="mb-1 text-sm font-medium text-slate-100">{label}</label>
 
