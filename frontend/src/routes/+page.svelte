@@ -6,10 +6,8 @@
 	import Button from '$lib/Form/Button.svelte';
 </script>
 
-<main
-	class="flex w-full flex-col items-center justify-center py-8 lg:mx-auto lg:max-w-6xl xl:justify-between"
->
-	<div class="mb-10 flex w-11/12 flex-wrap justify-around gap-10 lg:gap-0">
+<main class="flex w-full flex-col items-center justify-center py-8 lg:mx-auto xl:justify-between">
+	<div class="mb-10 flex w-11/12 max-w-6xl flex-wrap justify-around gap-10 lg:gap-0">
 		<div class="flex grow basis-[600px] flex-col justify-around">
 			<h1 class="text-6.5xl font-bold">{$LL.credit_score_ai()}</h1>
 			<h2 class="text-2xl">
@@ -19,8 +17,8 @@
 		<DefaultProfiles />
 	</div>
 
-	<div class="flex w-11/12 flex-wrap">
-		<div class="grow basis-[600px] rounded-lg bg-blue-975 p-4">
+	<div class="flex w-11/12 max-w-6xl flex-wrap">
+		<div class="bg-blue-975 grow basis-[600px] rounded-lg p-4">
 			<form action="" class="mb-4 flex flex-wrap gap-4">
 				<NumericInput />
 				<NumericInput />

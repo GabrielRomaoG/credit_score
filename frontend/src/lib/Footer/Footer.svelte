@@ -4,33 +4,35 @@
 	import { createSeparator, melt } from '@melt-ui/svelte';
 
 	const {
-		elements: { root: vertical }
+		elements: { root: separator }
 	} = createSeparator({
 		orientation: 'vertical',
 		decorative: true
 	});
 </script>
 
-<footer
-	class="sticky top-[100vh] flex w-full items-center justify-between bg-blue-975 px-44 py-8 text-slate-100"
->
-	<div class="flex gap-10">
-		<AuthorInfo
-			name="Gabriel Romão"
-			email="gabriel-rgomes@hotmail.com"
-			githubUserName="GabrielRomaoG"
-			linkedinUserName="gabriel-rgomes"
-		/>
-		<div use:melt={$vertical} class="w-[1px] bg-slate-100" />
-		<AuthorInfo
-			name="Júlia Machado"
-			email="juliaqmachado@gmail.com"
-			githubUserName="juliamxx"
-			linkedinUserName="juliaamachado"
+<footer class="bg-blue-975 sticky top-[100vh] flex w-full justify-center">
+	<div
+		class="flex w-11/12 max-w-6xl flex-col gap-10 py-8 text-slate-100 sm:items-center md:flex-row md:justify-between"
+	>
+		<div class="flex flex-col gap-10 sm:flex-row">
+			<AuthorInfo
+				name="Gabriel Romão"
+				email="gabriel-rgomes@hotmail.com"
+				githubUserName="GabrielRomaoG"
+				linkedinUserName="gabriel-rgomes"
+			/>
+			<div use:melt={$separator} class="hidden w-[1px] bg-slate-100 sm:block" />
+			<AuthorInfo
+				name="Júlia Machado"
+				email="juliaqmachado@gmail.com"
+				githubUserName="juliamxx"
+				linkedinUserName="juliaamachado"
+			/>
+		</div>
+		<ExternalLink
+			title="Go to GitHub repository"
+			url="https://github.com/GabrielRomaoG/credit_score"
 		/>
 	</div>
-	<ExternalLink
-		title="Go to GitHub repository"
-		url="https://github.com/GabrielRomaoG/credit_score"
-	/>
 </footer>
