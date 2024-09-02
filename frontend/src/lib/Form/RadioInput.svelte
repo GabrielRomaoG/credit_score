@@ -13,7 +13,7 @@
 	}
 </script>
 
-<fieldset class={`flex grow ${basis} justify-start gap-8`}>
+<fieldset class={`flex grow flex-col sm:flex-row ${basis} justify-start sm:gap-8`}>
 	<legend class="mb-1 text-sm font-medium text-slate-100">{label}</legend>
 	{#each options as option}
 		<div class={`flex items-center`}>
