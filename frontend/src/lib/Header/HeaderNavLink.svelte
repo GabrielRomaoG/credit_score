@@ -9,7 +9,7 @@
 </script>
 
 <a
-	class={`rounded-full border border-slate-100 px-5 py-2 ${active && 'bg-slate-100/20'}`}
+	class={`rounded-full border border-slate-100 px-5 py-2 text-center ${active && 'bg-slate-100/20'}`}
 	href={path}
 >
 	{title}
