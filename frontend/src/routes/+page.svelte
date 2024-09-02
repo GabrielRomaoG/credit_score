@@ -18,7 +18,9 @@
 	</div>
 
 	<div class="flex w-11/12 max-w-6xl flex-wrap">
-		<div class="grow basis-[600px] rounded-lg bg-blue-975 p-4">
+		<div
+			class="bg-blue-975 grow basis-[621px] p-4 max-[980px]:rounded-t-lg min-[981px]:rounded-l-lg"
+		>
 			<form action="" class="mb-4 flex flex-wrap gap-4">
 				<NumericInput />
 				<NumericInput />
@@ -51,6 +53,8 @@
 				warningText="Este projeto foi construído com o propósito de mostrar o conhecimento dos autores. Não podemos atestar a origem dos dados de treino, portanto não se surpreenda se o resultado diferir da realidade."
 			/>
 		</div>
-		<div class="grow basis-[300px] bg-gray-400">ahh</div>
+		<div class="grow basis-[300px] bg-gray-400 max-[980px]:rounded-b-lg min-[981px]:rounded-r-lg">
+			ahh
+		</div>
 	</div>
 </main>
