@@ -18,7 +18,7 @@
 	</div>
 
 	<div class="flex w-11/12 max-w-6xl flex-wrap">
-		<div class="bg-blue-975 grow basis-[600px] rounded-lg p-4">
+		<div class="grow basis-[600px] rounded-lg bg-blue-975 p-4">
 			<form action="" class="mb-4 flex flex-wrap gap-4">
 				<NumericInput />
 				<NumericInput />
