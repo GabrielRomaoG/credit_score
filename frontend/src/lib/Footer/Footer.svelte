@@ -11,7 +11,7 @@
 	});
 </script>
 
-<footer class="bg-blue-975 sticky top-[100vh] flex w-full justify-center">
+<footer class="sticky top-[100vh] flex w-full justify-center bg-blue-975">
 	<div
 		class="flex w-11/12 max-w-6xl flex-col gap-10 py-8 text-slate-100 sm:items-center md:flex-row md:justify-between"
 	>
