@@ -4,6 +4,7 @@
 	import LL from '$i18n/i18n-svelte';
 	import NumericInput from '$lib/Form/NumericInput.svelte';
 	import Button from '$lib/Form/Button.svelte';
+	import RadioInput from '$lib/Form/RadioInput.svelte';
 </script>
 
 <main class="flex w-full flex-col items-center justify-center py-8 lg:mx-auto xl:justify-between">
@@ -19,18 +20,23 @@
 
 	<div class="flex w-11/12 max-w-6xl flex-wrap">
 		<div
-			class="bg-blue-975 grow basis-[621px] p-4 max-[980px]:rounded-t-lg min-[981px]:rounded-l-lg"
+			class="grow basis-[621px] bg-blue-975 p-4 max-[980px]:rounded-t-lg min-[981px]:rounded-l-lg"
 		>
 			<form action="" class="mb-4 flex flex-wrap gap-4">
-				<NumericInput />
-				<NumericInput />
-				<NumericInput />
-				<NumericInput />
-				<NumericInput basis="basis-full" />
-				<NumericInput />
-				<NumericInput />
-				<NumericInput />
-				<NumericInput />
+				<NumericInput label="Age*" />
+				<RadioInput label="Gender*" options={['Male', 'Female']} />
+				<RadioInput
+					label="Education*"
+					options={['High School', 'Associates', 'Bachelors', 'Masters', 'Doctorate']}
+				/>
+				<NumericInput label="Monthly income*" />
+				<NumericInput label="Number of bank accounts*" />
+				<NumericInput label="Number of credit cards*" />
+				<NumericInput label="Number of loans*" />
+				<NumericInput label="Number of delayed payments" />
+				<NumericInput label="Outstanding debt*" />
+				<NumericInput label="Equated Monthly Installment*" />
+				<NumericInput label="For how many time do you have a credit card?*" />
 			</form>
 
 			<div class="mb-4 flex flex-wrap gap-4">
