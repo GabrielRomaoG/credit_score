@@ -24,8 +24,9 @@
 		>
 			<form action="" class="mb-4 flex flex-wrap gap-4">
 				<NumericInput label="Age*" />
-				<RadioInput label="Gender*" options={['Male', 'Female']} />
+				<RadioInput name="gender" label="Gender*" options={['Male', 'Female']} />
 				<RadioInput
+					name="education"
 					label="Education*"
 					options={['High School', 'Associates', 'Bachelors', 'Masters', 'Doctorate']}
 				/>
