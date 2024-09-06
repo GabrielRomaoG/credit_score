@@ -10,14 +10,40 @@
 	let maxValue = 900;
 
 	if (isActive) {
-		// Default settings for scores 250 and above
-		segmentColors = ['#EE6B6B', '#F4E347', '#8ED731'];
+		// Define the ranges for each segment
+		const lowRange = [minValue, (maxValue - minValue) / 3 + minValue];
+		const averageRange = [
+			(maxValue - minValue) / 3 + minValue,
+			((maxValue - minValue) * 2) / 3 + minValue
+		];
+		const highRange = [((maxValue - minValue) * 2) / 3 + minValue, maxValue];
+
+		// Conditional colors and labels based on score
+		segmentColors = [
+			score >= lowRange[0] && score < lowRange[1] ? '#EE6B6B' : '#D3D3D3', // Low segment
+			score >= averageRange[0] && score < averageRange[1] ? '#F4E347' : '#A9A9A9', // Average segment
+			score >= highRange[0] && score <= highRange[1] ? '#8ED731' : '#808080' // High segment
+		];
+
 		customSegmentLabels = [
-			{ text: 'Low', position: 'OUTSIDE', color: '#EE6B6B' },
-			{ text: 'Average', position: 'OUTSIDE', color: '#DEA740' },
-			{ text: 'High', position: 'OUTSIDE', color: '#75B028' }
+			{
+				text: score >= lowRange[0] && score < lowRange[1] ? 'Low' : '',
+				position: 'OUTSIDE',
+				color: '#EE6B6B'
+			},
+			{
+				text: score >= averageRange[0] && score < averageRange[1] ? 'Average' : '',
+				position: 'OUTSIDE',
+				color: '#DEA740'
+			},
+			{
+				text: score >= highRange[0] && score <= highRange[1] ? 'High' : '',
+				position: 'OUTSIDE',
+				color: '#75B028'
+			}
 		];
 	} else if (!isActive) {
+		// If inactive, all segments are gray
 		segmentColors = ['#D3D3D3', '#A9A9A9', '#808080'];
 		customSegmentLabels = [
 			{ text: '', position: 'OUTSIDE', color: '#808080' },
