@@ -1,12 +1,26 @@
+import type { Locales } from '$i18n/i18n-types';
 import { error } from '@sveltejs/kit';
 
-const base = 'https://api.realworld.io/api';
+const base = 'http://0.0.0.0:8000';
 
-async function send({ method, path, data }: { method: string; path: string; data?: object }) {
+async function send({
+	method,
+	path,
+	locale,
+	data
+}: {
+	method: string;
+	path: string;
+	locale: Locales;
+	data?: object;
+}) {
 	const options: RequestInit = { method, headers: {} };
 
 	if (data) {
-		options.headers = [['Content-Type', 'application/json']];
+		options.headers = [
+			['Content-Type', 'application/json'],
+			['Accept-Language', locale]
+		];
 		options.body = JSON.stringify(data);
 	}
 
@@ -19,18 +33,18 @@ async function send({ method, path, data }: { method: string; path: string; data
 	error(response.status);
 }
 
-export function get(path: string) {
-	return send({ method: 'GET', path });
+export function get(path: string, locale: Locales) {
+	return send({ method: 'GET', path, locale });
 }
 
-export function del(path: string) {
-	return send({ method: 'DELETE', path });
+export function del(path: string, locale: Locales) {
+	return send({ method: 'DELETE', path, locale });
 }
 
-export function post(path: string, data: object) {
-	return send({ method: 'POST', path, data });
+export function post(path: string, locale: Locales, data: object) {
+	return send({ method: 'POST', path, locale, data });
 }
 
-export function put(path: string, data: object) {
-	return send({ method: 'PUT', path, data });
+export function put(path: string, locale: Locales, data: object) {
+	return send({ method: 'PUT', path, locale, data });
 }

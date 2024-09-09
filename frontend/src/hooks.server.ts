@@ -19,10 +19,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	});
 };
 
+// detect the preferred language the user has configured in his browser
 const getPreferredLocale = ({ request }: RequestEvent) => {
-	// detect the preferred language the user has configured in his browser
-	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language
-	const acceptLanguageDetector = initAcceptLanguageHeaderDetector(request);
-
-	return detectLocale(acceptLanguageDetector);
+	return detectLocale(initAcceptLanguageHeaderDetector(request));
 };

@@ -5,6 +5,8 @@
 	import NumericInput from '$lib/Form/NumericInput.svelte';
 	import Button from '$lib/Form/Button.svelte';
 	import RadioInput from '$lib/Form/RadioInput.svelte';
+
+	export let data;
 </script>
 
 <main class="flex w-full flex-col items-center justify-center py-8 lg:mx-auto xl:justify-between">
@@ -15,14 +17,14 @@
 				Let a Machine Learning model guess your credit score.<br /> It only takes 2 minutes.
 			</h2>
 		</div>
-		<DefaultProfiles />
+		<DefaultProfiles profiles={data.defaultProfiles.profiles} />
 	</div>
 
 	<div
-		class="flex w-full sm:w-11/12 max-w-6xl flex-wrap rounded-lg shadow-[3.95px_3.95px_5.6px_rgba(0,0,0,0.3)]"
+		class="flex w-full max-w-6xl flex-wrap rounded-lg shadow-[3.95px_3.95px_5.6px_rgba(0,0,0,0.3)] sm:w-11/12"
 	>
 		<div
-			class="bg-blue-975 flex grow basis-[621px] flex-col justify-between p-4 max-[980px]:rounded-t-lg min-[981px]:rounded-l-lg"
+			class="flex grow basis-[621px] flex-col justify-between bg-blue-975 p-4 max-[980px]:rounded-t-lg min-[981px]:rounded-l-lg"
 		>
 			<form action="" class="mb-4 flex flex-wrap gap-4">
 				<NumericInput label="Age*" />

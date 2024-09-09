@@ -1,21 +1,19 @@
-<script>
+<script lang="ts">
+	import type { ProfileInfo } from '../../types/profiles';
 	import Profile from './Profile.svelte';
 
-	export let profiles = [
+	export let profiles: ProfileInfo[] = [
 		{
-			imageUrl: 'https://via.placeholder.com/64',
-			altText: 'Profile 1',
-			labelText: 'Jovem Estudante'
+			profile_id: 1,
+			title: 'Jovem Estudante'
 		},
 		{
-			imageUrl: 'https://via.placeholder.com/64',
-			altText: 'Profile 2',
-			labelText: 'Profissional Experiente'
+			profile_id: 2,
+			title: 'Profissional Experiente'
 		},
 		{
-			imageUrl: 'https://via.placeholder.com/64',
-			altText: 'Profile 3',
-			labelText: 'Profissional de meia-idade'
+			profile_id: 3,
+			title: 'Profissional de meia-idade'
 		}
 	];
 </script>
@@ -24,12 +22,8 @@
 	<h2 class="mb-4 text-center text-lg font-semibold">Check Default Profiles</h2>
 
 	<div class="flex justify-between">
-		{#each profiles as profile (profile.labelText)}
-			<Profile
-				imageUrl={profile.imageUrl}
-				altText={profile.altText}
-				labelText={profile.labelText}
-			/>
+		{#each profiles as profile (profile.profile_id)}
+			<Profile imageUrl={'https://via.placeholder.com/64'} title={profile.title} />
 		{/each}
 	</div>
 </div>
