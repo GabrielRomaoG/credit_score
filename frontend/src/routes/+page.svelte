@@ -19,10 +19,10 @@
 	</div>
 
 	<div
-		class="flex w-11/12 max-w-6xl flex-wrap rounded-lg shadow-[3.95px_3.95px_5.6px_rgba(0,0,0,0.3)]"
+		class="flex w-full sm:w-11/12 max-w-6xl flex-wrap rounded-lg shadow-[3.95px_3.95px_5.6px_rgba(0,0,0,0.3)]"
 	>
 		<div
-			class="flex grow basis-[621px] flex-col justify-between bg-blue-975 p-4 max-[980px]:rounded-t-lg min-[981px]:rounded-l-lg"
+			class="bg-blue-975 flex grow basis-[621px] flex-col justify-between p-4 max-[980px]:rounded-t-lg min-[981px]:rounded-l-lg"
 		>
 			<form action="" class="mb-4 flex flex-wrap gap-4">
 				<NumericInput label="Age*" />

@@ -57,7 +57,8 @@
 
 <div class="flex flex-col items-center">
 	<Speedometer
-		height={175}
+		height={160}
+		width={260}
 		{minValue}
 		{maxValue}
 		value={!isActive ? 0 : score}
