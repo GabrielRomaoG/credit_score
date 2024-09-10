@@ -7,6 +7,7 @@
 	import RadioInput from '$lib/Form/RadioInput.svelte';
 	import FeatureRelevanceItem from '$lib/ScorePanel/FeatureRelevanceItem.svelte';
 	import Score from '$lib/ScorePanel/Score.svelte';
+	import { enhance } from '$app/forms';
 
 	export let data;
 </script>
@@ -30,7 +31,7 @@
 		>
 			<form use:enhance method="POST">
 				<div class="mb-4 flex flex-wrap gap-4">
-				<NumericInput name="age" label="Age*" />
+					<NumericInput name="age" label="Age*" />
 					<RadioInput
 						name="sex"
 						label="Sex*"
@@ -39,9 +40,9 @@
 							{ label: 'Female', value: 'female' }
 						]}
 					/>
-				<RadioInput
-					name="education"
-					label="Education*"
+					<RadioInput
+						name="education"
+						label="Education*"
 						options={[
 							{ label: 'High School', value: 'high_school_diploma' },
 							{ label: 'Associate', value: 'associates_degree' },
@@ -50,36 +51,36 @@
 							{ label: 'Doctorate', value: 'doctorate' }
 						]}
 					/>
-				/>
-				<NumericInput name="income" label="Monthly income*" />
-				<NumericInput name="num_bank_accounts" label="Number of bank accounts*" />
-				<NumericInput name="num_credit_card" label="Number of credit cards*" />
-				<NumericInput name="num_of_loan" label="Number of loans*" />
-				<NumericInput name="num_of_delayed_payment" label="Number of delayed payments" />
-				<NumericInput name="outstanding_debt" label="Outstanding debt*" />
-				<NumericInput name="total_emi_per_month" label="Equated Monthly Installment*" />
-				<NumericInput
-					name="credit_history_age"
-					label="For how many time do you have a credit card?*"
-				/>
+					/>
+					<NumericInput name="income" label="Monthly income*" />
+					<NumericInput name="num_bank_accounts" label="Number of bank accounts*" />
+					<NumericInput name="num_credit_card" label="Number of credit cards*" />
+					<NumericInput name="num_of_loan" label="Number of loans*" />
+					<NumericInput name="num_of_delayed_payment" label="Number of delayed payments" />
+					<NumericInput name="outstanding_debt" label="Outstanding debt*" />
+					<NumericInput name="total_emi_per_month" label="Equated Monthly Installment*" />
+					<NumericInput
+						name="credit_history_age"
+						label="For how many time do you have a credit card?*"
+					/>
 				</div>
-			<div class="mb-4 flex flex-wrap gap-4">
-				<Button
-					backgroundColor="bg-transparent"
-					textColor="text-slate-100"
-					borderColor="border-slate-100"
-					label="Reset"
-					basis="basis-full sm:basis-1/6"
-				/>
-				<Button
+				<div class="mb-4 flex flex-wrap gap-4">
+					<Button
+						backgroundColor="bg-transparent"
+						textColor="text-slate-100"
+						borderColor="border-slate-100"
+						label="Reset"
+						basis="basis-full sm:basis-1/6"
+					/>
+					<Button
 						isSubmit
-					backgroundColor="bg-[#6366F1]"
-					textColor="text-slate-100"
-					borderColor="border-slate-100"
-					label="Send"
-					basis="basis-full sm:basis-4/6"
-				/>
-			</div>
+						backgroundColor="bg-[#6366F1]"
+						textColor="text-slate-100"
+						borderColor="border-slate-100"
+						label="Send"
+						basis="basis-full sm:basis-4/6"
+					/>
+				</div>
 			</form>
 
 			<Warning
