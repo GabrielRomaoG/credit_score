@@ -52,7 +52,7 @@
 						]}
 					/>
 					/>
-					<NumericInput name="income" label="Monthly income*" />
+					<NumericInput name="monthly_income" label="Monthly income*" />
 					<NumericInput name="num_bank_accounts" label="Number of bank accounts*" />
 					<NumericInput name="num_credit_card" label="Number of credit cards*" />
 					<NumericInput name="num_of_loan" label="Number of loans*" />
