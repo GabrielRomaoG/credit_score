@@ -47,8 +47,7 @@
 					name="credit_history_age"
 					label="For how many time do you have a credit card?*"
 				/>
-			</form>
-
+				</div>
 			<div class="mb-4 flex flex-wrap gap-4">
 				<Button
 					backgroundColor="bg-transparent"
@@ -58,6 +57,7 @@
 					basis="basis-full sm:basis-1/6"
 				/>
 				<Button
+						isSubmit
 					backgroundColor="bg-[#6366F1]"
 					textColor="text-slate-100"
 					borderColor="border-slate-100"
@@ -65,6 +65,8 @@
 					basis="basis-full sm:basis-4/6"
 				/>
 			</div>
+			</form>
+
 			<Warning
 				warningText="Este projeto foi construído com o propósito de mostrar o conhecimento dos autores. Não podemos atestar a origem dos dados de treino, portanto não se surpreenda se o resultado diferir da realidade."
 			/>
