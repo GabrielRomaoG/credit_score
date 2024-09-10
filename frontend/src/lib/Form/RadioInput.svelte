@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let options: Array<string> = ['Reliability', 'Value', 'Trust', 'Integrity', 'Faith'];
+	interface RadioOption {
+		label: string;
+		value: string;
+	}
+	export let options: Array<RadioOption>;
 	export let name: string = 'radio-group';
 	export let selectedValue: string = '';
 	export let onChange: (value: string) => void = () => {};
@@ -19,15 +23,15 @@
 		<div class={`flex items-center`}>
 			<input
 				type="radio"
-				id={option}
+				id={option.value}
 				{name}
-				value={option}
-				checked={selectedValue === option}
+				value={option.value}
+				checked={selectedValue === option.value}
 				on:change={handleChange}
 				class="mr-1"
 			/>
-			<label class="text-sm font-medium text-slate-100" for={option}>
-				{option}
+			<label class="text-sm font-medium text-slate-100" for={option.value}>
+				{option.label}
 			</label>
 		</div>
 	{/each}
