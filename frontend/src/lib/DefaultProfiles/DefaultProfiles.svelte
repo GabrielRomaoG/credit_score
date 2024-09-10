@@ -23,7 +23,10 @@
 
 	<div class="flex justify-between">
 		{#each profiles as profile (profile.profile_id)}
-			<Profile imageUrl={'https://via.placeholder.com/64'} title={profile.title} />
+			<Profile
+				imageUrl={'https://via.placeholder.com/64'}
+				title={profile.title.charAt(0).toUpperCase() + profile.title.slice(1)}
+			/>
 		{/each}
 	</div>
 </div>
