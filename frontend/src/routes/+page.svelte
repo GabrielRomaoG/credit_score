@@ -29,21 +29,24 @@
 			class="flex grow basis-[621px] flex-col justify-between bg-blue-975 p-4 max-[980px]:rounded-t-lg min-[981px]:rounded-l-lg"
 		>
 			<form action="" class="mb-4 flex flex-wrap gap-4">
-				<NumericInput label="Age*" />
-				<RadioInput name="gender" label="Gender*" options={['Male', 'Female']} />
+				<NumericInput name="age" label="Age*" />
+				<RadioInput name="sex" label="Sex*" options={['Male', 'Female']} />
 				<RadioInput
 					name="education"
 					label="Education*"
 					options={['High School', 'Associates', 'Bachelors', 'Masters', 'Doctorate']}
 				/>
-				<NumericInput label="Monthly income*" />
-				<NumericInput label="Number of bank accounts*" />
-				<NumericInput label="Number of credit cards*" />
-				<NumericInput label="Number of loans*" />
-				<NumericInput label="Number of delayed payments" />
-				<NumericInput label="Outstanding debt*" />
-				<NumericInput label="Equated Monthly Installment*" />
-				<NumericInput label="For how many time do you have a credit card?*" />
+				<NumericInput name="income" label="Monthly income*" />
+				<NumericInput name="num_bank_accounts" label="Number of bank accounts*" />
+				<NumericInput name="num_credit_card" label="Number of credit cards*" />
+				<NumericInput name="num_of_loan" label="Number of loans*" />
+				<NumericInput name="num_of_delayed_payment" label="Number of delayed payments" />
+				<NumericInput name="outstanding_debt" label="Outstanding debt*" />
+				<NumericInput name="total_emi_per_month" label="Equated Monthly Installment*" />
+				<NumericInput
+					name="credit_history_age"
+					label="For how many time do you have a credit card?*"
+				/>
 			</form>
 
 			<div class="mb-4 flex flex-wrap gap-4">
