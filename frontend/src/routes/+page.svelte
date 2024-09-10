@@ -30,11 +30,25 @@
 		>
 			<form action="" class="mb-4 flex flex-wrap gap-4">
 				<NumericInput name="age" label="Age*" />
-				<RadioInput name="sex" label="Sex*" options={['Male', 'Female']} />
+					<RadioInput
+						name="sex"
+						label="Sex*"
+						options={[
+							{ label: 'Male', value: 'male' },
+							{ label: 'Female', value: 'female' }
+						]}
+					/>
 				<RadioInput
 					name="education"
 					label="Education*"
-					options={['High School', 'Associates', 'Bachelors', 'Masters', 'Doctorate']}
+						options={[
+							{ label: 'High School', value: 'high_school_diploma' },
+							{ label: 'Associate', value: 'associates_degree' },
+							{ label: 'Bachelor', value: 'bachelors_degree' },
+							{ label: 'Master', value: 'masters_degree' },
+							{ label: 'Doctorate', value: 'doctorate' }
+						]}
+					/>
 				/>
 				<NumericInput name="income" label="Monthly income*" />
 				<NumericInput name="num_bank_accounts" label="Number of bank accounts*" />
