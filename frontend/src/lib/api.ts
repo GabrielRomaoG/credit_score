@@ -16,11 +16,10 @@ async function send({
 }) {
 	const options: RequestInit = { method, headers: {} };
 
+	options.headers = [['Accept-Language', locale]];
+
 	if (data) {
-		options.headers = [
-			['Content-Type', 'application/json'],
-			['Accept-Language', locale]
-		];
+		options.headers.push(['Content-Type', 'application/json']);
 		options.body = JSON.stringify(data);
 	}
 
