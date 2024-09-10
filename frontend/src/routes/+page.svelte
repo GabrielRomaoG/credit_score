@@ -28,7 +28,8 @@
 		<div
 			class="flex grow basis-[621px] flex-col justify-between bg-blue-975 p-4 max-[980px]:rounded-t-lg min-[981px]:rounded-l-lg"
 		>
-			<form action="" class="mb-4 flex flex-wrap gap-4">
+			<form use:enhance method="POST">
+				<div class="mb-4 flex flex-wrap gap-4">
 				<NumericInput name="age" label="Age*" />
 					<RadioInput
 						name="sex"
