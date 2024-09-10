@@ -5,6 +5,8 @@
 	import NumericInput from '$lib/Form/NumericInput.svelte';
 	import Button from '$lib/Form/Button.svelte';
 	import RadioInput from '$lib/Form/RadioInput.svelte';
+	import FeatureRelevanceItem from '$lib/ScorePanel/FeatureRelevanceItem.svelte';
+	import Score from '$lib/ScorePanel/Score.svelte';
 
 	export let data;
 </script>
@@ -64,8 +66,24 @@
 				warningText="Este projeto foi construído com o propósito de mostrar o conhecimento dos autores. Não podemos atestar a origem dos dados de treino, portanto não se surpreenda se o resultado diferir da realidade."
 			/>
 		</div>
-		<div class="grow basis-[300px] bg-gray-400 max-[980px]:rounded-b-lg min-[981px]:rounded-r-lg">
-			ahh
+		<div
+			class="grow basis-[300px] bg-slate-50 px-10 py-4 max-[980px]:rounded-b-lg min-[981px]:rounded-r-lg"
+		>
+			<Score isActive={true} score={300} />
+			<h2 class="my-4 text-2xl font-bold">Features Relevance</h2>
+			<div class="flex flex-col justify-between gap-2">
+				<FeatureRelevanceItem name="Reliability" relevance={2} />
+				<FeatureRelevanceItem name="Value" relevance={-1} />
+				<FeatureRelevanceItem name="Trust" relevance={0} />
+				<FeatureRelevanceItem name="Integrity" relevance={1} />
+				<FeatureRelevanceItem name="Faith" relevance={-2} />
+				<FeatureRelevanceItem name="Faith" relevance={-2} />
+				<FeatureRelevanceItem name="Faith" relevance={-2} />
+				<FeatureRelevanceItem name="Faith" relevance={-2} />
+				<FeatureRelevanceItem name="Faith" relevance={-2} />
+				<FeatureRelevanceItem name="Faith" relevance={-2} />
+				<FeatureRelevanceItem name="Faith" relevance={-2} />
+			</div>
 		</div>
 	</div>
 </main>
