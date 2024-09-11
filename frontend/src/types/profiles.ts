@@ -1,4 +1,4 @@
-import type { PredictInput, PredictOutput } from './predict';
+import type { Features, PredictOutput } from './predict';
 
 export interface ProfileInfo {
 	profile_id: number;
@@ -11,6 +11,6 @@ export interface DefaultProfiles {
 
 export interface Profile {
 	profile_info: ProfileInfo;
-	predict_input: PredictInput;
+	features: Features;
 	predict_output: PredictOutput;
 }

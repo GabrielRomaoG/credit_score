@@ -1,15 +1,10 @@
-import type { Locales } from '$i18n/i18n-types';
+import type { Education, Sex } from '$lib/enums';
 
 export interface Features {
 	age: number;
 	monthly_income: number;
-	sex: 'male' | 'female';
-	education:
-		| 'bachelors_degree'
-		| 'masters_degree'
-		| 'doctorate'
-		| 'high_school_diploma'
-		| 'associates_degree';
+	sex: Sex;
+	education: Education;
 	num_bank_accounts: number;
 	num_credit_card: number;
 	num_of_loan: number;
@@ -31,11 +26,6 @@ export interface FeaturesRelevance {
 	outstanding_debt: number;
 	credit_history_age: number;
 	total_emi_per_month: number;
-}
-
-export interface PredictInput {
-	locale: Locales;
-	features: Features;
 }
 
 export interface PredictOutput {
