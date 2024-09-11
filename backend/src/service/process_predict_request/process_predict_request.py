@@ -1,6 +1,6 @@
 from logging import Logger, getLogger
 from kink import inject
-from src.dtos.predict_request_dto import Locale, PredictRequestDTO
+from src.dtos.features_dto import Locale, FeaturesDTO
 from src.ml_models.credit_score_1.cs1_model import Cs1Model
 from src.ml_models.credit_score_2.cs2_model import Cs2Model
 from src.service.aggregate_models_credit_score.aggregate_models_credit_score import (
@@ -42,7 +42,7 @@ class PredictRequestProcessor:
 
     def process(
         self,
-        predict_request_dto: PredictRequestDTO,
+        features_dto: FeaturesDTO,
         Accept_Language: Locale,
     ) -> dict:
         """
@@ -62,17 +62,17 @@ class PredictRequestProcessor:
         try:
 
             if Accept_Language == Locale.PT_BR:
-                predict_request_dto.features.income = self._convert_brl_income_to_usd_service.calculate_equivalent_usd_income(
-                    predict_request_dto.features.income
+                features_dto.income = self._convert_brl_income_to_usd_service.calculate_equivalent_usd_income(
+                    features_dto.income
                 )
-                predict_request_dto.features.outstanding_debt = self._convert_brl_income_to_usd_service.calculate_equivalent_usd_income(
-                    predict_request_dto.features.outstanding_debt
+                features_dto.outstanding_debt = self._convert_brl_income_to_usd_service.calculate_equivalent_usd_income(
+                    features_dto.outstanding_debt
                 )
-                predict_request_dto.features.total_emi_per_month = self._convert_brl_income_to_usd_service.calculate_equivalent_usd_income(
-                    predict_request_dto.features.total_emi_per_month
+                features_dto.total_emi_per_month = self._convert_brl_income_to_usd_service.calculate_equivalent_usd_income(
+                    features_dto.total_emi_per_month
                 )
-            cs1_predict_result = self._cs1_model.predict(predict_request_dto.features)
-            cs2_predict_result = self._cs2_model.predict(predict_request_dto.features)
+            cs1_predict_result = self._cs1_model.predict(features_dto)
+            cs2_predict_result = self._cs2_model.predict(features_dto)
 
             credit_score = self._aggregate_models_credit_score_service.aggregate(
                 cs1_predict_result,

@@ -3,7 +3,7 @@ import json
 from logging import Logger, getLogger
 from pathlib import Path
 from typing import Dict
-from src.dtos.predict_request_dto import Locale, PredictRequestDTO
+from src.dtos.features_dto import Locale, FeaturesDTO
 from src.service.get_default_profiles.get_default_profiles import DefaultProfilesGetter
 from src.service.process_predict_request.process_predict_request import (
     PredictRequestProcessor,
@@ -52,7 +52,7 @@ class DefaultProfilesByIdGetter:
             profile_data = self._load_profile(profiles_dir / profile_file)
 
             profile_predict = self._predict_request_processor.process(
-                PredictRequestDTO.model_validate(profile_data["predict_input"]),
+                FeaturesDTO.model_validate(profile_data["features"]),
                 accept_language,
             )
 
@@ -61,7 +61,7 @@ class DefaultProfilesByIdGetter:
                     "profile_id": profile_data["profile_id"],
                     "title": profile_data["title"],
                 },
-                "predict_input": profile_data["predict_input"],
+                "features": profile_data["features"],
                 "predict_output": profile_predict,
             }
 

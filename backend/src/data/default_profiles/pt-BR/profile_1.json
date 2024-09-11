@@ -1,19 +1,17 @@
 {
     "profile_id": 1,
     "title": "trabalhador de meia-idade",
-    "predict_input": {
-        "features": {
-            "age": 35,
-            "sex": "female",
-            "monthly_income": 7000,
-            "education": "bachelors_degree",
-            "num_bank_accounts": 2,
-            "num_credit_card": 2,
-            "num_of_loan": 2,
-            "num_of_delayed_payment": 1,
-            "outstanding_debt": 6000,
-            "credit_history_age": 10,
-            "total_emi_per_month": 1000
-        }
+    "features": {
+        "age": 35,
+        "sex": "female",
+        "monthly_income": 7000,
+        "education": "bachelors_degree",
+        "num_bank_accounts": 2,
+        "num_credit_card": 2,
+        "num_of_loan": 2,
+        "num_of_delayed_payment": 1,
+        "outstanding_debt": 6000,
+        "credit_history_age": 10,
+        "total_emi_per_month": 1000
     }
 }

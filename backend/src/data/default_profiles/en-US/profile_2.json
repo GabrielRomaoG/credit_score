@@ -1,19 +1,17 @@
 {
     "profile_id": 2,
     "title": "experienced professional",
-    "predict_input": {
-        "features": {
-            "age": 45,
-            "sex": "male",
-            "monthly_income": 15000,
-            "education": "masters_degree",
-            "num_bank_accounts": 2,
-            "num_credit_card": 0,
-            "num_of_loan": 0,
-            "num_of_delayed_payment": 0,
-            "outstanding_debt": 1500,
-            "credit_history_age": 36,
-            "total_emi_per_month": 1500
-        }
+    "features": {
+        "age": 45,
+        "sex": "male",
+        "monthly_income": 15000,
+        "education": "masters_degree",
+        "num_bank_accounts": 2,
+        "num_credit_card": 0,
+        "num_of_loan": 0,
+        "num_of_delayed_payment": 0,
+        "outstanding_debt": 1500,
+        "credit_history_age": 36,
+        "total_emi_per_month": 1500
     }
 }

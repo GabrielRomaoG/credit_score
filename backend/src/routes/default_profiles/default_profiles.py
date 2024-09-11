@@ -1,7 +1,7 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, Header
 from kink import di
-from src.dtos.predict_request_dto import Locale
+from src.dtos.features_dto import Locale
 from src.routes.default_profiles.response_schema import (
     DefaultProfileByIdResponse,
     DefaultProfilesResponse,

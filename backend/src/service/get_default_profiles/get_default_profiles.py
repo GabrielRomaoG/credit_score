@@ -3,7 +3,7 @@ import json
 from logging import Logger, getLogger
 from pathlib import Path
 from typing import List, Dict
-from src.dtos.predict_request_dto import Locale
+from src.dtos.features_dto import Locale
 
 log: Logger = getLogger(__name__)
 

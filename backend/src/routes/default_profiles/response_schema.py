@@ -1,6 +1,6 @@
 from typing import List
 from pydantic import BaseModel, Field
-from src.dtos.predict_request_dto import PredictRequestDTO
+from src.dtos.features_dto import FeaturesDTO
 from src.routes.predict.response_schema import PredictResponse
 
 
@@ -28,5 +28,5 @@ class DefaultProfilesResponse(BaseModel):
 
 class DefaultProfileByIdResponse(BaseModel):
     profile_info: ProfileInfo = Field(...)
-    predict_input: PredictRequestDTO = Field(...)
+    features: FeaturesDTO = Field(...)
     predict_output: PredictResponse = Field(...)

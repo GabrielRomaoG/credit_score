@@ -1,19 +1,17 @@
 {
     "profile_id": 0,
     "title": "jovem estudante",
-    "predict_input": {
-        "features": {
-            "age": 22,
-            "sex": "male",
-            "monthly_income": 1500,
-            "education": "high_school_diploma",
-            "num_bank_accounts": 1,
-            "num_credit_card": 1,
-            "num_of_loan": 3,
-            "num_of_delayed_payment": 5,
-            "outstanding_debt": 12000,
-            "credit_history_age": 6,
-            "total_emi_per_month": 800
-        }
+    "features": {
+        "age": 22,
+        "sex": "male",
+        "monthly_income": 1500,
+        "education": "high_school_diploma",
+        "num_bank_accounts": 1,
+        "num_credit_card": 1,
+        "num_of_loan": 3,
+        "num_of_delayed_payment": 5,
+        "outstanding_debt": 12000,
+        "credit_history_age": 6,
+        "total_emi_per_month": 800
     }
 }

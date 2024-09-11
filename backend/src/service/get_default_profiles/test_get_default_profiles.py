@@ -3,7 +3,7 @@ from pathlib import Path
 import tempfile
 import shutil
 import json
-from src.dtos.predict_request_dto import Locale
+from src.dtos.features_dto import Locale
 from src.service.get_default_profiles.get_default_profiles import DefaultProfilesGetter
 
 

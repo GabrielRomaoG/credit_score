@@ -19,19 +19,17 @@ class TestPredict(unittest.TestCase):
     def test_predict(self):
         headers = {"Accept-Language": "en-US"}
         mock_body = {
-            "features": {
-                "age": 30,
-                "monthly_income": 10000,
-                "sex": "female",
-                "education": "bachelors_degree",
-                "num_bank_accounts": 1,
-                "num_credit_card": 1,
-                "num_of_loan": 1,
-                "num_of_delayed_payment": 1,
-                "outstanding_debt": 1000,
-                "credit_history_age": 1,
-                "total_emi_per_month": 1000,
-            },
+            "age": 30,
+            "monthly_income": 10000,
+            "sex": "female",
+            "education": "bachelors_degree",
+            "num_bank_accounts": 1,
+            "num_credit_card": 1,
+            "num_of_loan": 1,
+            "num_of_delayed_payment": 1,
+            "outstanding_debt": 1000,
+            "credit_history_age": 1,
+            "total_emi_per_month": 1000,
         }
         response = self.client.post("/predict/", json=mock_body, headers=headers)
         self.assertEqual(response.status_code, 200)

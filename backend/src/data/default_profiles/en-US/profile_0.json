@@ -1,19 +1,17 @@
 {
 	"profile_id": 0,
 	"title": "young student",
-	"predict_input": {
-		"features": {
-			"age": 22,
-			"sex": "male",
-			"monthly_income": 2000,
-			"education": "high_school_diploma",
-			"num_bank_accounts": 1,
-			"num_credit_card": 1,
-			"num_of_loan": 3,
-			"num_of_delayed_payment": 5,
-			"outstanding_debt": 15000,
-			"credit_history_age": 4,
-			"total_emi_per_month": 600
-		}
+	"features": {
+		"age": 22,
+		"sex": "male",
+		"monthly_income": 2000,
+		"education": "high_school_diploma",
+		"num_bank_accounts": 1,
+		"num_credit_card": 1,
+		"num_of_loan": 3,
+		"num_of_delayed_payment": 5,
+		"outstanding_debt": 15000,
+		"credit_history_age": 4,
+		"total_emi_per_month": 600
 	}
 }

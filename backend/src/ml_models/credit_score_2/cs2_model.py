@@ -7,7 +7,7 @@ import joblib
 from sklearn.base import BaseEstimator
 from sklearn.pipeline import Pipeline
 from src.dtos.cs2_model_predict_dto import Cs2LogitComponents, Cs2ModelPredictResultDTO
-from src.dtos.predict_request_dto import Features
+from src.dtos.features_dto import FeaturesDTO
 from src.ml_models.exceptions import ModelNotLoaded
 
 log: Logger = getLogger(__name__)
@@ -51,12 +51,12 @@ class Cs2Model:
 
         return self
 
-    def predict(self, dto_features: Features) -> Cs2ModelPredictResultDTO:
+    def predict(self, dto_features: FeaturesDTO) -> Cs2ModelPredictResultDTO:
         """
         Make a prediction using the trained ML model.
 
         Args:
-            dto_features (Features): The input features for prediction.
+            dto_features (FeaturesDTO): The input features for prediction.
 
         Returns:
             Cs2ModelPredictResultDTO: A dataclass containing the predicted class labels and their
@@ -80,14 +80,14 @@ class Cs2Model:
             )
 
     @staticmethod
-    def _dto_features_to_feature_df(dto_features: Features) -> pd.DataFrame:
+    def _dto_features_to_feature_df(dto_features: FeaturesDTO) -> pd.DataFrame:
         """
         Convert a PredictRequestDTO to a Pandas DataFrame. The conversion is done by extracting
         feature values from the DTO and creating a DataFrame with only the features that were present
         in the training data.
 
         Args:
-            dto_features (Features): The data transfer object containing the feature values.
+            dto_features (FeaturesDTO): The data transfer object containing the feature values.
 
         Returns:
             pd.DataFrame: The converted DataFrame.

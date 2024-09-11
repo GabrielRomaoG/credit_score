@@ -20,7 +20,7 @@ class Education(str, Enum):
     ASSOCIATES_DEGREE = "associates_degree"
 
 
-class Features(BaseModel):
+class FeaturesDTO(BaseModel):
     age: int = Field(..., gt=0, examples=[25])
     income: int = Field(..., ge=0, examples=[6000], alias="monthly_income")
     gender: Gender = Field(..., examples=["male"], alias="sex")
@@ -32,7 +32,3 @@ class Features(BaseModel):
     outstanding_debt: int = Field(..., ge=0, examples=[2000])
     credit_history_age: int = Field(..., ge=0, examples=[3])
     total_emi_per_month: int = Field(..., ge=0, examples=[2000])
-
-
-class PredictRequestDTO(BaseModel):
-    features: Features = Field(...)

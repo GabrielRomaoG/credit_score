@@ -2,12 +2,11 @@ import unittest
 from unittest.mock import MagicMock, call
 from src.dtos.cs1_model_predict_dto import Cs1LogitComponents, Cs1ModelPredictResultDTO
 from src.dtos.cs2_model_predict_dto import Cs2LogitComponents, Cs2ModelPredictResultDTO
-from src.dtos.predict_request_dto import (
+from src.dtos.features_dto import (
     Education,
-    Features,
     Gender,
     Locale,
-    PredictRequestDTO,
+    FeaturesDTO,
 )
 from src.service.process_predict_request.process_predict_request import (
     PredictRequestProcessor,
@@ -36,20 +35,18 @@ class TestPredictRequestProcessor(unittest.TestCase):
 
     def test_process(self):
         mock_accept_language = Locale.EN_US
-        mock_predict_request_dto = PredictRequestDTO(
-            features=Features(
-                age=30,
-                monthly_income=10000,
-                sex=Gender.FEMALE,
-                education=Education.BACHELORS_DEGREE,
-                num_bank_accounts=1,
-                num_credit_card=1,
-                num_of_loan=1,
-                num_of_delayed_payment=1,
-                outstanding_debt=1000,
-                credit_history_age=1,
-                total_emi_per_month=1000,
-            ),
+        mock_features_dto = FeaturesDTO(
+            age=30,
+            monthly_income=10000,
+            sex=Gender.FEMALE,
+            education=Education.BACHELORS_DEGREE,
+            num_bank_accounts=1,
+            num_credit_card=1,
+            num_of_loan=1,
+            num_of_delayed_payment=1,
+            outstanding_debt=1000,
+            credit_history_age=1,
+            total_emi_per_month=1000,
         )
 
         self.mock_cs1_model.predict.return_value = Cs1ModelPredictResultDTO(
@@ -90,16 +87,12 @@ class TestPredictRequestProcessor(unittest.TestCase):
         }
 
         result = self.service.process(
-            predict_request_dto=mock_predict_request_dto,
+            features_dto=mock_features_dto,
             Accept_Language=mock_accept_language,
         )
 
-        self.mock_cs1_model.predict.assert_called_once_with(
-            mock_predict_request_dto.features
-        )
-        self.mock_cs2_model.predict.assert_called_once_with(
-            mock_predict_request_dto.features
-        )
+        self.mock_cs1_model.predict.assert_called_once_with(mock_features_dto)
+        self.mock_cs2_model.predict.assert_called_once_with(mock_features_dto)
 
         self.mock_aggregate_models_score_service.aggregate.assert_called_once_with(
             self.mock_cs1_model.predict(),
@@ -121,26 +114,24 @@ class TestPredictRequestProcessor(unittest.TestCase):
 
     def test_process_locale_pt_br(self):
         mock_accept_language = Locale.PT_BR
-        mock_predict_request_dto = PredictRequestDTO(
-            features=Features(
-                age=30,
-                monthly_income=10000,
-                sex=Gender.FEMALE,
-                education=Education.BACHELORS_DEGREE,
-                num_bank_accounts=1,
-                num_credit_card=1,
-                num_of_loan=1,
-                num_of_delayed_payment=1,
-                outstanding_debt=1000,
-                credit_history_age=1,
-                total_emi_per_month=1500,
-            ),
+        mock_features_dto = FeaturesDTO(
+            age=30,
+            monthly_income=10000,
+            sex=Gender.FEMALE,
+            education=Education.BACHELORS_DEGREE,
+            num_bank_accounts=1,
+            num_credit_card=1,
+            num_of_loan=1,
+            num_of_delayed_payment=1,
+            outstanding_debt=1000,
+            credit_history_age=1,
+            total_emi_per_month=1500,
         )
 
         expected_calls = [
-            call(mock_predict_request_dto.features.income),
-            call(mock_predict_request_dto.features.outstanding_debt),
-            call(mock_predict_request_dto.features.total_emi_per_month),
+            call(mock_features_dto.income),
+            call(mock_features_dto.outstanding_debt),
+            call(mock_features_dto.total_emi_per_month),
         ]
 
         self.mock_brl_income_to_usd_converter.calculate_equivalent_usd_income.side_effect = [
@@ -150,23 +141,19 @@ class TestPredictRequestProcessor(unittest.TestCase):
         ]
 
         result = self.service.process(
-            predict_request_dto=mock_predict_request_dto,
+            features_dto=mock_features_dto,
             Accept_Language=mock_accept_language,
         )
 
         self.mock_brl_income_to_usd_converter.calculate_equivalent_usd_income.has_calls(
             expected_calls, any_order=False
         )
-        self.assertEqual(mock_predict_request_dto.features.income, 24000)
-        self.assertEqual(mock_predict_request_dto.features.outstanding_debt, 12000)
-        self.assertEqual(mock_predict_request_dto.features.total_emi_per_month, 1500)
+        self.assertEqual(mock_features_dto.income, 24000)
+        self.assertEqual(mock_features_dto.outstanding_debt, 12000)
+        self.assertEqual(mock_features_dto.total_emi_per_month, 1500)
 
-        self.mock_cs1_model.predict.assert_called_once_with(
-            mock_predict_request_dto.features
-        )
-        self.mock_cs2_model.predict.assert_called_once_with(
-            mock_predict_request_dto.features
-        )
+        self.mock_cs1_model.predict.assert_called_once_with(mock_features_dto)
+        self.mock_cs2_model.predict.assert_called_once_with(mock_features_dto)
 
         self.mock_aggregate_models_score_service.aggregate.assert_called_once_with(
             self.mock_cs1_model.predict(),

@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 from pathlib import Path
 
 from pydantic import ValidationError
-from src.dtos.predict_request_dto import Locale
+from src.dtos.features_dto import Locale
 from src.routes.default_profiles.response_schema import DefaultProfileByIdResponse
 from src.service.get_default_profiles_by_id.get_default_profiles_by_id import (
     DefaultProfilesByIdGetter,
@@ -36,21 +36,18 @@ class TestDefaultProfilesByIdGetter(unittest.TestCase):
         profile_data = {
             "profile_id": 1,
             "title": "Profile 1",
-            "predict_input": {
-                "locale": "en-US",
-                "features": {
-                    "age": 30,
-                    "sex": "male",
-                    "monthly_income": 75000,
-                    "education": "bachelors_degree",
-                    "num_bank_accounts": 2,
-                    "num_credit_card": 3,
-                    "num_of_loan": 2,
-                    "num_of_delayed_payment": 2,
-                    "outstanding_debt": 10000,
-                    "credit_history_age": 12,
-                    "total_emi_per_month": 1500,
-                },
+            "features": {
+                "age": 30,
+                "sex": "male",
+                "monthly_income": 75000,
+                "education": "bachelors_degree",
+                "num_bank_accounts": 2,
+                "num_credit_card": 3,
+                "num_of_loan": 2,
+                "num_of_delayed_payment": 2,
+                "outstanding_debt": 10000,
+                "credit_history_age": 12,
+                "total_emi_per_month": 1500,
             },
         }
 
@@ -86,7 +83,7 @@ class TestDefaultProfilesByIdGetter(unittest.TestCase):
 
         self.assertEqual(result["profile_info"]["profile_id"], 1)
         self.assertEqual(result["profile_info"]["title"], "Profile 1")
-        self.assertEqual(result["predict_input"], profile_data["predict_input"])
+        self.assertEqual(result["features"], profile_data["features"])
         self.assertIn("predict_output", result)
         self.assertEqual(
             result["predict_output"], self.mock_predict_request_processor.process()
@@ -149,19 +146,12 @@ class TestDefaultProfilesByIdGetter(unittest.TestCase):
 
         profile_data = {
             "profile_info": {"profile_id": 1, "title": "Profile 1"},
-            "predict_input": {
-                "features": {
-                    "sex": "male",
-                    "monthly_income": 75000,
-                    "education": "bachelors_degree",
-                    "num_bank_accounts": 2,
-                    "num_credit_card": 3,
-                    "num_of_loan": 2,
-                    "num_of_delayed_payment": 2,
-                    "outstanding_debt": 10000,
-                    "credit_history_age": 12,
-                    "total_emi_per_month": 1500,
-                },
+            "features": {
+                "num_of_loan": 2,
+                "num_of_delayed_payment": 2,
+                "outstanding_debt": 10000,
+                "credit_history_age": 12,
+                "total_emi_per_month": 1500,
             },
         }
 

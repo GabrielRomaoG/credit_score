@@ -9,9 +9,9 @@ from sklearn.exceptions import InconsistentVersionWarning
 from sklearn.pipeline import Pipeline
 from src.dtos.cs1_model_predict_dto import Cs1ModelPredictResultDTO
 from src.ml_models.credit_score_1.cs1_model import Cs1Model
-from src.dtos.predict_request_dto import (
+from src.dtos.features_dto import (
     Education,
-    Features,
+    FeaturesDTO,
     Gender,
 )
 from src.ml_models.exceptions import ModelNotLoaded
@@ -92,7 +92,7 @@ class TestCs1Model(unittest.TestCase):
         )
 
     def test_predict_error_model_not_loaded(self):
-        mock_dto = Features(
+        mock_dto = FeaturesDTO(
             age=30,
             monthly_income=10000,
             sex=Gender.FEMALE,
@@ -109,7 +109,7 @@ class TestCs1Model(unittest.TestCase):
             self.model.predict(mock_dto)
 
     def test_predict(self):
-        mock_dto_features = Features(
+        mock_dto_features = FeaturesDTO(
             age=30,
             monthly_income=10000,
             sex=Gender.FEMALE,
@@ -142,7 +142,7 @@ class TestCs1Model(unittest.TestCase):
         self.assertEqual(result.high, 0.1)
 
     def test_dto_to_feature_df(self):
-        mock_dto_features = Features(
+        mock_dto_features = FeaturesDTO(
             age=30,
             monthly_income=10000,
             sex=Gender.MALE,
