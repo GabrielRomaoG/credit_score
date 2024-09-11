@@ -35,8 +35,8 @@ class TestPredictRequestProcessor(unittest.TestCase):
         )
 
     def test_process(self):
+        mock_accept_language = Locale.EN_US
         mock_predict_request_dto = PredictRequestDTO(
-            locale=Locale.EN_US,
             features=Features(
                 age=30,
                 monthly_income=10000,
@@ -91,6 +91,7 @@ class TestPredictRequestProcessor(unittest.TestCase):
 
         result = self.service.process(
             predict_request_dto=mock_predict_request_dto,
+            Accept_Language=mock_accept_language,
         )
 
         self.mock_cs1_model.predict.assert_called_once_with(
@@ -119,8 +120,8 @@ class TestPredictRequestProcessor(unittest.TestCase):
         )
 
     def test_process_locale_pt_br(self):
+        mock_accept_language = Locale.PT_BR
         mock_predict_request_dto = PredictRequestDTO(
-            locale=Locale.PT_BR,
             features=Features(
                 age=30,
                 monthly_income=10000,
@@ -150,6 +151,7 @@ class TestPredictRequestProcessor(unittest.TestCase):
 
         result = self.service.process(
             predict_request_dto=mock_predict_request_dto,
+            Accept_Language=mock_accept_language,
         )
 
         self.mock_brl_income_to_usd_converter.calculate_equivalent_usd_income.has_calls(

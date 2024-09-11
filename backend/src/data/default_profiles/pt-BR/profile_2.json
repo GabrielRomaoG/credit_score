@@ -2,7 +2,6 @@
     "profile_id": 2,
     "title": "profissional experiente",
     "predict_input": {
-        "locale": "pt-BR",
         "features": {
             "age": 55,
             "sex": "male",

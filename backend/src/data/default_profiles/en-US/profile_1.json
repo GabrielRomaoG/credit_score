@@ -2,7 +2,6 @@
 	"profile_id": 1,
 	"title": "middle-aged worker",
 	"predict_input": {
-		"locale": "en-US",
 		"features": {
 			"age": 30,
 			"sex": "female",

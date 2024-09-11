@@ -151,7 +151,6 @@ class TestDefaultProfilesByIdGetter(unittest.TestCase):
             "profile_info": {"profile_id": 1, "title": "Profile 1"},
             "predict_input": {
                 "features": {
-                    "age": 30,
                     "sex": "male",
                     "monthly_income": 75000,
                     "education": "bachelors_degree",

@@ -17,8 +17,8 @@ class TestPredict(unittest.TestCase):
         di.clear_cache()
 
     def test_predict(self):
+        headers = {"Accept-Language": "en-US"}
         mock_body = {
-            "locale": "en-US",
             "features": {
                 "age": 30,
                 "monthly_income": 10000,
@@ -33,6 +33,6 @@ class TestPredict(unittest.TestCase):
                 "total_emi_per_month": 1000,
             },
         }
-        response = self.client.post("/predict/", json=mock_body)
+        response = self.client.post("/predict/", json=mock_body, headers=headers)
         self.assertEqual(response.status_code, 200)
         PredictResponse.model_validate(response.json())

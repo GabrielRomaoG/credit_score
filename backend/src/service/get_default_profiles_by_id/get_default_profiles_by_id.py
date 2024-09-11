@@ -52,7 +52,8 @@ class DefaultProfilesByIdGetter:
             profile_data = self._load_profile(profiles_dir / profile_file)
 
             profile_predict = self._predict_request_processor.process(
-                PredictRequestDTO.model_validate(profile_data["predict_input"])
+                PredictRequestDTO.model_validate(profile_data["predict_input"]),
+                accept_language,
             )
 
             profile_output = {

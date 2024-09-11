@@ -35,5 +35,4 @@ class Features(BaseModel):
 
 
 class PredictRequestDTO(BaseModel):
-    locale: Locale = Field(..., examples=["en-US", "pt-BR"])
     features: Features = Field(...)

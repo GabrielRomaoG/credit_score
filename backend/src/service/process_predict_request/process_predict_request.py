@@ -43,6 +43,7 @@ class PredictRequestProcessor:
     def process(
         self,
         predict_request_dto: PredictRequestDTO,
+        Accept_Language: Locale,
     ) -> dict:
         """
         Process the predict request by aggregating the credit scores from two models
@@ -60,7 +61,7 @@ class PredictRequestProcessor:
 
         try:
 
-            if predict_request_dto.locale == Locale.PT_BR:
+            if Accept_Language == Locale.PT_BR:
                 predict_request_dto.features.income = self._convert_brl_income_to_usd_service.calculate_equivalent_usd_income(
                     predict_request_dto.features.income
                 )
