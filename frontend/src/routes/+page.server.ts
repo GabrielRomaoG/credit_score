@@ -2,11 +2,14 @@ import * as api from '$lib/api.js';
 import { featuresSchema } from '$lib/schemas';
 import type { DefaultProfiles } from '$lib/types.js';
 import { fail } from '@sveltejs/kit';
-
+import { superValidate } from 'sveltekit-superforms/server';
+import { zod } from 'sveltekit-superforms/adapters';
 export async function load({ locals }) {
+	const form = await superValidate(zod(featuresSchema(locals.LL)));
+
 	const defaultProfiles: DefaultProfiles = await api.get('default-profiles/', locals.locale);
 
-	return { defaultProfiles };
+	return { defaultProfiles, form };
 }
 
 export const actions = {

@@ -1,28 +1,19 @@
-<script lang="ts">
-	import type { ZodNumber } from 'zod';
-	export let fieldSchema: ZodNumber;
+<script lang="ts" context="module">
+	type T = Record<string, unknown>;
+</script>
+
+<script lang="ts" generics="T extends Record<string, unknown>">
+	import { formFieldProxy, type SuperForm, type FormPathLeaves } from 'sveltekit-superforms';
+
+	export let superform: SuperForm<T>;
+	export let name: FormPathLeaves<T>;
+
+	const { value, errors } = formFieldProxy(superform, name);
+	const { validate } = superform;
+	validate(name);
+
 	export let label: string = 'Numeric Input';
 	export let basis: string = 'basis-72';
-	export let name: string = 'numeric-input';
-	export let error: string | null = null;
-	export let value: number = 0;
-
-	function handleBlur() {
-		const validation = fieldSchema.safeParse(value);
-
-		if (!validation.success) {
-			error = validation.error?.errors[0].message;
-		} else {
-			error = null;
-		}
-	}
-
-	function handleInput() {
-		const validation = fieldSchema.safeParse(value);
-		if (validation.success) {
-			error = null;
-		}
-	}
 </script>
 
 <div class={`flex flex-grow ${basis} flex-col items-start`}>
@@ -32,14 +23,12 @@
 	<input
 		{name}
 		type="number"
-		bind:value
-		on:blur={handleBlur}
-		on:input={handleInput}
+		aria-invalid={$errors ? 'true' : undefined}
+		bind:value={$value}
 		class="w-full rounded-lg border border-amber-350 bg-slate-100 p-1.5 text-left text-sm focus:border-amber-350 focus:outline-none focus:ring-2 focus:ring-amber-200"
-		placeholder="0"
 	/>
 
-	{#if error}
-		<p class="mt-1 text-sm text-red-300">{error}</p>
+	{#if $errors}
+		<span class="mt-1 text-sm text-red-300">{$errors}</span>
 	{/if}
 </div>

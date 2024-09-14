@@ -9,8 +9,11 @@
 	import Score from '$lib/ScorePanel/Score.svelte';
 	import { enhance } from '$app/forms';
 	import { featuresSchema } from '$lib/schemas.js';
+	import { superForm } from 'sveltekit-superforms/client';
+	import { zod } from 'sveltekit-superforms/adapters';
 
 	export let data;
+	const superform = superForm(data.form, { validators: zod(featuresSchema($LL)) });
 </script>
 
 <main class="flex w-full flex-col items-center justify-center py-8 lg:mx-auto xl:justify-between">
@@ -32,7 +35,7 @@
 		>
 			<form use:enhance method="POST">
 				<div class="mb-4 flex flex-wrap gap-4">
-					<NumericInput name="age" label="Age" fieldSchema={featuresSchema($LL).shape.age} />
+					<NumericInput name="age" label="Age" {superform} />
 					<RadioInput
 						name="sex"
 						label="Sex"
@@ -53,45 +56,25 @@
 						]}
 					/>
 					/>
-					<NumericInput
-						name="monthly_income"
-						label="Monthly income"
-						fieldSchema={featuresSchema($LL).shape.monthly_income}
-					/>
-					<NumericInput
-						name="num_bank_accounts"
-						label="Number of bank accounts"
-						fieldSchema={featuresSchema($LL).shape.num_bank_accounts}
-					/>
-					<NumericInput
-						name="num_credit_card"
-						label="Number of credit cards"
-						fieldSchema={featuresSchema($LL).shape.num_credit_card}
-					/>
-					<NumericInput
-						name="num_of_loan"
-						label="Number of loans"
-						fieldSchema={featuresSchema($LL).shape.num_of_loan}
-					/>
+					<NumericInput name="monthly_income" label="Monthly income" {superform} />
+					<NumericInput name="num_bank_accounts" label="Number of bank accounts" {superform} />
+					<NumericInput name="num_credit_card" label="Number of credit cards" {superform} />
+					<NumericInput name="num_of_loan" label="Number of loans" {superform} />
 					<NumericInput
 						name="num_of_delayed_payment"
 						label="Number of delayed payments"
-						fieldSchema={featuresSchema($LL).shape.num_of_delayed_payment}
+						{superform}
 					/>
-					<NumericInput
-						name="outstanding_debt"
-						label="Outstanding debt"
-						fieldSchema={featuresSchema($LL).shape.outstanding_debt}
-					/>
+					<NumericInput name="outstanding_debt" label="Outstanding debt" {superform} />
 					<NumericInput
 						name="total_emi_per_month"
 						label="Equated Monthly Installment"
-						fieldSchema={featuresSchema($LL).shape.total_emi_per_month}
+						{superform}
 					/>
 					<NumericInput
 						name="credit_history_age"
 						label="For how many time do you have a credit card?"
-						fieldSchema={featuresSchema($LL).shape.credit_history_age}
+						{superform}
 					/>
 				</div>
 				<div class="mb-4 flex flex-wrap gap-4">
