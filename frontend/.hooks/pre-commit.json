@@ -14,7 +14,7 @@
 		},
 		{
 			"name": "typesafe-i18n",
-			"command": "npx run typesafe-i18n"
+			"command": "npx typesafe-i18n --no-watch"
 		}
 	]
 }
