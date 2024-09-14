@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ProfileInfo } from '../../types/profiles';
+	import type { ProfileInfo } from '$lib/types';
 	import Profile from './Profile.svelte';
 
 	export let profiles: ProfileInfo[] = [

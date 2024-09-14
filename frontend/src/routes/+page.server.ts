@@ -1,7 +1,7 @@
 import * as api from '$lib/api.js';
 import { featuresSchema } from '$lib/schemas';
+import type { DefaultProfiles } from '$lib/types.js';
 import { fail } from '@sveltejs/kit';
-import type { DefaultProfiles } from '../types/profiles';
 
 export async function load({ locals }) {
 	const defaultProfiles: DefaultProfiles = await api.get('default-profiles/', locals.locale);
