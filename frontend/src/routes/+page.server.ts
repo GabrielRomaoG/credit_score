@@ -27,7 +27,7 @@ export const actions = {
 			total_emi_per_month: data.get('total_emi_per_month')
 		};
 
-		const validationResult = featuresSchema.safeParse(features);
+		const validationResult = featuresSchema(locals.LL).safeParse(features);
 
 		if (!validationResult.success) {
 			fail(422, validationResult.error.format());

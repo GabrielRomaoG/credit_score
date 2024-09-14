@@ -8,6 +8,7 @@
 	import FeatureRelevanceItem from '$lib/ScorePanel/FeatureRelevanceItem.svelte';
 	import Score from '$lib/ScorePanel/Score.svelte';
 	import { enhance } from '$app/forms';
+	import { featuresSchema } from '$lib/schemas.js';
 
 	export let data;
 </script>
@@ -31,10 +32,10 @@
 		>
 			<form use:enhance method="POST">
 				<div class="mb-4 flex flex-wrap gap-4">
-					<NumericInput name="age" label="Age*" />
+					<NumericInput name="age" label="Age" fieldSchema={featuresSchema($LL).shape.age} />
 					<RadioInput
 						name="sex"
-						label="Sex*"
+						label="Sex"
 						options={[
 							{ label: 'Male', value: 'male' },
 							{ label: 'Female', value: 'female' }
@@ -42,7 +43,7 @@
 					/>
 					<RadioInput
 						name="education"
-						label="Education*"
+						label="Education"
 						options={[
 							{ label: 'High School', value: 'high_school_diploma' },
 							{ label: 'Associate', value: 'associates_degree' },
@@ -52,16 +53,45 @@
 						]}
 					/>
 					/>
-					<NumericInput name="monthly_income" label="Monthly income*" />
-					<NumericInput name="num_bank_accounts" label="Number of bank accounts*" />
-					<NumericInput name="num_credit_card" label="Number of credit cards*" />
-					<NumericInput name="num_of_loan" label="Number of loans*" />
-					<NumericInput name="num_of_delayed_payment" label="Number of delayed payments" />
-					<NumericInput name="outstanding_debt" label="Outstanding debt*" />
-					<NumericInput name="total_emi_per_month" label="Equated Monthly Installment*" />
+					<NumericInput
+						name="monthly_income"
+						label="Monthly income"
+						fieldSchema={featuresSchema($LL).shape.monthly_income}
+					/>
+					<NumericInput
+						name="num_bank_accounts"
+						label="Number of bank accounts"
+						fieldSchema={featuresSchema($LL).shape.num_bank_accounts}
+					/>
+					<NumericInput
+						name="num_credit_card"
+						label="Number of credit cards"
+						fieldSchema={featuresSchema($LL).shape.num_credit_card}
+					/>
+					<NumericInput
+						name="num_of_loan"
+						label="Number of loans"
+						fieldSchema={featuresSchema($LL).shape.num_of_loan}
+					/>
+					<NumericInput
+						name="num_of_delayed_payment"
+						label="Number of delayed payments"
+						fieldSchema={featuresSchema($LL).shape.num_of_delayed_payment}
+					/>
+					<NumericInput
+						name="outstanding_debt"
+						label="Outstanding debt"
+						fieldSchema={featuresSchema($LL).shape.outstanding_debt}
+					/>
+					<NumericInput
+						name="total_emi_per_month"
+						label="Equated Monthly Installment"
+						fieldSchema={featuresSchema($LL).shape.total_emi_per_month}
+					/>
 					<NumericInput
 						name="credit_history_age"
-						label="For how many time do you have a credit card?*"
+						label="For how many time do you have a credit card?"
+						fieldSchema={featuresSchema($LL).shape.credit_history_age}
 					/>
 				</div>
 				<div class="mb-4 flex flex-wrap gap-4">
