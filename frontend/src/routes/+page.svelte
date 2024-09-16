@@ -5,11 +5,11 @@
 	import NumericInput from '$lib/Form/NumericInput.svelte';
 	import Button from '$lib/Form/Button.svelte';
 	import RadioInput from '$lib/Form/RadioInput.svelte';
-	import FeatureRelevanceItem from '$lib/ScorePanel/FeatureRelevanceItem.svelte';
 	import Score from '$lib/ScorePanel/Score.svelte';
 	import { featuresSchema } from '$lib/schemas.js';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { zod } from 'sveltekit-superforms/adapters';
+	import FeaturesRelevance from '$lib/ScorePanel/FeaturesRelevance.svelte';
 
 	export let data;
 	export let form;
@@ -108,19 +108,8 @@
 		>
 			<Score isActive={form ? true : false} score={form?.response?.credit_score || 0} />
 			<h2 class="my-4 text-2xl font-bold">Features Relevance</h2>
-			<div class="flex flex-col justify-between gap-2">
-				<FeatureRelevanceItem name="Reliability" relevance={2} />
-				<FeatureRelevanceItem name="Value" relevance={-1} />
-				<FeatureRelevanceItem name="Trust" relevance={0} />
-				<FeatureRelevanceItem name="Integrity" relevance={1} />
-				<FeatureRelevanceItem name="Faith" relevance={-2} />
-				<FeatureRelevanceItem name="Faith" relevance={-2} />
-				<FeatureRelevanceItem name="Faith" relevance={-2} />
-				<FeatureRelevanceItem name="Faith" relevance={-2} />
-				<FeatureRelevanceItem name="Faith" relevance={-2} />
-				<FeatureRelevanceItem name="Faith" relevance={-2} />
-				<FeatureRelevanceItem name="Faith" relevance={-2} />
-			</div>
+
+			<FeaturesRelevance featuresRelevanceList={form?.response?.features_relevance} />
 		</div>
 	</div>
 </main>
