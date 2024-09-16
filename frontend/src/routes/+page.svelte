@@ -7,13 +7,16 @@
 	import RadioInput from '$lib/Form/RadioInput.svelte';
 	import FeatureRelevanceItem from '$lib/ScorePanel/FeatureRelevanceItem.svelte';
 	import Score from '$lib/ScorePanel/Score.svelte';
-	import { enhance } from '$app/forms';
 	import { featuresSchema } from '$lib/schemas.js';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { zod } from 'sveltekit-superforms/adapters';
 
 	export let data;
-	const superform = superForm(data.form, { validators: zod(featuresSchema($LL)) });
+	export let form;
+	const superform = superForm(data.form, {
+		validators: zod(featuresSchema($LL)),
+		resetForm: false
+	});
 </script>
 
 <main class="flex w-full flex-col items-center justify-center py-8 lg:mx-auto xl:justify-between">
@@ -33,7 +36,7 @@
 		<div
 			class="flex grow basis-[621px] flex-col justify-between bg-blue-975 p-4 max-[980px]:rounded-t-lg min-[981px]:rounded-l-lg"
 		>
-			<form use:enhance method="POST">
+			<form method="POST" use:superform.enhance>
 				<div class="mb-4 flex flex-wrap gap-4">
 					<NumericInput name="age" label="Age" {superform} />
 					<RadioInput
@@ -103,7 +106,7 @@
 		<div
 			class="grow basis-[300px] bg-slate-50 px-10 py-4 max-[980px]:rounded-b-lg min-[981px]:rounded-r-lg"
 		>
-			<Score isActive={true} score={300} />
+			<Score isActive={form ? true : false} score={form?.response?.credit_score || 0} />
 			<h2 class="my-4 text-2xl font-bold">Features Relevance</h2>
 			<div class="flex flex-col justify-between gap-2">
 				<FeatureRelevanceItem name="Reliability" relevance={2} />
