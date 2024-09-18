@@ -5,7 +5,18 @@ const pt_BR = {
 	validation: {
 		required: "O campo '{field}' é obrigatório.",
 		nonnegative: "O campo '{field}' deve ser positivo."
-	}
+	},
+	age: 'Idade',
+	monthly_income: 'Renda mensal',
+	sex: 'Sexo',
+	education: 'Escolaridade',
+	num_bank_accounts: 'Quantidade de contas bancárias',
+	num_credit_card: 'Quantidade de cartões de crédito',
+	num_of_loan: 'Quantidade de empréstimos',
+	num_of_delayed_payment: 'Quantidade de pagamentos atrasados',
+	outstanding_debt: 'Dívida total',
+	credit_history_age: 'Histórico de Crédito',
+	total_emi_per_month: 'Parcela de financiamento'
 } satisfies BaseTranslation;
 
 export default pt_BR;

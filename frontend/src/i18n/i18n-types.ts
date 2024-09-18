@@ -32,6 +32,50 @@ type RootTranslation = {
 		 */
 		nonnegative: RequiredParams<'field'>;
 	};
+	/**
+	 * I​d​a​d​e
+	 */
+	age: string;
+	/**
+	 * R​e​n​d​a​ ​m​e​n​s​a​l
+	 */
+	monthly_income: string;
+	/**
+	 * S​e​x​o
+	 */
+	sex: string;
+	/**
+	 * E​s​c​o​l​a​r​i​d​a​d​e
+	 */
+	education: string;
+	/**
+	 * Q​u​a​n​t​i​d​a​d​e​ ​d​e​ ​c​o​n​t​a​s​ ​b​a​n​c​á​r​i​a​s
+	 */
+	num_bank_accounts: string;
+	/**
+	 * Q​u​a​n​t​i​d​a​d​e​ ​d​e​ ​c​a​r​t​õ​e​s​ ​d​e​ ​c​r​é​d​i​t​o
+	 */
+	num_credit_card: string;
+	/**
+	 * Q​u​a​n​t​i​d​a​d​e​ ​d​e​ ​e​m​p​r​é​s​t​i​m​o​s
+	 */
+	num_of_loan: string;
+	/**
+	 * Q​u​a​n​t​i​d​a​d​e​ ​d​e​ ​p​a​g​a​m​e​n​t​o​s​ ​a​t​r​a​s​a​d​o​s
+	 */
+	num_of_delayed_payment: string;
+	/**
+	 * D​í​v​i​d​a​ ​t​o​t​a​l
+	 */
+	outstanding_debt: string;
+	/**
+	 * H​i​s​t​ó​r​i​c​o​ ​d​e​ ​C​r​é​d​i​t​o
+	 */
+	credit_history_age: string;
+	/**
+	 * P​a​r​c​e​l​a​ ​d​e​ ​f​i​n​a​n​c​i​a​m​e​n​t​o
+	 */
+	total_emi_per_month: string;
 };
 
 export type TranslationFunctions = {
@@ -49,6 +93,50 @@ export type TranslationFunctions = {
 		 */
 		nonnegative: (arg: { field: unknown }) => LocalizedString;
 	};
+	/**
+	 * Idade
+	 */
+	age: () => LocalizedString;
+	/**
+	 * Renda mensal
+	 */
+	monthly_income: () => LocalizedString;
+	/**
+	 * Sexo
+	 */
+	sex: () => LocalizedString;
+	/**
+	 * Escolaridade
+	 */
+	education: () => LocalizedString;
+	/**
+	 * Quantidade de contas bancárias
+	 */
+	num_bank_accounts: () => LocalizedString;
+	/**
+	 * Quantidade de cartões de crédito
+	 */
+	num_credit_card: () => LocalizedString;
+	/**
+	 * Quantidade de empréstimos
+	 */
+	num_of_loan: () => LocalizedString;
+	/**
+	 * Quantidade de pagamentos atrasados
+	 */
+	num_of_delayed_payment: () => LocalizedString;
+	/**
+	 * Dívida total
+	 */
+	outstanding_debt: () => LocalizedString;
+	/**
+	 * Histórico de Crédito
+	 */
+	credit_history_age: () => LocalizedString;
+	/**
+	 * Parcela de financiamento
+	 */
+	total_emi_per_month: () => LocalizedString;
 };
 
 export type Formatters = {};
