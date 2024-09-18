@@ -16,8 +16,8 @@ export interface Features {
 
 export interface FeaturesRelevance {
 	age: number;
-	income: number;
-	gender: number;
+	monthly_income: number;
+	sex: number;
 	education: number;
 	num_bank_accounts: number;
 	num_credit_card: number;
