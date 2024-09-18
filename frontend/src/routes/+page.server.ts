@@ -1,6 +1,6 @@
 import * as api from '$lib/api.js';
 import { featuresSchema } from '$lib/schemas';
-import type { DefaultProfiles } from '$lib/types.js';
+import type { DefaultProfiles, PredictOutput } from '$lib/types.js';
 import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
@@ -26,6 +26,8 @@ export const actions = {
 			return fail(401, response);
 		}
 
-		return { validationResult, response };
+		const parsed_response = response as PredictOutput;
+
+		return { validationResult, parsed_response };
 	}
 };
