@@ -26,8 +26,8 @@ export const actions = {
 			return fail(401, response);
 		}
 
-		const parsed_response = response as PredictOutput;
+		const parsedResponse = response as PredictOutput;
 
-		return { validationResult, parsed_response };
+		return { validationResult, parsedResponse };
 	}
 };
