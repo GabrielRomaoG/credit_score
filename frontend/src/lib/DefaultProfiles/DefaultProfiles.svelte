@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { ProfileInfo } from '$lib/types';
 	import Profile from './Profile.svelte';
+	import { goto } from '$app/navigation';
 
 	export let profiles: ProfileInfo[] = [
 		{
@@ -23,10 +24,18 @@
 
 	<div class="flex justify-between">
 		{#each profiles as profile (profile.profile_id)}
-			<Profile
-				imageUrl={'https://via.placeholder.com/64'}
-				title={profile.title.charAt(0).toUpperCase() + profile.title.slice(1)}
-			/>
+			<button
+				on:click={() =>
+					goto(`?profile_id=${profile.profile_id}`, { invalidateAll: true }).then(() => {
+						window.location.reload();
+					})}
+				class="focus:outline-none"
+			>
+				<Profile
+					imageUrl={'https://via.placeholder.com/64'}
+					title={profile.title.charAt(0).toUpperCase() + profile.title.slice(1)}
+				/>
+			</button>
 		{/each}
 	</div>
 </div>

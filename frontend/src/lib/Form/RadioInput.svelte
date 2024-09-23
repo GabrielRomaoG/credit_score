@@ -1,10 +1,17 @@
+<script lang="ts" context="module">
+	type T = Record<string, unknown>;
+</script>
+
 <script lang="ts">
+	import { type FormPathLeaves } from 'sveltekit-superforms';
+	export let form;
+
 	interface RadioOption {
 		label: string;
 		value: string;
 	}
 	export let options: Array<RadioOption>;
-	export let name: string = 'radio-group';
+	export let name: FormPathLeaves<T>;
 	export let selectedValue: string = '';
 	export let onChange: (value: string) => void = () => {};
 	export let basis: string = 'basis-72';
@@ -26,6 +33,7 @@
 				id={option.value}
 				{name}
 				value={option.value}
+				bind:group={$form[name]}
 				checked={selectedValue === option.value}
 				on:change={handleChange}
 				class="mr-1"
