@@ -7,7 +7,7 @@
 
 	export let superform: SuperForm<T>;
 	export let name: FormPathLeaves<T>;
-
+	export let disabled: boolean = false;
 	const { value, errors } = formFieldProxy(superform, name);
 	const { validate } = superform;
 	validate(name);
@@ -21,6 +21,7 @@
 	<label class="mb-1 text-sm font-medium text-slate-100 after:content-['*']">{label}</label>
 
 	<input
+		{disabled}
 		{name}
 		type="number"
 		aria-invalid={$errors ? 'true' : undefined}

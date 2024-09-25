@@ -42,7 +42,7 @@
 		>
 			<form method="POST" use:superform.enhance>
 				<div class="mb-4 flex flex-wrap gap-4">
-					<NumericInput name="age" label="Age" {superform} />
+					<NumericInput name="age" label="Age" {superform} disabled={profileSelected} />
 					<RadioInput
 						name="sex"
 						label="Sex"
@@ -50,6 +50,8 @@
 							{ label: 'Male', value: 'male' },
 							{ label: 'Female', value: 'female' }
 						]}
+						selectedValue="male"
+						form={superform.form}
 					/>
 					<RadioInput
 						name="education"
@@ -61,27 +63,56 @@
 							{ label: 'Master', value: 'masters_degree' },
 							{ label: 'Doctorate', value: 'doctorate' }
 						]}
+						form={superform.form}
 					/>
 					/>
-					<NumericInput name="monthly_income" label="Monthly income" {superform} />
-					<NumericInput name="num_bank_accounts" label="Number of bank accounts" {superform} />
-					<NumericInput name="num_credit_card" label="Number of credit cards" {superform} />
-					<NumericInput name="num_of_loan" label="Number of loans" {superform} />
+					<NumericInput
+						name="monthly_income"
+						label="Monthly income"
+						{superform}
+						disabled={profileSelected}
+					/>
+					<NumericInput
+						name="num_bank_accounts"
+						label="Number of bank accounts"
+						{superform}
+						disabled={profileSelected}
+					/>
+					<NumericInput
+						name="num_credit_card"
+						label="Number of credit cards"
+						{superform}
+						disabled={profileSelected}
+					/>
+					<NumericInput
+						name="num_of_loan"
+						label="Number of loans"
+						{superform}
+						disabled={profileSelected}
+					/>
 					<NumericInput
 						name="num_of_delayed_payment"
 						label="Number of delayed payments"
 						{superform}
+						disabled={profileSelected}
 					/>
-					<NumericInput name="outstanding_debt" label="Outstanding debt" {superform} />
+					<NumericInput
+						name="outstanding_debt"
+						label="Outstanding debt"
+						{superform}
+						disabled={profileSelected}
+					/>
 					<NumericInput
 						name="total_emi_per_month"
 						label="Equated Monthly Installment"
 						{superform}
+						disabled={profileSelected}
 					/>
 					<NumericInput
 						name="credit_history_age"
 						label="For how many time do you have a credit card?"
 						{superform}
+						disabled={profileSelected}
 					/>
 				</div>
 				<div class="mb-4 flex flex-wrap gap-4">
