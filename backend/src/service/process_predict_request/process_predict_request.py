@@ -88,6 +88,8 @@ class PredictRequestProcessor:
                 )
             )
 
+            feature_relevance_map = self._rename_gender_to_sex(feature_relevance_map)
+
             return {
                 "credit_score": credit_score,
                 "features_relevance": feature_relevance_map,
@@ -95,3 +97,9 @@ class PredictRequestProcessor:
         except Exception as e:
             log.error("Failed to process predict request: %s", e)
             raise e
+
+    @staticmethod
+    def _rename_gender_to_sex(feature_relevance_map: dict) -> dict:
+        if "gender" in feature_relevance_map:
+            feature_relevance_map["sex"] = feature_relevance_map.pop("gender")
+        return feature_relevance_map

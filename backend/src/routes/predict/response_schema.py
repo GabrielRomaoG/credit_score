@@ -12,7 +12,7 @@ MAX_SCORE = RELEVANCE_SCORE_RANGE[-1]
 class FeaturesRelevance(BaseModel):
     age: int = Field(..., ge=MIN_SCORE, le=MAX_SCORE, examples=[-2])
     income: int = Field(..., ge=MIN_SCORE, le=MAX_SCORE, examples=[1])
-    gender: int = Field(..., ge=MIN_SCORE, le=MAX_SCORE, examples=[1])
+    gender: int = Field(..., ge=MIN_SCORE, le=MAX_SCORE, examples=[1], alias="sex")
     education: int = Field(..., ge=MIN_SCORE, le=MAX_SCORE, examples=[-2])
     num_bank_accounts: int = Field(..., ge=MIN_SCORE, le=MAX_SCORE, examples=[-2])
     num_credit_card: int = Field(..., ge=MIN_SCORE, le=MAX_SCORE, examples=[-2])

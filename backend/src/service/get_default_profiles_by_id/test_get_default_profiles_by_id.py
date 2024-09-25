@@ -65,7 +65,7 @@ class TestDefaultProfilesByIdGetter(unittest.TestCase):
             "features_relevance": {
                 "age": -2,
                 "income": 1,
-                "gender": 1,
+                "sex": 1,
                 "education": -2,
                 "num_bank_accounts": -2,
                 "num_credit_card": -2,
