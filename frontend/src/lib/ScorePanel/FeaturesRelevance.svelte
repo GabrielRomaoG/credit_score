@@ -2,20 +2,7 @@
 	import LL from '$i18n/i18n-svelte';
 	import type { FeaturesRelevance } from '$lib/types';
 	import FeatureRelevanceItem from './FeatureRelevanceItem.svelte';
-
-	export let featuresRelevanceList: FeaturesRelevance = {
-		age: 0,
-		sex: 0,
-		education: 0,
-		monthly_income: 0,
-		num_bank_accounts: 0,
-		num_credit_card: 0,
-		num_of_loan: 0,
-		num_of_delayed_payment: 0,
-		total_emi_per_month: 0,
-		outstanding_debt: 0,
-		credit_history_age: 0
-	};
+	export let featuresRelevanceList: FeaturesRelevance;
 </script>
 
 <ul class="flex flex-col justify-between gap-2">
@@ -68,6 +55,12 @@
 		<FeatureRelevanceItem
 			name={$LL['credit_history_age']()}
 			relevance={featuresRelevanceList.credit_history_age}
+		/>
+	</li>
+	<li>
+		<FeatureRelevanceItem
+			name={$LL['total_emi_per_month']()}
+			relevance={featuresRelevanceList.total_emi_per_month}
 		/>
 	</li>
 </ul>
