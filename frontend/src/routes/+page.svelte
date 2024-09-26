@@ -21,6 +21,12 @@
 		validators: zod(featuresSchema($LL)),
 		resetForm: false
 	});
+
+	function handleReturnHome() {
+		goto(`/`, { keepFocus: true, replaceState: true, invalidateAll: true }).then(() => {
+			window.location.reload();
+		});
+	}
 </script>
 
 <main class="flex w-full flex-col items-center justify-center py-8 lg:mx-auto xl:justify-between">
@@ -116,21 +122,33 @@
 					/>
 				</div>
 				<div class="mb-4 flex flex-wrap gap-4">
-					<Button
-						backgroundColor="bg-transparent"
-						textColor="text-slate-100"
-						borderColor="border-slate-100"
-						label="Reset"
-						basis="basis-full sm:basis-1/6"
-					/>
-					<Button
-						isSubmit
-						backgroundColor="bg-[#6366F1]"
-						textColor="text-slate-100"
-						borderColor="border-slate-100"
-						label="Send"
-						basis="basis-full sm:basis-4/6"
-					/>
+					{#if !profileSelected}
+						<Button
+							onClick={() => superform.reset()}
+							backgroundColor="bg-transparent"
+							textColor="text-slate-100"
+							borderColor="border-slate-100"
+							label="Reset"
+							basis="basis-full sm:basis-1/6"
+						/>
+						<Button
+							isSubmit
+							backgroundColor="bg-[#6366F1]"
+							textColor="text-slate-100"
+							borderColor="border-slate-100"
+							label="Send"
+							basis="basis-full sm:basis-4/6"
+						/>
+					{:else}
+						<Button
+							onClick={handleReturnHome}
+							backgroundColor="bg-[#16b56d]"
+							textColor="text-slate-100"
+							borderColor="border-slate-100"
+							label="Return to Home"
+							basis="basis-full"
+						/>
+					{/if}
 				</div>
 			</form>
 
