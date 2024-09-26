@@ -47,7 +47,7 @@
 			class="flex grow basis-[621px] flex-col justify-between bg-blue-975 p-4 max-[980px]:rounded-t-lg min-[981px]:rounded-l-lg"
 		>
 			<form method="POST" use:superform.enhance>
-				<div class="mb-4 flex flex-wrap gap-4">
+				<div class="mb-4 flex flex-wrap gap-5">
 					<NumericInput name="age" label="Age" {superform} disabled={profileSelected} />
 					<RadioInput
 						name="sex"
