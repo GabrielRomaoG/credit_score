@@ -22,14 +22,14 @@
 <div class="max-w-[600px] grow basis-[300px] rounded-lg border bg-white p-4 shadow-lg">
 	<h2 class="mb-4 text-center text-lg font-semibold">Check Default Profiles</h2>
 
-	<div class="flex justify-between">
+	<div class="flex content-stretch justify-between">
 		{#each profiles as profile (profile.profile_id)}
 			<button
 				on:click={() =>
 					goto(`?profile_id=${profile.profile_id}`, { invalidateAll: true }).then(() => {
 						window.location.reload();
 					})}
-				class="focus:outline-none"
+				class="flex rounded-lg p-2 transition-colors hover:bg-gray-200 focus:outline-none"
 			>
 				<Profile
 					imageUrl={'https://via.placeholder.com/64'}
