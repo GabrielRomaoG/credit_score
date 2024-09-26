@@ -163,12 +163,16 @@
 				isActive={form || profileSelected ? true : false}
 				score={form?.parsedResponse?.credit_score || profileData?.predict_output?.credit_score || 0}
 			/>
-			<h2 class="my-4 text-2xl font-bold">Features Relevance</h2>
 
-			<FeaturesRelevance
-				featuresRelevanceList={form?.parsedResponse?.features_relevance ||
-					profileData?.predict_output?.features_relevance}
-			/>
+			{#if form || profileSelected ? true : false}
+				<h2 class="my-4 text-2xl font-bold">Features Relevance</h2>
+				<FeaturesRelevance
+					featuresRelevanceList={form?.parsedResponse?.features_relevance ||
+						profileData?.predict_output?.features_relevance}
+				/>
+			{:else}
+				<p class="text-center text-2xl font-bold">Please, fill the form</p>
+			{/if}
 		</div>
 	</div>
 </main>
