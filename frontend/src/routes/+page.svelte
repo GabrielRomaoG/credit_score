@@ -10,6 +10,7 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import FeaturesRelevance from '$lib/ScorePanel/FeaturesRelevance.svelte';
+	import { goto } from '$app/navigation';
 
 	export let data;
 	export let form;
