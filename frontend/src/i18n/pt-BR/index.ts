@@ -1,7 +1,16 @@
 import type { BaseTranslation } from '../i18n-types';
 
 const pt_BR = {
-	credit_score_ai: 'Score de Crédito IA',
+	home: {
+		credit_score_ai: 'Score  de Crédito IA',
+		subtitle: {
+			part1: 'Deixe um modelo de Machine Learning adivinhar seu Score.',
+			part2: 'Dura apenas 2 minutos.'
+		},
+		check_default_profiles: 'Veja um exemplo clicando abaixo',
+		warning:
+			'Este projeto foi construído com o propósito de mostrar o conhecimento dos autores. Não podemos atestar a origem dos dados de treino, portanto não se surpreenda se o resultado diferir da realidade.'
+	},
 	validation: {
 		required: "O campo '{field}' é obrigatório.",
 		nonnegative: "O campo '{field}' deve ser positivo."
@@ -15,8 +24,23 @@ const pt_BR = {
 	num_of_loan: 'Quantidade de empréstimos',
 	num_of_delayed_payment: 'Quantidade de pagamentos atrasados',
 	outstanding_debt: 'Dívida total',
-	credit_history_age: 'Histórico de Crédito',
-	total_emi_per_month: 'Parcela de financiamento',
+	credit_history_age: 'Histórico de Crédito em anos',
+	total_emi_per_month: 'Parcela de financiamento de imóvel',
+
+	male: 'Masculino',
+	female: 'Feminino',
+
+	high_school_diploma: 'Ensino Fundamental',
+	associates_degree: 'Tecnólogo',
+	bachelors_degree: 'Bacharelado',
+	masters_degree: 'Mestrado',
+	doctorate: 'Doutorado',
+
+	submit: 'Enviar',
+	reset: 'Limpar',
+	return_home: 'Voltar para o Início',
+
+	fill_form: 'Por favor, preencha o formulário',
 
 	how_it_works: {
 		title1: 'Como funciona?',

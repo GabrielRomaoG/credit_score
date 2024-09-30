@@ -11,6 +11,7 @@
 	import { zod } from 'sveltekit-superforms/adapters';
 	import FeaturesRelevance from '$lib/ScorePanel/FeaturesRelevance.svelte';
 	import { goto } from '$app/navigation';
+	import Title1 from '$lib/Text/Title1.svelte';
 
 	export let data;
 	export let form;
@@ -33,9 +34,10 @@
 <main class="flex w-full flex-col items-center justify-center py-8 lg:mx-auto xl:justify-between">
 	<div class="mb-10 flex w-11/12 max-w-6xl flex-wrap justify-around gap-10 lg:gap-0">
 		<div class="flex grow basis-[621px] flex-col justify-around">
-			<h1 class="text-6.5xl font-bold">{$LL.credit_score_ai()}</h1>
+			<Title1 text={$LL.home.credit_score_ai()} />
 			<h2 class="text-2xl">
-				Let a Machine Learning model guess your credit score.<br /> It only takes 2 minutes.
+				{$LL.home.subtitle.part1()}<br />
+				{$LL.home.subtitle.part2()}
 			</h2>
 		</div>
 		<DefaultProfiles profiles={data.defaultProfiles.profiles} />
@@ -49,75 +51,75 @@
 		>
 			<form method="POST" use:superform.enhance>
 				<div class="mb-4 flex flex-wrap gap-5">
-					<NumericInput name="age" label="Age" {superform} disabled={profileSelected} />
+					<NumericInput name="age" label={$LL.age()} {superform} disabled={profileSelected} />
 					<RadioInput
 						name="sex"
-						label="Sex"
+						label={$LL.sex()}
 						options={[
-							{ label: 'Male', value: 'male' },
-							{ label: 'Female', value: 'female' }
+							{ label: $LL.male(), value: 'male' },
+							{ label: $LL.female(), value: 'female' }
 						]}
 						selectedValue="male"
 						form={superform.form}
 					/>
 					<RadioInput
 						name="education"
-						label="Education"
+						label={$LL.education()}
 						options={[
-							{ label: 'High School', value: 'high_school_diploma' },
-							{ label: 'Associate', value: 'associates_degree' },
-							{ label: 'Bachelor', value: 'bachelors_degree' },
-							{ label: 'Master', value: 'masters_degree' },
-							{ label: 'Doctorate', value: 'doctorate' }
+							{ label: $LL.high_school_diploma(), value: 'high_school_diploma' },
+							{ label: $LL.associates_degree(), value: 'associates_degree' },
+							{ label: $LL.bachelors_degree(), value: 'bachelors_degree' },
+							{ label: $LL.masters_degree(), value: 'masters_degree' },
+							{ label: $LL.doctorate(), value: 'doctorate' }
 						]}
 						form={superform.form}
 					/>
 					/>
 					<NumericInput
 						name="monthly_income"
-						label="Monthly income"
+						label={$LL.monthly_income()}
 						{superform}
 						disabled={profileSelected}
 					/>
 					<NumericInput
 						name="num_bank_accounts"
-						label="Number of bank accounts"
+						label={$LL.num_bank_accounts()}
 						{superform}
 						disabled={profileSelected}
 					/>
 					<NumericInput
 						name="num_credit_card"
-						label="Number of credit cards"
+						label={$LL.num_credit_card()}
 						{superform}
 						disabled={profileSelected}
 					/>
 					<NumericInput
 						name="num_of_loan"
-						label="Number of loans"
+						label={$LL.num_of_loan()}
 						{superform}
 						disabled={profileSelected}
 					/>
 					<NumericInput
 						name="num_of_delayed_payment"
-						label="Number of delayed payments"
+						label={$LL.num_of_delayed_payment()}
 						{superform}
 						disabled={profileSelected}
 					/>
 					<NumericInput
 						name="outstanding_debt"
-						label="Outstanding debt"
+						label={$LL.outstanding_debt()}
 						{superform}
 						disabled={profileSelected}
 					/>
 					<NumericInput
 						name="total_emi_per_month"
-						label="Equated Monthly Installment"
+						label={$LL.total_emi_per_month()}
 						{superform}
 						disabled={profileSelected}
 					/>
 					<NumericInput
 						name="credit_history_age"
-						label="For how many time do you have a credit card?"
+						label={$LL.credit_history_age()}
 						{superform}
 						disabled={profileSelected}
 					/>
@@ -129,7 +131,7 @@
 							backgroundColor="bg-transparent"
 							textColor="text-slate-100"
 							borderColor="border-slate-100"
-							label="Reset"
+							label={$LL.reset()}
 							basis="basis-full sm:basis-1/6"
 						/>
 						<Button
@@ -137,7 +139,7 @@
 							backgroundColor="bg-[#6366F1]"
 							textColor="text-slate-100"
 							borderColor="border-slate-100"
-							label="Send"
+							label={$LL.submit()}
 							basis="basis-full sm:basis-4/6"
 						/>
 					{:else}
@@ -146,16 +148,14 @@
 							backgroundColor="bg-[#16b56d]"
 							textColor="text-slate-100"
 							borderColor="border-slate-100"
-							label="Return to Home"
+							label={$LL.return_home()}
 							basis="basis-full"
 						/>
 					{/if}
 				</div>
 			</form>
 
-			<Warning
-				warningText="Este projeto foi construído com o propósito de mostrar o conhecimento dos autores. Não podemos atestar a origem dos dados de treino, portanto não se surpreenda se o resultado diferir da realidade."
-			/>
+			<Warning warningText={$LL.home.warning()} />
 		</div>
 		<div
 			class="grow basis-[300px] bg-slate-50 px-10 py-4 max-[980px]:rounded-b-lg min-[981px]:rounded-r-lg"
@@ -172,7 +172,7 @@
 						profileData?.predict_output?.features_relevance}
 				/>
 			{:else}
-				<p class="text-center text-2xl font-bold">Please, fill the form</p>
+				<p class="text-center text-2xl font-bold">{$LL.fill_form()}</p>
 			{/if}
 		</div>
 	</div>

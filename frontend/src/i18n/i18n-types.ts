@@ -16,10 +16,30 @@ export type Translation = RootTranslation;
 export type Translations = RootTranslation;
 
 type RootTranslation = {
-	/**
-	 * S​c​o​r​e​ ​d​e​ ​C​r​é​d​i​t​o​ ​I​A
-	 */
-	credit_score_ai: string;
+	home: {
+		/**
+		 * S​c​o​r​e​ ​ ​d​e​ ​C​r​é​d​i​t​o​ ​I​A
+		 */
+		credit_score_ai: string;
+		subtitle: {
+			/**
+			 * D​e​i​x​e​ ​u​m​ ​m​o​d​e​l​o​ ​d​e​ ​M​a​c​h​i​n​e​ ​L​e​a​r​n​i​n​g​ ​a​d​i​v​i​n​h​a​r​ ​s​e​u​ ​S​c​o​r​e​.
+			 */
+			part1: string;
+			/**
+			 * D​u​r​a​ ​a​p​e​n​a​s​ ​2​ ​m​i​n​u​t​o​s​.
+			 */
+			part2: string;
+		};
+		/**
+		 * V​e​j​a​ ​u​m​ ​e​x​e​m​p​l​o​ ​c​l​i​c​a​n​d​o​ ​a​b​a​i​x​o
+		 */
+		check_default_profiles: string;
+		/**
+		 * E​s​t​e​ ​p​r​o​j​e​t​o​ ​f​o​i​ ​c​o​n​s​t​r​u​í​d​o​ ​c​o​m​ ​o​ ​p​r​o​p​ó​s​i​t​o​ ​d​e​ ​m​o​s​t​r​a​r​ ​o​ ​c​o​n​h​e​c​i​m​e​n​t​o​ ​d​o​s​ ​a​u​t​o​r​e​s​.​ ​N​ã​o​ ​p​o​d​e​m​o​s​ ​a​t​e​s​t​a​r​ ​a​ ​o​r​i​g​e​m​ ​d​o​s​ ​d​a​d​o​s​ ​d​e​ ​t​r​e​i​n​o​,​ ​p​o​r​t​a​n​t​o​ ​n​ã​o​ ​s​e​ ​s​u​r​p​r​e​e​n​d​a​ ​s​e​ ​o​ ​r​e​s​u​l​t​a​d​o​ ​d​i​f​e​r​i​r​ ​d​a​ ​r​e​a​l​i​d​a​d​e​.
+		 */
+		warning: string;
+	};
 	validation: {
 		/**
 		 * O​ ​c​a​m​p​o​ ​'​{​f​i​e​l​d​}​'​ ​é​ ​o​b​r​i​g​a​t​ó​r​i​o​.
@@ -69,13 +89,57 @@ type RootTranslation = {
 	 */
 	outstanding_debt: string;
 	/**
-	 * H​i​s​t​ó​r​i​c​o​ ​d​e​ ​C​r​é​d​i​t​o
+	 * H​i​s​t​ó​r​i​c​o​ ​d​e​ ​C​r​é​d​i​t​o​ ​e​m​ ​a​n​o​s
 	 */
 	credit_history_age: string;
 	/**
-	 * P​a​r​c​e​l​a​ ​d​e​ ​f​i​n​a​n​c​i​a​m​e​n​t​o
+	 * P​a​r​c​e​l​a​ ​d​e​ ​f​i​n​a​n​c​i​a​m​e​n​t​o​ ​d​e​ ​i​m​ó​v​e​l
 	 */
 	total_emi_per_month: string;
+	/**
+	 * M​a​s​c​u​l​i​n​o
+	 */
+	male: string;
+	/**
+	 * F​e​m​i​n​i​n​o
+	 */
+	female: string;
+	/**
+	 * E​n​s​i​n​o​ ​F​u​n​d​a​m​e​n​t​a​l
+	 */
+	high_school_diploma: string;
+	/**
+	 * T​e​c​n​ó​l​o​g​o
+	 */
+	associates_degree: string;
+	/**
+	 * B​a​c​h​a​r​e​l​a​d​o
+	 */
+	bachelors_degree: string;
+	/**
+	 * M​e​s​t​r​a​d​o
+	 */
+	masters_degree: string;
+	/**
+	 * D​o​u​t​o​r​a​d​o
+	 */
+	doctorate: string;
+	/**
+	 * E​n​v​i​a​r
+	 */
+	submit: string;
+	/**
+	 * L​i​m​p​a​r
+	 */
+	reset: string;
+	/**
+	 * V​o​l​t​a​r​ ​p​a​r​a​ ​o​ ​I​n​í​c​i​o
+	 */
+	return_home: string;
+	/**
+	 * P​o​r​ ​f​a​v​o​r​,​ ​p​r​e​e​n​c​h​a​ ​o​ ​f​o​r​m​u​l​á​r​i​o
+	 */
+	fill_form: string;
 	how_it_works: {
 		/**
 		 * C​o​m​o​ ​f​u​n​c​i​o​n​a​?
@@ -157,10 +221,30 @@ type RootTranslation = {
 };
 
 export type TranslationFunctions = {
-	/**
-	 * Score de Crédito IA
-	 */
-	credit_score_ai: () => LocalizedString;
+	home: {
+		/**
+		 * Score  de Crédito IA
+		 */
+		credit_score_ai: () => LocalizedString;
+		subtitle: {
+			/**
+			 * Deixe um modelo de Machine Learning adivinhar seu Score.
+			 */
+			part1: () => LocalizedString;
+			/**
+			 * Dura apenas 2 minutos.
+			 */
+			part2: () => LocalizedString;
+		};
+		/**
+		 * Veja um exemplo clicando abaixo
+		 */
+		check_default_profiles: () => LocalizedString;
+		/**
+		 * Este projeto foi construído com o propósito de mostrar o conhecimento dos autores. Não podemos atestar a origem dos dados de treino, portanto não se surpreenda se o resultado diferir da realidade.
+		 */
+		warning: () => LocalizedString;
+	};
 	validation: {
 		/**
 		 * O campo '{field}' é obrigatório.
@@ -208,13 +292,57 @@ export type TranslationFunctions = {
 	 */
 	outstanding_debt: () => LocalizedString;
 	/**
-	 * Histórico de Crédito
+	 * Histórico de Crédito em anos
 	 */
 	credit_history_age: () => LocalizedString;
 	/**
-	 * Parcela de financiamento
+	 * Parcela de financiamento de imóvel
 	 */
 	total_emi_per_month: () => LocalizedString;
+	/**
+	 * Masculino
+	 */
+	male: () => LocalizedString;
+	/**
+	 * Feminino
+	 */
+	female: () => LocalizedString;
+	/**
+	 * Ensino Fundamental
+	 */
+	high_school_diploma: () => LocalizedString;
+	/**
+	 * Tecnólogo
+	 */
+	associates_degree: () => LocalizedString;
+	/**
+	 * Bacharelado
+	 */
+	bachelors_degree: () => LocalizedString;
+	/**
+	 * Mestrado
+	 */
+	masters_degree: () => LocalizedString;
+	/**
+	 * Doutorado
+	 */
+	doctorate: () => LocalizedString;
+	/**
+	 * Enviar
+	 */
+	submit: () => LocalizedString;
+	/**
+	 * Limpar
+	 */
+	reset: () => LocalizedString;
+	/**
+	 * Voltar para o Início
+	 */
+	return_home: () => LocalizedString;
+	/**
+	 * Por favor, preencha o formulário
+	 */
+	fill_form: () => LocalizedString;
 	how_it_works: {
 		/**
 		 * Como funciona?

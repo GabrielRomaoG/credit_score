@@ -1,7 +1,16 @@
 import type { Translation } from '../i18n-types';
 
 const en_US = {
-	credit_score_ai: 'Credit Score AI',
+	home: {
+		credit_score_ai: 'Credit Score AI',
+		subtitle: {
+			part1: 'Let a Machine Learning model guess your credit score.',
+			part2: 'It only takes 2 minutes.'
+		},
+		check_default_profiles: 'Check default profiles',
+		warning:
+			"This project was built with the purpose of showcasing the authors' knowledge. We cannot attest to the origin of the training data, so do not be surprised if the result differs from reality."
+	},
 	validation: {
 		required: "'{field}' is required.",
 		nonnegative: "'{field}' must be positive."
@@ -17,6 +26,21 @@ const en_US = {
 	outstanding_debt: 'Outstanding Debt',
 	credit_history_age: 'Credit History Age',
 	total_emi_per_month: 'Total EMI per Month',
+
+	male: 'Male',
+	female: 'Female',
+
+	high_school_diploma: 'High School',
+	associates_degree: 'Associate',
+	bachelors_degree: 'Bachelor',
+	masters_degree: 'Master',
+	doctorate: 'Doctorate',
+
+	submit: 'Submit',
+	reset: 'Reset',
+	return_home: 'Return to Home',
+
+	fill_form: 'Please, fill the form',
 
 	how_it_works: {
 		title1: 'How it works?',

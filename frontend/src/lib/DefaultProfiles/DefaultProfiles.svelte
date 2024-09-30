@@ -2,6 +2,7 @@
 	import type { ProfileInfo } from '$lib/types';
 	import Profile from './Profile.svelte';
 	import { goto } from '$app/navigation';
+	import LL from '$i18n/i18n-svelte';
 
 	export let profiles: ProfileInfo[] = [
 		{
@@ -20,7 +21,7 @@
 </script>
 
 <div class="max-w-[600px] grow basis-[300px] rounded-lg border bg-white p-4 shadow-lg">
-	<h2 class="mb-4 text-center text-lg font-semibold">Check Default Profiles</h2>
+	<h2 class="mb-4 text-center text-lg font-semibold">{$LL.home.check_default_profiles()}</h2>
 
 	<div class="flex content-stretch justify-between">
 		{#each profiles as profile (profile.profile_id)}
