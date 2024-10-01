@@ -30,7 +30,7 @@ const pt_BR = {
 	male: 'Masculino',
 	female: 'Feminino',
 
-	high_school_diploma: 'Ensino Fundamental',
+	high_school_diploma: 'Ensino Médio',
 	associates_degree: 'Tecnólogo',
 	bachelors_degree: 'Bacharelado',
 	masters_degree: 'Mestrado',
