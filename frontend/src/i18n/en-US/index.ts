@@ -5,7 +5,7 @@ const en_US = {
 		credit_score_ai: 'Credit Score AI',
 		subtitle: {
 			part1: 'Let a Machine Learning model guess your credit score.',
-			part2: 'It only takes 2 minutes.'
+			part2: 'Fill the form. It only takes 2 minutes.'
 		},
 		check_default_profiles: 'Check default profiles',
 		warning:

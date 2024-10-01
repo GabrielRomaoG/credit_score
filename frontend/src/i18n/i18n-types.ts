@@ -27,7 +27,7 @@ type RootTranslation = {
 			 */
 			part1: string;
 			/**
-			 * D​u​r​a​ ​a​p​e​n​a​s​ ​2​ ​m​i​n​u​t​o​s​.
+			 * P​r​e​e​n​c​h​a​ ​o​ ​f​o​r​m​u​l​á​r​i​o​.​ ​D​u​r​a​ ​a​p​e​n​a​s​ ​2​ ​m​i​n​u​t​o​s​.
 			 */
 			part2: string;
 		};
@@ -236,7 +236,7 @@ export type TranslationFunctions = {
 			 */
 			part1: () => LocalizedString;
 			/**
-			 * Dura apenas 2 minutos.
+			 * Preencha o formulário. Dura apenas 2 minutos.
 			 */
 			part2: () => LocalizedString;
 		};

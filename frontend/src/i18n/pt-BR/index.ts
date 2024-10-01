@@ -5,7 +5,7 @@ const pt_BR = {
 		credit_score_ai: 'Score  de Crédito IA',
 		subtitle: {
 			part1: 'Deixe um modelo de Machine Learning adivinhar seu Score.',
-			part2: 'Dura apenas 2 minutos.'
+			part2: 'Preencha o formulário. Dura apenas 2 minutos.'
 		},
 		check_default_profiles: 'Veja um exemplo clicando abaixo',
 		warning:
