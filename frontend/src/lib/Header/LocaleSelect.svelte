@@ -25,22 +25,26 @@
 	const switchLocale = async (newLocale?: Locales) => {
 		if (newLocale === undefined || newLocale === $locale) return;
 
-		// load new dictionary from server
 		await loadLocaleAsync(newLocale as Locales);
-
-		// select locale
 		setLocale(newLocale as Locales);
 
-		// run the `load` function again
 		invalidateAll();
 	};
 
-	// update `lang` attribute and locale store on locale change
 	$: if (browser) {
 		document.querySelector('html')!.setAttribute('lang', $locale);
 		const lang = $page.params.lang as Locales;
 		switchLocale(lang);
 	}
+
+	const getLocaleLabel = (locale: Locales): string => {
+		const localeLabelMap: Record<Locales, string> = {
+			'en-US': 'English/USD',
+			'pt-BR': 'Português/R$'
+		};
+
+		return localeLabelMap[locale] ?? locale;
+	};
 </script>
 
 <div>
@@ -49,22 +53,22 @@
 		use:melt={$trigger}
 		aria-label="Locale"
 	>
-		{$locale}
+		{getLocaleLabel($locale)}
 		<ChevronDown />
 	</button>
 	{#if $open}
 		<div
-			class="z-10 flex flex-col overflow-y-auto rounded-lg bg-white p-1 shadow"
+			class="flex flex-col overflow-y-auto rounded-lg bg-white p-1 shadow"
 			use:melt={$menu}
 			transition:fade={{ duration: 150 }}
 		>
 			{#each locales as item}
 				<button
-					class="cursor-pointer rounded-lg px-2 py-1"
-					use:melt={$option({ value: item, label: item })}
+					class="cursor-pointer rounded-lg px-2 py-1 hover:bg-slate-100"
+					use:melt={$option({ value: item, label: getLocaleLabel(item) })}
 					on:click={() => switchLocale($selected?.value)}
 				>
-					{item}
+					{getLocaleLabel(item)}
 				</button>
 			{/each}
 		</div>
