@@ -131,14 +131,17 @@
 							backgroundColor="bg-transparent"
 							textColor="text-slate-100"
 							borderColor="border-slate-100"
+							hover="hover:bg-slate-100 hover:text-blue-600 hover:border-blue-600"
 							label={$LL.reset()}
 							basis="basis-full sm:basis-1/6"
 						/>
+
 						<Button
 							isSubmit
 							backgroundColor="bg-[#6366F1]"
 							textColor="text-slate-100"
 							borderColor="border-slate-100"
+							hover="hover:bg-blue-700 hover:text-white hover:border-blue-900"
 							label={$LL.submit()}
 							basis="basis-full sm:basis-4/6"
 						/>
@@ -148,6 +151,7 @@
 							backgroundColor="bg-[#16b56d]"
 							textColor="text-slate-100"
 							borderColor="border-slate-100"
+							hover="hover:bg-green-600 hover:text-white hover:border-green-800"
 							label={$LL.return_home()}
 							basis="basis-full"
 						/>
