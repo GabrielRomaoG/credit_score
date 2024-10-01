@@ -4,6 +4,7 @@
 	import LocaleSelect from './LocaleSelect.svelte';
 	import { createCollapsible, melt } from '@melt-ui/svelte';
 	import { slide } from 'svelte/transition';
+	import LL from '$i18n/i18n-svelte';
 
 	const NAV_LAYOUT_BREAKPOINT: number = 640;
 	let windowWidth: number;
@@ -29,7 +30,7 @@
 			{#if $open || windowWidth >= NAV_LAYOUT_BREAKPOINT}
 				<div class="flex flex-col gap-2 sm:flex-row sm:gap-4" use:melt={$content} transition:slide>
 					<HeaderNavLink title="Home" />
-					<HeaderNavLink title="How it works" path="/how-it-works" />
+					<HeaderNavLink title={$LL.how_it_works.title1()} path="/how-it-works" />
 					<HeaderNavLink title="Authors" path="/authors" />
 				</div>
 			{/if}
