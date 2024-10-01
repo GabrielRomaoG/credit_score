@@ -42,6 +42,8 @@ const pt_BR = {
 
 	fill_form: 'Por favor, preencha o formulário',
 
+	features_impact: 'Impacto das Características',
+
 	how_it_works: {
 		title1: 'Como funciona?',
 		title2_goal: 'O objetivo',

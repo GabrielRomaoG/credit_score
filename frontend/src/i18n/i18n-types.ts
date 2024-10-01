@@ -105,7 +105,7 @@ type RootTranslation = {
 	 */
 	female: string;
 	/**
-	 * E​n​s​i​n​o​ ​F​u​n​d​a​m​e​n​t​a​l
+	 * E​n​s​i​n​o​ ​M​é​d​i​o
 	 */
 	high_school_diploma: string;
 	/**
@@ -140,6 +140,10 @@ type RootTranslation = {
 	 * P​o​r​ ​f​a​v​o​r​,​ ​p​r​e​e​n​c​h​a​ ​o​ ​f​o​r​m​u​l​á​r​i​o
 	 */
 	fill_form: string;
+	/**
+	 * I​m​p​a​c​t​o​ ​d​a​s​ ​C​a​r​a​c​t​e​r​í​s​t​i​c​a​s
+	 */
+	features_impact: string;
 	how_it_works: {
 		/**
 		 * C​o​m​o​ ​f​u​n​c​i​o​n​a​?
@@ -308,7 +312,7 @@ export type TranslationFunctions = {
 	 */
 	female: () => LocalizedString;
 	/**
-	 * Ensino Fundamental
+	 * Ensino Médio
 	 */
 	high_school_diploma: () => LocalizedString;
 	/**
@@ -343,6 +347,10 @@ export type TranslationFunctions = {
 	 * Por favor, preencha o formulário
 	 */
 	fill_form: () => LocalizedString;
+	/**
+	 * Impacto das Características
+	 */
+	features_impact: () => LocalizedString;
 	how_it_works: {
 		/**
 		 * Como funciona?

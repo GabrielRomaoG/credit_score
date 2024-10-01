@@ -166,7 +166,7 @@
 			/>
 
 			{#if form || profileSelected ? true : false}
-				<h2 class="my-4 text-2xl font-bold">Features Relevance</h2>
+				<h2 class="my-4 text-2xl font-bold">{$LL.features_impact()}</h2>
 				<FeaturesRelevance
 					featuresRelevanceList={form?.parsedResponse?.features_relevance ||
 						profileData?.predict_output?.features_relevance}

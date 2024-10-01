@@ -42,6 +42,8 @@ const en_US = {
 
 	fill_form: 'Please, fill the form',
 
+	features_impact: 'Features Impact',
+
 	how_it_works: {
 		title1: 'How it works?',
 		title2_goal: 'The goal',
