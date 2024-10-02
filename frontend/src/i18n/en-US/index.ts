@@ -13,7 +13,8 @@ const en_US = {
 	},
 	validation: {
 		required: "'{field}' is required.",
-		nonnegative: "'{field}' must be positive."
+		nonnegative: "'{field}' must be positive.",
+		lessThan: "'{field}' must be less than {lessThan}."
 	},
 	age: 'Age',
 	monthly_income: 'Monthly Income',
