@@ -20,7 +20,7 @@
 	];
 </script>
 
-<div class="max-w-[600px] grow basis-[300px] rounded-lg border bg-white p-4 shadow-lg">
+<div class="max-w-[600px] grow basis-[300px] rounded-lg border bg-white shadow-lg sm:p-4">
 	<h2 class="mb-4 text-center text-lg font-semibold">{$LL.home.check_default_profiles()}</h2>
 
 	<div class="flex content-stretch justify-between">
