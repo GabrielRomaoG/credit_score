@@ -56,8 +56,8 @@
 						name="sex"
 						label={$LL.sex()}
 						options={[
-							{ label: $LL.male(), value: 'male' },
-							{ label: $LL.female(), value: 'female' }
+							{ label: $LL.female(), value: 'female' },
+							{ label: $LL.male(), value: 'male' }
 						]}
 						selectedValue="male"
 						form={superform.form}
