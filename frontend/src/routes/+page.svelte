@@ -60,7 +60,7 @@
 							{ label: $LL.male(), value: 'male' }
 						]}
 						selectedValue="male"
-						form={superform.form}
+						{superform}
 					/>
 					<RadioInput
 						name="education"
@@ -72,7 +72,7 @@
 							{ label: $LL.masters_degree(), value: 'masters_degree' },
 							{ label: $LL.doctorate(), value: 'doctorate' }
 						]}
-						form={superform.form}
+						{superform}
 					/>
 					/>
 					<NumericInput
