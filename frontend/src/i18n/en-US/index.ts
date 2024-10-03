@@ -8,6 +8,12 @@ const en_US = {
 			part2: 'Fill the form. It only takes 2 minutes.'
 		},
 		check_default_profiles: 'Check default profiles',
+		form: {
+			total_emi_per_month_info:
+				'EMI, or Equated Monthly Installment, is a fixed payment amount paid by a borrower to a lender at a specified date each calendar month.',
+			credit_history_age_info:
+				'How long have you been a bank account or credit card holder in years.'
+		},
 		warning:
 			"This project was built with the purpose of showcasing the authors' knowledge. We cannot attest to the origin of the training data, so do not be surprised if the result differs from reality."
 	},

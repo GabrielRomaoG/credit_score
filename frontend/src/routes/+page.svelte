@@ -116,12 +116,14 @@
 						label={$LL.total_emi_per_month()}
 						{superform}
 						disabled={profileSelected}
+						infoMessage={$LL.home.form.total_emi_per_month_info()}
 					/>
 					<NumericInput
 						name="credit_history_age"
 						label={$LL.credit_history_age()}
 						{superform}
 						disabled={profileSelected}
+						infoMessage={$LL.home.form.credit_history_age_info()}
 					/>
 				</div>
 				<div class="mb-4 flex flex-wrap gap-4">

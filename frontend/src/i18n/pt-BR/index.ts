@@ -8,6 +8,12 @@ const pt_BR = {
 			part2: 'Preencha o formulário. Dura apenas 2 minutos.'
 		},
 		check_default_profiles: 'Veja um exemplo clicando abaixo',
+		form: {
+			total_emi_per_month_info:
+				'A parcela do financiamento ou o valor do aluguel do imóvel que você mora.',
+			credit_history_age_info:
+				'Há quanto tempo você tem uma conta bancária ou um cartão de crédito em anos.'
+		},
 		warning:
 			'Este projeto foi construído com o propósito de mostrar o conhecimento dos autores. Não podemos atestar a origem dos dados de treino, portanto não se surpreenda se o resultado diferir da realidade.'
 	},
