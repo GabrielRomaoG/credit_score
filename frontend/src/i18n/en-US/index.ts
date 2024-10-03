@@ -83,7 +83,9 @@ const en_US = {
 			'When the model predicts a class, it will return the credit score number associated with that class. But as we have two models, it will return the weighted average credit score number of the two models, with the weights being the accuracy of the models.',
 		transform_class_text4:
 			"For example, if the accuracy of the first model is 70% and the accuracy of the second model is 80%, and the classes are 'low' and 'high', the weighted average will be ((70% * 300) + (80% * 900)) / (70% + 80%) = 650."
-	}
+	},
+	github_link: 'Go to GitHub repository',
+	authors: 'Authors'
 } satisfies Translation;
 
 export default en_US;

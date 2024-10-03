@@ -83,7 +83,9 @@ const pt_BR = {
 			'Quando o modelo prevê uma classe, ele retornará o número de score de crédito associado a essa classe. Mas como temos dois modelos, ele retornará a média ponderada do número de score de crédito dos dois modelos, sendo os pesos a precisão dos modelos.',
 		transform_class_text4:
 			"Por exemplo, se a precisão do primeiro modelo for de 70% e a precisão do segundo modelo for de 80%, e as classes forem 'baixo' e 'alto', a média ponderada será ((70% * 300) + (80% * 900)) / (70% + 80%) = 650."
-	}
+	},
+	github_link: 'Visite o repositório no GitHub',
+	authors: 'Desenvolvedores'
 } satisfies BaseTranslation;
 
 export default pt_BR;

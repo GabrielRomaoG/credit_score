@@ -228,6 +228,14 @@ type RootTranslation = {
 		 */
 		transform_class_text4: string;
 	};
+	/**
+	 * V​i​s​i​t​e​ ​o​ ​r​e​p​o​s​i​t​ó​r​i​o​ ​n​o​ ​G​i​t​H​u​b
+	 */
+	github_link: string;
+	/**
+	 * D​e​s​e​n​v​o​l​v​e​d​o​r​e​s
+	 */
+	authors: string;
 };
 
 export type TranslationFunctions = {
@@ -439,6 +447,14 @@ export type TranslationFunctions = {
 		 */
 		transform_class_text4: () => LocalizedString;
 	};
+	/**
+	 * Visite o repositório no GitHub
+	 */
+	github_link: () => LocalizedString;
+	/**
+	 * Desenvolvedores
+	 */
+	authors: () => LocalizedString;
 };
 
 export type Formatters = {};

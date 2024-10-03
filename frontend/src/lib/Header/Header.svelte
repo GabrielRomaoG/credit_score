@@ -31,7 +31,7 @@
 				<div class="flex flex-col gap-2 sm:flex-row sm:gap-4" use:melt={$content} transition:slide>
 					<HeaderNavLink title="Home" />
 					<HeaderNavLink title={$LL.how_it_works.title1()} path="/how-it-works" />
-					<HeaderNavLink title="Authors" path="/authors" />
+					<HeaderNavLink title={$LL.authors()} path="#authors-info" />
 				</div>
 			{/if}
 		</nav>
