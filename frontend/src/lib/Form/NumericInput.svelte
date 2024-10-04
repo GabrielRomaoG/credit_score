@@ -3,23 +3,9 @@
 </script>
 
 <script lang="ts" generics="T extends Record<string, unknown>">
-	import { createTooltip, melt } from '@melt-ui/svelte';
-	import { fade } from 'svelte/transition';
-	const {
-		elements: { trigger, content, arrow },
-		states: { open }
-	} = createTooltip({
-		positioning: {
-			placement: 'right'
-		},
-		openDelay: 0,
-		closeDelay: 0,
-		closeOnPointerDown: false,
-		forceVisible: true
-	});
+	import Tooltip from './Tooltip.svelte';
 
 	import { formFieldProxy, type SuperForm, type FormPathLeaves } from 'sveltekit-superforms';
-	import { MessageCircleMore } from 'lucide-svelte';
 	export let superform: SuperForm<T>;
 	export let name: FormPathLeaves<T>;
 	export let disabled: boolean = false;
@@ -38,9 +24,7 @@
 	<div class="mb-1 flex flex-row gap-4">
 		<label class=" text-sm font-medium text-slate-100 after:content-['*']">{label}</label>
 		{#if infoMessage}
-			<button type="button" use:melt={$trigger} aria-label="Info">
-				<MessageCircleMore class="h-6 w-6 pb-1 text-slate-100" />
-			</button>
+			<Tooltip {infoMessage} />
 		{/if}
 	</div>
 
@@ -57,13 +41,3 @@
 		<span class="mt-1 text-sm text-red-300">{$errors}</span>
 	{/if}
 </div>
-{#if $open}
-	<div
-		use:melt={$content}
-		transition:fade={{ duration: 100 }}
-		class=" z-10 max-w-64 rounded-lg bg-white shadow"
-	>
-		<div use:melt={$arrow} />
-		<p class="break-words px-4 py-1 text-justify text-sm">{infoMessage}</p>
-	</div>
-{/if}
