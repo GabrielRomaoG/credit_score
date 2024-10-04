@@ -12,7 +12,9 @@ const en_US = {
 			total_emi_per_month_info:
 				'EMI, or Equated Monthly Installment, is a fixed payment amount paid by a borrower to a lender at a specified date each calendar month.',
 			credit_history_age_info:
-				'How long have you been a bank account or credit card holder in years.'
+				'How long have you been a bank account or credit card holder in years.',
+			features_impact_info:
+				'Show how each feature affects the credit score. Two green arrows indicate a great positive impact, and two red arrows indicate a great negative impact.'
 		},
 		warning:
 			"This project was built with the purpose of showcasing the authors' knowledge. We cannot attest to the origin of the training data, so do not be surprised if the result differs from reality."

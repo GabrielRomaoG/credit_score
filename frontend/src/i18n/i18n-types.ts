@@ -44,6 +44,10 @@ type RootTranslation = {
 			 * H​á​ ​q​u​a​n​t​o​ ​t​e​m​p​o​ ​v​o​c​ê​ ​t​e​m​ ​u​m​a​ ​c​o​n​t​a​ ​b​a​n​c​á​r​i​a​ ​o​u​ ​u​m​ ​c​a​r​t​ã​o​ ​d​e​ ​c​r​é​d​i​t​o​ ​e​m​ ​a​n​o​s​.
 			 */
 			credit_history_age_info: string;
+			/**
+			 * V​e​j​a​ ​o​ ​q​u​a​n​t​o​ ​c​a​d​a​ ​f​e​a​t​u​r​e​ ​a​f​e​t​a​ ​o​ ​s​e​u​ ​s​c​o​r​e​.​ ​D​o​i​s​ ​p​o​n​t​o​s​ ​v​e​r​d​e​s​ ​i​n​d​i​c​a​m​ ​u​m​ ​g​r​a​n​d​e​ ​i​m​p​a​c​t​o​ ​p​o​s​i​t​i​v​o​,​ ​e​ ​d​o​i​s​ ​p​o​n​t​o​s​ ​v​e​r​m​e​l​h​o​s​ ​i​n​d​i​c​a​m​ ​u​m​ ​g​r​a​n​d​e​ ​i​m​p​a​c​t​o​ ​n​e​g​a​t​i​v​o​.
+			 */
+			features_impact_info: string;
 		};
 		/**
 		 * E​s​t​e​ ​p​r​o​j​e​t​o​ ​f​o​i​ ​c​o​n​s​t​r​u​í​d​o​ ​c​o​m​ ​o​ ​p​r​o​p​ó​s​i​t​o​ ​d​e​ ​m​o​s​t​r​a​r​ ​o​ ​c​o​n​h​e​c​i​m​e​n​t​o​ ​d​o​s​ ​a​u​t​o​r​e​s​.​ ​N​ã​o​ ​p​o​d​e​m​o​s​ ​a​t​e​s​t​a​r​ ​a​ ​o​r​i​g​e​m​ ​d​o​s​ ​d​a​d​o​s​ ​d​e​ ​t​r​e​i​n​o​,​ ​p​o​r​t​a​n​t​o​ ​n​ã​o​ ​s​e​ ​s​u​r​p​r​e​e​n​d​a​ ​s​e​ ​o​ ​r​e​s​u​l​t​a​d​o​ ​d​i​f​e​r​i​r​ ​d​a​ ​r​e​a​l​i​d​a​d​e​.
@@ -277,6 +281,10 @@ export type TranslationFunctions = {
 			 * Há quanto tempo você tem uma conta bancária ou um cartão de crédito em anos.
 			 */
 			credit_history_age_info: () => LocalizedString;
+			/**
+			 * Veja o quanto cada feature afeta o seu score. Dois pontos verdes indicam um grande impacto positivo, e dois pontos vermelhos indicam um grande impacto negativo.
+			 */
+			features_impact_info: () => LocalizedString;
 		};
 		/**
 		 * Este projeto foi construído com o propósito de mostrar o conhecimento dos autores. Não podemos atestar a origem dos dados de treino, portanto não se surpreenda se o resultado diferir da realidade.

@@ -12,6 +12,7 @@
 	import FeaturesRelevance from '$lib/ScorePanel/FeaturesRelevance.svelte';
 	import { goto } from '$app/navigation';
 	import Title1 from '$lib/Text/Title1.svelte';
+	import Tooltip from '$lib/Form/Tooltip.svelte';
 
 	export let data;
 	export let form;
@@ -175,7 +176,10 @@
 			/>
 
 			{#if form?.parsedResponse || profileData?.predict_output ? true : false}
-				<h2 class="my-4 text-2xl font-bold">{$LL.features_impact()}</h2>
+				<div class="flex flex-row gap-4">
+					<h2 class="my-4 text-2xl font-bold">{$LL.features_impact()}</h2>
+					<Tooltip infoMessage={$LL.home.form.features_impact_info()} iconColor="text-black" />
+				</div>
 				<FeaturesRelevance
 					featuresRelevanceList={form?.parsedResponse?.features_relevance ||
 						profileData?.predict_output?.features_relevance}

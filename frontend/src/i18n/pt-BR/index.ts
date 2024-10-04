@@ -12,7 +12,9 @@ const pt_BR = {
 			total_emi_per_month_info:
 				'A parcela do financiamento ou o valor do aluguel do imóvel que você mora.',
 			credit_history_age_info:
-				'Há quanto tempo você tem uma conta bancária ou um cartão de crédito em anos.'
+				'Há quanto tempo você tem uma conta bancária ou um cartão de crédito em anos.',
+			features_impact_info:
+				'Veja o quanto cada feature afeta o seu score. Dois pontos verdes indicam um grande impacto positivo, e dois pontos vermelhos indicam um grande impacto negativo.'
 		},
 		warning:
 			'Este projeto foi construído com o propósito de mostrar o conhecimento dos autores. Não podemos atestar a origem dos dados de treino, portanto não se surpreenda se o resultado diferir da realidade.'
