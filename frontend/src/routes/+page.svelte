@@ -176,7 +176,7 @@
 			/>
 
 			{#if form?.parsedResponse || profileData?.predict_output ? true : false}
-				<div class="flex flex-row gap-4">
+				<div class="flex flex-row gap-2">
 					<h2 class="my-4 text-2xl font-bold">{$LL.features_impact()}</h2>
 					<Tooltip infoMessage={$LL.home.form.features_impact_info()} iconColor="text-black" />
 				</div>
