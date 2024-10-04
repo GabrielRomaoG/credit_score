@@ -21,7 +21,7 @@
 </script>
 
 <button type="button" use:melt={$trigger} aria-label="Info">
-	<MessageCircleMore class="h-6 w-6 pb-1 {iconColor}" />
+	<MessageCircleMore class="h-5 w-5 {iconColor}" />
 </button>
 
 {#if $open}
