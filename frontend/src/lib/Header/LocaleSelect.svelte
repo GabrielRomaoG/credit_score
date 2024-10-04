@@ -9,6 +9,8 @@
 	import { createSelect, melt } from '@melt-ui/svelte';
 	import { ChevronDown } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
+	import brazil_icon from '$lib/assets/flag-icons/brazil.png';
+	import usa_icon from '$lib/assets/flag-icons/usa.png';
 
 	const {
 		elements: { trigger, menu, option },
@@ -45,17 +47,28 @@
 
 		return localeLabelMap[locale] ?? locale;
 	};
+
+	const getLocaleFlag = (locale: Locales): string => {
+		const localeFlagMap: Record<Locales, string> = {
+			'en-US': usa_icon,
+			'pt-BR': brazil_icon
+		};
+
+		return localeFlagMap[locale] ?? '';
+	};
 </script>
 
 <div>
 	<button
-		class="flex justify-between gap-1 rounded-full px-4 py-2 text-center outline outline-1 outline-slate-100 transition-all hover:bg-slate-100/20 hover:outline-2 focus:outline-2"
+		class="flex items-center justify-between gap-2 rounded-full px-4 py-2 text-center outline outline-1 outline-slate-100 transition-all hover:bg-slate-100/20 hover:outline-2 focus:outline-2"
 		use:melt={$trigger}
 		aria-label="Locale"
 	>
+		<img src={getLocaleFlag($locale)} alt="flag" class="h-5 w-8" />
 		{getLocaleLabel($locale)}
 		<ChevronDown />
 	</button>
+
 	{#if $open}
 		<div
 			class="flex flex-col overflow-y-auto rounded-lg bg-white p-1 shadow"
@@ -64,10 +77,11 @@
 		>
 			{#each locales as item}
 				<button
-					class="cursor-pointer rounded-lg px-2 py-1 hover:bg-slate-100"
+					class="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1 hover:bg-slate-100"
 					use:melt={$option({ value: item, label: getLocaleLabel(item) })}
 					on:click={() => switchLocale($selected?.value)}
 				>
+					<img src={getLocaleFlag(item)} alt="flag" class="h-5 w-8" />
 					{getLocaleLabel(item)}
 				</button>
 			{/each}
