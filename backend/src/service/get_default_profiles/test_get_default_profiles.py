@@ -24,8 +24,16 @@ class TestDefaultProfilesGetter(unittest.TestCase):
         locale_dir = Path(self.test_dir) / "en-US"
         locale_dir.mkdir(parents=True, exist_ok=True)
 
-        profile_1 = {"profile_id": 1, "title": "Profile 1"}
-        profile_2 = {"profile_id": 2, "title": "Profile 2"}
+        profile_1 = {
+            "profile_id": 1,
+            "title": "Profile 1",
+            "img_url": "https://example.com/image.png",
+        }
+        profile_2 = {
+            "profile_id": 2,
+            "title": "Profile 2",
+            "img_url": "https://example.com/image2.png",
+        }
 
         self._create_temp_json_file(locale_dir, "profile_1.json", profile_1)
         self._create_temp_json_file(locale_dir, "profile_2.json", profile_2)
@@ -41,8 +49,22 @@ class TestDefaultProfilesGetter(unittest.TestCase):
 
         self.assertIsInstance(result_profiles, list)
         self.assertEqual(len(result_profiles), 2)
-        self.assertIn({"profile_id": 1, "title": "Profile 1"}, result_profiles)
-        self.assertIn({"profile_id": 2, "title": "Profile 2"}, result_profiles)
+        self.assertIn(
+            {
+                "profile_id": 1,
+                "title": "Profile 1",
+                "img_url": "https://example.com/image.png",
+            },
+            result_profiles,
+        )
+        self.assertIn(
+            {
+                "profile_id": 2,
+                "title": "Profile 2",
+                "img_url": "https://example.com/image2.png",
+            },
+            result_profiles,
+        )
 
     def test_get_profiles_directory_not_found(self):
         self.service.PROFILES_DIR = Path(self.test_dir) / "non_existent_directory"

@@ -60,6 +60,7 @@ class DefaultProfilesByIdGetter:
                 "profile_info": {
                     "profile_id": profile_data["profile_id"],
                     "title": profile_data["title"],
+                    "img_url": profile_data["img_url"],
                 },
                 "features": profile_data["features"],
                 "predict_output": profile_predict,

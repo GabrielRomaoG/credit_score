@@ -68,4 +68,5 @@ class DefaultProfilesGetter:
             return {
                 "profile_id": data["profile_id"],
                 "title": data["title"],
+                "img_url": data["img_url"],
             }

@@ -36,6 +36,7 @@ class TestDefaultProfilesByIdGetter(unittest.TestCase):
         profile_data = {
             "profile_id": 1,
             "title": "Profile 1",
+            "img_url": "https://example.com/image.png",
             "features": {
                 "age": 30,
                 "sex": "male",
@@ -84,6 +85,9 @@ class TestDefaultProfilesByIdGetter(unittest.TestCase):
         self.assertEqual(result["profile_info"]["profile_id"], 1)
         self.assertEqual(result["profile_info"]["title"], "Profile 1")
         self.assertEqual(result["features"], profile_data["features"])
+        self.assertEqual(
+            result["profile_info"]["img_url"], "https://example.com/image.png"
+        )
         self.assertIn("predict_output", result)
         self.assertEqual(
             result["predict_output"], self.mock_predict_request_processor.process()

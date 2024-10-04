@@ -11,6 +11,11 @@ class ProfileInfo(BaseModel):
     title: str = Field(
         ..., description="The title of the profile", examples=["young student"]
     )
+    img_url: str = Field(
+        ...,
+        description="The URL of the image associated with the profile",
+        examples=["https://example.com/image.png"],
+    )
 
 
 class DefaultProfilesResponse(BaseModel):
@@ -19,8 +24,16 @@ class DefaultProfilesResponse(BaseModel):
         description="A list of profile IDs and titles",
         examples=[
             [
-                {"profile_id": 0, "title": "young student"},
-                {"profile_id": 1, "title": "middle-aged worker"},
+                {
+                    "profile_id": 0,
+                    "title": "young student",
+                    "img_url": "https://example.com/image.png",
+                },
+                {
+                    "profile_id": 1,
+                    "title": "middle-aged worker",
+                    "img_url": "https://example.com/image2.png",
+                },
             ]
         ],
     )
