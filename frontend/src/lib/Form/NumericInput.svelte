@@ -64,6 +64,6 @@
 		class=" z-10 max-w-64 rounded-lg bg-white shadow"
 	>
 		<div use:melt={$arrow} />
-		<p class="break-words px-4 py-1 text-sm">{infoMessage}</p>
+		<p class="break-words px-4 py-1 text-justify text-sm">{infoMessage}</p>
 	</div>
 {/if}
