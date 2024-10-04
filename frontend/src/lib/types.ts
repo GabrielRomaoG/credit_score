@@ -36,6 +36,7 @@ export interface PredictOutput {
 export interface ProfileInfo {
 	profile_id: number;
 	title: string;
+	img_url: string;
 }
 
 export interface DefaultProfiles {

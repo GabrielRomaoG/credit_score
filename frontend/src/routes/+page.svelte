@@ -40,7 +40,10 @@
 				{$LL.home.subtitle.part2()}
 			</h2>
 		</div>
-		<DefaultProfiles profiles={data.defaultProfiles.profiles} />
+		<DefaultProfiles
+			profiles={data.defaultProfiles.profiles}
+			profileSelectedId={profileData?.profile_info?.profile_id}
+		/>
 	</div>
 
 	<div
