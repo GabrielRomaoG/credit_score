@@ -22,7 +22,8 @@ const pt_BR = {
 	validation: {
 		required: "O campo '{field}' é obrigatório.",
 		nonnegative: "O campo '{field}' deve ser positivo.",
-		lessThan: "O campo '{field}' deve ser menor que {lessThan}."
+		lessThan: "O campo '{field}' deve ser menor que {lessThan}.",
+		greaterThan: "O campo '{field}' deve ser maior que {greaterThan}."
 	},
 	age: 'Idade',
 	monthly_income: 'Renda mensal',

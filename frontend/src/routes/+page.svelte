@@ -171,11 +171,11 @@
 			class="grow basis-[300px] bg-slate-50 px-10 py-4 max-[980px]:rounded-b-lg min-[981px]:rounded-r-lg"
 		>
 			<Score
-				isActive={form?.parsedResponse || profileData?.predict_output ? true : false}
+				isActive={form?.parsedResponse || profileData?.predict_output}
 				score={form?.parsedResponse?.credit_score || profileData?.predict_output?.credit_score || 0}
 			/>
 
-			{#if form?.parsedResponse || profileData?.predict_output ? true : false}
+			{#if form?.parsedResponse || profileData?.predict_output}
 				<div class="flex flex-row gap-2">
 					<h2 class="my-4 text-2xl font-bold">{$LL.features_impact()}</h2>
 					<Tooltip infoMessage={$LL.home.form.features_impact_info()} iconColor="text-black" />

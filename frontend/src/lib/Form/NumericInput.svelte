@@ -10,8 +10,11 @@
 	export let name: FormPathLeaves<T>;
 	export let disabled: boolean = false;
 	const { value, errors } = formFieldProxy(superform, name);
-	const { validate } = superform;
-	validate(name);
+	const { validate, isTainted } = superform;
+
+	if (isTainted(name)) {
+		validate(name);
+	}
 
 	export let infoMessage: string = '';
 

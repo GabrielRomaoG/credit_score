@@ -71,6 +71,12 @@ type RootTranslation = {
 		 * @param {unknown} lessThan
 		 */
 		lessThan: RequiredParams<'field' | 'lessThan'>;
+		/**
+		 * O​ ​c​a​m​p​o​ ​'​{​f​i​e​l​d​}​'​ ​d​e​v​e​ ​s​e​r​ ​m​a​i​o​r​ ​q​u​e​ ​{​g​r​e​a​t​e​r​T​h​a​n​}​.
+		 * @param {unknown} field
+		 * @param {unknown} greaterThan
+		 */
+		greaterThan: RequiredParams<'field' | 'greaterThan'>;
 	};
 	/**
 	 * I​d​a​d​e
@@ -304,6 +310,10 @@ export type TranslationFunctions = {
 		 * O campo '{field}' deve ser menor que {lessThan}.
 		 */
 		lessThan: (arg: { field: unknown; lessThan: unknown }) => LocalizedString;
+		/**
+		 * O campo '{field}' deve ser maior que {greaterThan}.
+		 */
+		greaterThan: (arg: { field: unknown; greaterThan: unknown }) => LocalizedString;
 	};
 	/**
 	 * Idade
