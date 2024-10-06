@@ -1,25 +1,34 @@
-import { detectLocale, i18n } from '$i18n/i18n-util';
+import { base } from '$app/paths';
+import type { Locales } from '$i18n/i18n-types';
+import { detectLocale, i18n, isLocale } from '$i18n/i18n-util';
 import { loadAllLocales } from '$i18n/i18n-util.sync';
-import type { Handle, RequestEvent } from '@sveltejs/kit';
+import { getPathnameWithoutBase } from '$lib/utils';
+import { redirect, type Handle, type RequestEvent } from '@sveltejs/kit';
 import { initAcceptLanguageHeaderDetector } from 'typesafe-i18n/detectors';
 
 loadAllLocales();
 const L = i18n();
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const LL = L[getPreferredLocale(event)];
+	const [, lang] = getPathnameWithoutBase(event.url).split('/');
 
-	// bind locale and translation functions to current request
-	event.locals.locale = getPreferredLocale(event);
+	if (!lang) {
+		const locale = getPreferredLocale(event);
+
+		throw redirect(307, `${base}/${locale}`);
+	}
+
+	const locale = isLocale(lang) ? (lang as Locales) : getPreferredLocale(event);
+	const LL = L[locale];
+
+	event.locals.locale = locale;
 	event.locals.LL = LL;
 
-	// replace html lang attribute with correct language
 	return resolve(event, {
 		transformPageChunk: ({ html }) => html.replace('%lang%', getPreferredLocale(event))
 	});
 };
 
-// detect the preferred language the user has configured in his browser
 const getPreferredLocale = ({ request }: RequestEvent) => {
 	return detectLocale(initAcceptLanguageHeaderDetector(request));
 };

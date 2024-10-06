@@ -11,10 +11,11 @@
 	import { fade } from 'svelte/transition';
 	import brazil_icon from '$lib/assets/flag-icons/brazil.png';
 	import usa_icon from '$lib/assets/flag-icons/usa.png';
+	import { replaceLocaleInUrl } from '$lib/utils';
 
 	const {
 		elements: { trigger, menu, option },
-		states: { open, selected }
+		states: { open }
 	} = createSelect<Locales>({
 		forceVisible: true,
 		positioning: {
@@ -24,19 +25,30 @@
 		}
 	});
 
-	const switchLocale = async (newLocale?: Locales) => {
+	const switchLocale = async (newLocale?: Locales, updateHistoryState = true) => {
 		if (newLocale === undefined || newLocale === $locale) return;
 
 		await loadLocaleAsync(newLocale as Locales);
-		setLocale(newLocale as Locales);
+		setLocale(newLocale);
+
+		if (updateHistoryState) {
+			history.pushState({ locale: newLocale }, '', replaceLocaleInUrl($page.url, newLocale));
+		}
 
 		invalidateAll();
 	};
 
+	const handlePopStateEvent = async ({ state }: PopStateEvent) => switchLocale(state.locale, false);
+
 	$: if (browser) {
 		document.querySelector('html')!.setAttribute('lang', $locale);
 		const lang = $page.params.lang as Locales;
-		switchLocale(lang);
+		switchLocale(lang, false);
+		history.replaceState(
+			{ ...history.state, locale: lang },
+			'',
+			replaceLocaleInUrl($page.url, lang)
+		);
 	}
 
 	const getLocaleLabel = (locale: Locales): string => {
@@ -58,6 +70,8 @@
 	};
 </script>
 
+<svelte:window on:popstate={handlePopStateEvent} />
+
 <div>
 	<button
 		class="flex items-center justify-between gap-2 rounded-full px-4 py-2 text-center outline outline-1 outline-slate-100 transition-all hover:bg-slate-100/20 hover:outline-2 focus:outline-2"
@@ -76,14 +90,14 @@
 			transition:fade={{ duration: 150 }}
 		>
 			{#each locales as item}
-				<button
+				<a
 					class="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1 hover:bg-slate-100"
 					use:melt={$option({ value: item, label: getLocaleLabel(item) })}
-					on:click={() => switchLocale($selected?.value)}
+					href={replaceLocaleInUrl($page.url, item)}
 				>
 					<img src={getLocaleFlag(item)} alt="flag" class="h-5 w-8" />
 					{getLocaleLabel(item)}
-				</button>
+				</a>
 			{/each}
 		</div>
 	{/if}
