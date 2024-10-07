@@ -1,7 +1,7 @@
 import type { Locales } from '$i18n/i18n-types';
 import { error } from '@sveltejs/kit';
 
-const base = 'http://0.0.0.0:8000';
+const base = 'http://127.0.0.1:8000';
 
 async function send({
 	method,
