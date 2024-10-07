@@ -39,7 +39,7 @@ export const actions = {
 		const response = await api.post('predict/', locals.locale, validationResult.data);
 
 		if (response.errors) {
-			return fail(401, response);
+			return fail(401, response.errors);
 		}
 
 		const parsedResponse = response as PredictOutput;

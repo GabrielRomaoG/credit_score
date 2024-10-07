@@ -24,9 +24,13 @@ async function send({
 	}
 
 	const response = await fetch(`${base}/${path}`, options);
-	if (response.ok || response.status === 422) {
-		const text = await response.text();
-		return text ? JSON.parse(text) : {};
+	const json = await response.json();
+	if (response.ok) {
+		return json;
+	}
+
+	if (response.status === 422) {
+		return { errors: json };
 	}
 
 	error(response.status);
