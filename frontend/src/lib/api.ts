@@ -2,7 +2,7 @@ import type { Locales } from '$i18n/i18n-types';
 import { error } from '@sveltejs/kit';
 import { API_URL } from '$env/static/private';
 
-const base = API_URL;
+const base = process.env.API_URL || API_URL;
 
 async function send({
 	method,
