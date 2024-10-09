@@ -145,10 +145,7 @@
 				<div class="mb-4 flex flex-wrap gap-4">
 					{#if !profileSelected}
 						<Button
-							onClick={() =>
-								addToast({
-									data: { title: 'warning', description: $LL.home.warning(), color: 'bg-red-500' }
-								})}
+							onClick={() => superform.reset()}
 							backgroundColor="bg-transparent"
 							textColor="text-slate-100"
 							borderColor="border-slate-100"
