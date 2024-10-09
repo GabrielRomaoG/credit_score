@@ -15,4 +15,4 @@ RUN touch README.md
 
 RUN poetry install --without dev
 
-ENTRYPOINT [ "poetry", "run", "python", "-m", "src.app"]
+CMD [ "poetry", "run", "python", "-m", "src.app"]
