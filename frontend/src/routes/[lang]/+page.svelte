@@ -33,6 +33,10 @@
 						description: result.data ? JSON.stringify(result.data) : 'Unknown error'
 					}
 				});
+			} else if (result.type === 'success') {
+				document
+					.getElementById('score-panel')
+					?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 			}
 		}
 	});
@@ -181,6 +185,7 @@
 		</div>
 		<div
 			class="grow basis-[300px] bg-slate-50 px-10 py-4 max-[980px]:rounded-b-lg min-[981px]:rounded-r-lg"
+			id="score-panel"
 		>
 			<Score
 				isActive={form?.parsedResponse || profileData?.predict_output}
