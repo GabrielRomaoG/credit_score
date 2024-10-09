@@ -13,6 +13,7 @@
 	import { goto } from '$app/navigation';
 	import Title1 from '$lib/Text/Title1.svelte';
 	import Tooltip from '$lib/Form/Tooltip.svelte';
+	import { addToast } from '$lib/Toaster/Toaster.svelte';
 
 	export let data;
 	export let form;
@@ -22,7 +23,18 @@
 
 	const superform = superForm(data.form, {
 		validators: zod(featuresSchema($LL)),
-		resetForm: false
+		resetForm: false,
+		onResult({ result }) {
+			if (result.type === 'failure') {
+				addToast({
+					data: {
+						title: 'An error ocurred',
+						color: 'bg-red-500',
+						description: result.data ? JSON.stringify(result.data) : 'Unknown error'
+					}
+				});
+			}
+		}
 	});
 
 	function handleReturnHome() {
@@ -133,7 +145,10 @@
 				<div class="mb-4 flex flex-wrap gap-4">
 					{#if !profileSelected}
 						<Button
-							onClick={() => superform.reset()}
+							onClick={() =>
+								addToast({
+									data: { title: 'warning', description: $LL.home.warning(), color: 'bg-red-500' }
+								})}
 							backgroundColor="bg-transparent"
 							textColor="text-slate-100"
 							borderColor="border-slate-100"
