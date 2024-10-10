@@ -27,6 +27,7 @@
 	function handleClick(profile_id: number) {
 		goto(`?profile_id=${profile_id}`, { invalidateAll: true }).then(() => {
 			window.location.reload();
+			document.getElementById('form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 		});
 	}
 </script>
