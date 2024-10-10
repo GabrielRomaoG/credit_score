@@ -79,7 +79,7 @@
 		aria-label="Locale"
 	>
 		<img src={getLocaleFlag($locale)} alt="flag" class="h-5 w-8" />
-		{getLocaleLabel($locale)}
+		<span class="hidden min-[440px]:inline">{getLocaleLabel($locale)}</span>
 		<ChevronDown />
 	</button>
 
@@ -96,7 +96,7 @@
 					href={replaceLocaleInUrl($page.url, item)}
 				>
 					<img src={getLocaleFlag(item)} alt="flag" class="h-5 w-8" />
-					{getLocaleLabel(item)}
+					<span class="hidden min-[440px]:inline">{getLocaleLabel(item)}</span>
 				</a>
 			{/each}
 		</div>

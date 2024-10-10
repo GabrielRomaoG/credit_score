@@ -7,7 +7,7 @@
 	import LL from '$i18n/i18n-svelte';
 	import { page } from '$app/stores';
 
-	const NAV_LAYOUT_BREAKPOINT: number = 640;
+	const NAV_LAYOUT_BREAKPOINT = 640;
 	let windowWidth: number;
 
 	const {
@@ -19,7 +19,7 @@
 <svelte:window bind:innerWidth={windowWidth} />
 
 <header class="flex justify-center bg-blue-975 py-8 text-slate-100">
-	<div class="flex w-11/12 max-w-6xl justify-between">
+	<div class="flex w-11/12 max-w-6xl justify-between gap-4">
 		<nav class="flex gap-4" use:melt={$root}>
 			<button use:melt={$trigger} class="shadow hover:opacity-75 sm:hidden" aria-label="Toggle">
 				{#if $open}
