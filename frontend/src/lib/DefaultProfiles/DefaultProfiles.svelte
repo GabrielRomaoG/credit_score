@@ -35,7 +35,7 @@
 <div class="max-w-[600px] grow basis-[300px] rounded-lg border bg-white shadow-lg sm:p-4">
 	<h2 class="mb-4 text-center text-lg font-semibold">{$LL.home.check_default_profiles()}</h2>
 
-	<div class="flex content-stretch justify-between">
+	<div class="flex content-stretch justify-between p-2 sm:p-0">
 		{#each profiles as profile (profile.profile_id)}
 			<button
 				on:click={() => handleClick(profile.profile_id)}
