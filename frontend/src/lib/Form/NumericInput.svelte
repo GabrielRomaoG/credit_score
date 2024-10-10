@@ -25,7 +25,7 @@
 <div class={`flex flex-grow ${basis} flex-col items-start`}>
 	<!-- svelte-ignore a11y-label-has-associated-control -->
 	<div class="mb-1 flex flex-row gap-4">
-		<label class=" text-sm font-medium text-slate-100 after:content-['*']">{label}</label>
+		<label class=" text-base font-medium text-slate-100 after:content-['*']">{label}</label>
 		{#if infoMessage}
 			<Tooltip {infoMessage} />
 		{/if}

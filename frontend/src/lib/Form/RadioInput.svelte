@@ -41,7 +41,7 @@
 
 <div class={`flex flex-grow ${basis} flex-col items-start`}>
 	<fieldset class={`flex grow flex-col justify-start sm:flex-row sm:gap-8`}>
-		<legend class="mb-1 text-sm font-medium text-slate-100">{label}</legend>
+		<legend class="mb-1 text-base font-medium text-slate-100 after:content-['*']">{label}</legend>
 		{#each options as option}
 			<div class={`flex items-center`}>
 				<input
