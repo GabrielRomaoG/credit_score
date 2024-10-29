@@ -2,6 +2,10 @@
 
 A full-stack project that aims to predict the credit score and gives loan recommendation based on the client characteristics using a trained Machine Learning model.
 
+(Credit Score AI)[https://credit-score-front-971338907088.southamerica-east1.run.app/]
+
+![image](https://github.com/user-attachments/assets/95460ff3-7bbc-44a9-80ce-002c1a44c534)
+
 ## Datasets
 
 You can find more information and download the datasets that i used to train the models through the links below:
